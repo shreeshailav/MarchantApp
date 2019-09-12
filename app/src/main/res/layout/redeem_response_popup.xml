@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewActivity.RedeemActivity"
+    android:gravity="center"
+    android:background="@android:color/transparent">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@color/popupcolor"
+        >
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="100dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:shadowRadius="2"
+                android:shadowDy="2"
+                android:shadowDx="2"
+                android:shadowColor="#b3b3b3"
+                android:textStyle="bold"
+                android:textColor="@color/QRCodeWhiteColor"
+                android:text="Success"
+                android:textSize="24dp">
+
+
+            </TextView>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/zxing_transparent"
+                android:text="ok"
+                android:shadowColor="#b3b3b3"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:textSize="20dp"
+                android:shadowRadius="2"
+                android:visibility="gone"
+                android:textColor="@color/QRCodeWhiteColor"></Button>
+
+        </LinearLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</RelativeLayout>
+
+</layout>

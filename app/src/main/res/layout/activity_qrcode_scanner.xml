@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    android:id="@+id/activity_test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <EditText
+        android:id="@+id/edit_coupon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/enter_coupon_code"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="10dp"
+         />
+
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/barcode_scanner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/edit_coupon"
+        app:zxing_scanner_layout="@layout/custom_scanner"
+        >
+
+    </com.journeyapps.barcodescanner.DecoratedBarcodeView>
+
+    <Button
+        android:id="@+id/proceedbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/barcode_scanner"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:text="Poceed"
+        android:shadowColor="#b3b3b3"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        android:layout_marginTop="20dp"
+        android:background="@color/redeembtncolor"
+        android:elevation="2dp"
+        android:textColor="@color/QRCodeWhiteColor"
+        android:layout_marginBottom="20dp">
+
+    </Button>
+
+
+
+</RelativeLayout>
+</layout>

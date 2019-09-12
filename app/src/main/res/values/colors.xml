@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#E79540</color>
+    <color name="colorPrimaryDark">#E79540</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+    <color name="QRCodeBlackColor">#000000</color>
+    <color name="QRCodeWhiteColor">#FFFFFF</color>
+
+
+    <color name="viewfinder_mask">#3F51B5</color>
+    <color name="viewfinder_laser">#00FFFFFF</color>
+    <color name="viewfinder_border">#ffFF4081</color>
+    <color name="redeembtncolor">#F58E07</color>
+
+    <color name="popupcolor">#13659C</color>
+
+</resources>
