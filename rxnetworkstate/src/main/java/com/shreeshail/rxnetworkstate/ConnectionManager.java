@@ -77,9 +77,9 @@ public class ConnectionManager {
     }
 
     public void unsubcribeme(){
-        boolean reu = subscription.isUnsubscribed();
-        if(subscription!=null && !subscription.isUnsubscribed())
+         if(subscription!=null && !subscription.isUnsubscribed())
             subscription.unsubscribe();
+
 
     }
 

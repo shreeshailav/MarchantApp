@@ -31,6 +31,7 @@ public class RxNetwork {
         return ContentObservable.fromBroadcast(context, action)
                 // To get initial connectivity status
                 .startWith((Intent) null)
+                .onErrorResumeNext(Observable.<Intent>empty())
                 .map(new Func1<Intent, Boolean>() {
                     @Override public Boolean call(Intent ignored) {
                         return getConnectivityStatus(applicationContext);

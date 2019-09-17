@@ -1,4 +1,4 @@
-package com.hashedin.marchantapp.ViewModel;
+package com.hashedin.marchantapp.viewmodel;
 
  import android.view.View;
 
@@ -9,6 +9,8 @@ package com.hashedin.marchantapp.ViewModel;
 
 
 public class LoginViewModel extends ViewModel {
+
+    public String test = "test";
 
     public MutableLiveData<String> EmailAddress = new MutableLiveData<>();
     public MutableLiveData<String> Password = new MutableLiveData<>();

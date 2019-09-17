@@ -7,4 +7,20 @@
     <string name="com_auth0_client_id">YOUR_CLIENT_ID</string>
     <string name="com_auth0_domain">YOUR_DOMAIN</string>
     <string name="enter_coupon_code">Enter Coupon Code</string>
+    <string name="looks_like_you_ve_scanned_a_wrong_qr_code_please_scan_a_valid_qr_code_and_try_again">Looks like you\'ve scanned a wrong QR code.\nPlease scan a valid QR code and try again</string>
+    <string name="scan_again">SCAN AGAIN</string>
+
+
+    <string name="email">User Name</string>
+    <string name="passowrd">Password</string>
+    <string name="login">LOGIN</string>
+
+    <string name="show_pwd">Show Password</string>
+    <string name="hide_pwd">Hide Password</string>
+    <string name="forgot">Forgot password?</string>
+    <string name="newUser">Not a Member yet? Sign Up here.</string>
+    <string name="paid_successfully">Coupon Redeemed</string>
+    <string name="paid_Failed">Redeem Failed</string>
+    <string name="amount"> ₹ </string>
+
 </resources>

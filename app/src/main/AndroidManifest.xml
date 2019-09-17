@@ -5,6 +5,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Allows access to the flashlight -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.HARDWARE_TEST"
+        tools:ignore="ProtectedPermissions" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,18 +21,32 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ViewActivity.RedeemResponseActivity"></activity>
-        <activity android:name=".ViewActivity.RedeemActivity" />
-        <activity android:name=".ViewActivity.LoginActivity" />
-        <activity android:name=".ViewActivity.QRCodeScannerActivity" />
-        <activity android:name=".ViewActivity.QRCodeGeneratorActivity" />
-        <activity android:name=".ViewActivity.MainActivity">
+
+        <activity android:name=".viewactivity.RedeemActivity" />
+        <activity android:name=".viewactivity.LoginActivity" />
+        <activity android:name=".viewactivity.QRCodeScannerActivity" />
+        <activity android:name=".viewactivity.QRCodeGeneratorActivity" />
+        <activity android:name=".viewactivity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity android:name="net.openid.appauth.RedirectUriReceiverActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="http"
+                    android:host="6c384f3d.ngrok.io"
+                    android:path="/authorize"/>
+            </intent-filter>
+        </activity>
+
+
     </application>
 
 </manifest>

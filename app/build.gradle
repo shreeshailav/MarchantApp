@@ -6,13 +6,19 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.hashedin.marchantapp"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        manifestPlaceholders = [auth0Domain: "@string/com_auth0_domain", auth0Scheme: "demo"]
+
+        manifestPlaceholders = [
+                'appAuthRedirectScheme': 'net.openid.appauthdemo'
+        ]
+
+        vectorDrawables.useSupportLibrary = true
+
 
     }
     buildTypes {
@@ -53,14 +59,15 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
 
-
-
     api 'io.jsonwebtoken:jjwt-api:0.10.7'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.7'
     runtimeOnly('io.jsonwebtoken:jjwt-orgjson:0.10.7') {
         exclude group: 'org.json', module: 'json' //provided by Android natively
     }
-    compile project(path: ':rxnetworkstate')
+    implementation project(path: ':rxnetworkstate')
 
+    implementation 'net.openid:appauth:0.7.1'
+
+    implementation 'com.google.android.material:material:1.0.0'
 
 }

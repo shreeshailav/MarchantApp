@@ -1,4 +1,4 @@
-package com.hashedin.marchantapp.ViewActivity;
+package com.hashedin.marchantapp.viewactivity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;

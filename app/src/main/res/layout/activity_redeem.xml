@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewActivity.RedeemActivity"
-    android:gravity="center">
+    tools:context=".viewactivity.RedeemActivity"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
 
 
     <androidx.cardview.widget.CardView
@@ -41,6 +47,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Name"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,7 +60,9 @@
                         android:id="@+id/edit_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="description" />
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="Description" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -62,7 +72,9 @@
                         android:id="@+id/edit_points"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="points" />
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="Points" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -72,8 +84,42 @@
                         android:id="@+id/edit_item"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="item" />
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="Item" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_amt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Amount"
+                        android:inputType="number"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_reference"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Reference" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
             </LinearLayout>
 
         <Button
@@ -98,6 +144,6 @@
     </androidx.cardview.widget.CardView>
 
 
+    </RelativeLayout>
 
-
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
