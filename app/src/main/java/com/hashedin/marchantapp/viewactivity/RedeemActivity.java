@@ -35,6 +35,7 @@ import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
 import com.shreeshail.rxnetworkstate.ConnectionManager;
 import com.shreeshail.rxnetworkstate.ConnectionTracer;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -62,11 +63,32 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
     MarchentServices marchentServices;
     ProgressDialog myDialog;
 
+    String couponcode = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redeem);
         setTitle("Redeem");
+
+        Intent intent_extra = getIntent();
+        if (intent_extra != null) {
+            if(intent_extra.hasExtra("couponcode")) {
+                couponcode = intent_extra.getStringExtra("couponcode");
+                Initializer();
+            }
+            else {
+                Intent intent = new Intent();
+                intent.putExtra("result","Invalid Coupon");
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+         }else {
+            Intent intent = new Intent();
+            intent.putExtra("result","Invalid Coupon");
+            setResult(RESULT_OK, intent);
+            finish();
+        }
 
 
 
@@ -75,6 +97,12 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
 //                .setStatusView(this)
 //                .build();
 
+
+
+    }
+
+
+    private void Initializer(){
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         snackbarMessage("No internet connection!");
 
@@ -101,7 +129,7 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
         marchentServices = retrofit.create(MarchentServices.class);
         getcoupons();
 
-       // updateUI();
+        // updateUI();
 
         redeembtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +137,6 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
                 redeemcoupon();
             }
         });
-
     }
 
     @Override
@@ -127,10 +154,18 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
 
 
     private void updateUI(Coupons coupons){
-        edit_name.setText(""+coupons.offer.name);
-        edit_description.setText(""+coupons.offer.description);
-        edit_points.setText(""+coupons.offer.points);
-        edit_item.setText(""+coupons.offer.item);
+        if(coupons.offer.name!=null)
+            edit_name.setText(""+coupons.offer.name);
+        if(coupons.offer.description!=null)
+            edit_description.setText(""+coupons.offer.description);
+        if(coupons.offer.points!=0)
+            edit_points.setText(""+coupons.offer.points);
+        if(coupons.offer.item!=null)
+            edit_item.setText(""+coupons.offer.item);
+        if(coupons.offer.starts_at!=null)
+            edit_amt.setText(""+coupons.offer.starts_at);
+        if(coupons.offer.ends_at!=null)
+            edit_reference.setText(""+coupons.offer.ends_at);
 
     }
 
@@ -144,12 +179,27 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
             state.setText(st);
 
             if(reddemCoupon!=null){
-                String amountstr = getResources().getString(R.string.amount);
-                TextView amount = layout.findViewById(R.id.amount);
-                amount.setVisibility(View.VISIBLE);
-                int pos = reddemCoupon.amount.indexOf(".")+3;
-                String amt = " " + reddemCoupon.amount.substring(0,pos);
-                amount.setText(amountstr+amt);
+
+//                String amountstr = getResources().getString(R.string.amount);
+//                TextView amount = layout.findViewById(R.id.amount);
+//
+//                if(reddemCoupon.amount.contains(".")){
+//                    String[] temp = reddemCoupon.amount.split(".");
+//                    if(temp[1].length()>2)
+//                        amountstr = amountstr + temp[0]+temp[1].substring(0,2);
+//                    else
+//                        amountstr = amountstr + temp[0]+temp[1];
+//
+//                }else {
+//                    amountstr = amountstr + reddemCoupon.amount ;
+//                }
+//               // int pos = reddemCoupon.amount.indexOf(".")+3;
+//               // String amt = " " + reddemCoupon.amount.substring(0,pos);
+//
+//                amount.setText(amountstr);
+//                amount.setVisibility(View.VISIBLE);
+
+
             }else {
                 TextView amount = layout.findViewById(R.id.amount);
                 amount.setVisibility(View.GONE);
@@ -183,7 +233,8 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
             });
 
         }
-        catch (Exception e){e.printStackTrace();
+        catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -255,7 +306,7 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
 
         PrefManager prefManager = new PrefManager(this);
 
-         String str = "465d5955-de23-4220-a96f-8c3ffaa00ae5";
+         String str = couponcode;//"d5384662-4420-4731-99f1-d8b9c76fa487";
          String auth_token = "token "+prefManager.getKey();
 
 
@@ -268,13 +319,20 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
             public void onResponse(Call<Coupons> call, Response<Coupons> response) {
                 Log.i("Responce","response"+response.body());
 
-                if (myDialog!=null)
-                    myDialog.dismiss();
+                try{
+                    if (myDialog!=null)
+                        myDialog.dismiss();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
 
                 if(response.code() ==200) {
                     coupons = response.body();
                     updateUI(coupons);
                 }else {
+
                     //Toast.makeText(getBaseContext(),"Failed",Toast.LENGTH_LONG).show();
                     snackbarMessage(response.message());
                     snackbar.show();
@@ -295,8 +353,12 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
                 snackbarMessage("Error");
                 snackbar.show();
 
-                if (myDialog!=null)
-                    myDialog.dismiss();
+                try{
+                    if (myDialog!=null)
+                        myDialog.dismiss();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
 
             }
@@ -304,23 +366,33 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
     }
 
 
-    public void getredeem(String ref,String amt){
+    public void getredeem(){
 
         PrefManager prefManager = new PrefManager(this);
 
-        String str = "465d5955-de23-4220-a96f-8c3ffaa00ae5";
+        String str = couponcode; //"d5384662-4420-4731-99f1-d8b9c76fa487";
         String auth_token = "token "+prefManager.getKey();
 
 
-        Credentials credentials = new Credentials(amt,ref);
+       // Credentials credentials = new Credentials(amt,ref);
+       // Call<ReddemCoupon> couponsdata = marchentServices.getredeem(str,credentials,auth_token);
 
-        Call<ReddemCoupon> couponsdata = marchentServices.getredeem(str,credentials,auth_token);
+        Call<ReddemCoupon> couponsdata = marchentServices.getredeem(str,auth_token);
+
+        myDialog = DialogsUtils.showProgressDialog(RedeemActivity.this, "Loading please wait");
+
 
         couponsdata.enqueue(new Callback<ReddemCoupon>() {
             @Override
             public void onResponse(Call<ReddemCoupon> call, Response<ReddemCoupon> response) {
                 Log.i("Responce","response"+response.toString());
 
+                try{
+                    if (myDialog!=null)
+                        myDialog.dismiss();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
                 if(response.code() == 201) {
                     ReddemCoupon reddemCoupon = response.body();
@@ -340,8 +412,12 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
             @Override
             public void onFailure(Call<ReddemCoupon> call, Throwable t) {
                 Log.i("ERROR","Error : "+t.getMessage());
-
-
+                try{
+                    if (myDialog!=null)
+                        myDialog.dismiss();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
             }
         });
@@ -350,44 +426,40 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
 
     public void redeemcoupon(){
 
-        if(edit_amt.getText().toString().length()<=0 && !edit_amt.getText().toString().equalsIgnoreCase(" ")) {
-
-            edit_amt.setError("Enter Valid Amount");
-
-        }else if(edit_reference.getText().toString().length()<=0 && !edit_reference.getText().toString().equalsIgnoreCase(" ")) {
-
-            edit_reference.setError("Enter Valid Reference");
-
-
-        }else if(coupons!=null){
+       if(coupons!=null){
 
             String start_at = coupons.offer.starts_at;
-            String end_at = coupons.offer.starts_at;
-            String cuur_date = new Date().toString();;
+            String end_at = coupons.offer.ends_at;
+            Date cuur_date = new Date();
 
             int redeem_limit = coupons.offer.redeem_limit;
             int total_redeem = coupons.redeemed;
 
 
-            SimpleDateFormat formatter1=new SimpleDateFormat("yyyy/MM/dd");
+             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
 
             try {
-                Date date1=formatter1.parse(start_at);
-                Date date2=formatter1.parse(end_at);
-                Date currrentdate=formatter1.parse(cuur_date);
+                Date start_date = dateFormat.parse(start_at);
+                Date end_date = dateFormat.parse(end_at);
 
                 if(total_redeem>=redeem_limit){
                     snackbarMessage("Limit exceeded.");
-                }else {
+                    snackbar.show();
+                }else if(cuur_date.before(end_date) && cuur_date.after(start_date) ){
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(HTTPS_API_MARCHENT_URL)
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     marchentServices = retrofit.create(MarchentServices.class);
-                    getredeem(edit_reference.getText().toString(), edit_amt.getText().toString());
+                    getredeem();
+                }else {
+                    snackbarMessage("Invalid Coupon");
+                    snackbar.show();
                 }
 
             } catch (ParseException e) {
+                Log.e("ERROR",e.getMessage());
                 e.printStackTrace();
             }
 

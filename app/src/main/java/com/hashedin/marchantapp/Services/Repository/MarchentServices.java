@@ -19,8 +19,8 @@ import retrofit2.http.Url;
 
 public interface MarchentServices {
 
-    String HTTPS_API_MARCHENT_URL = "http://f081fcd9.ngrok.io";
-    //String HTTPS_API_MARCHENT_URL = "http://city-rewards-dev.ap-southeast-1.elasticbeanstalk.com/";
+    //String HTTPS_API_MARCHENT_URL = "http://12d06fce.ngrok.io";
+    String HTTPS_API_MARCHENT_URL = "http://city-rewards-dev.ap-southeast-1.elasticbeanstalk.com/";
     String HTTPS_API_CLIENT_URL = "http://city-rewards-dev.ap-southeast-1.elasticbeanstalk.com/";
 
 
@@ -40,8 +40,11 @@ public interface MarchentServices {
     Call<Coupons> getProjectList(@Path("user") String user,@Header("Authorization") String token);
 
 
+//    @POST("api/v1/coupons/{cid}/redeem/")
+//    Call<ReddemCoupon> getredeem(@Path("cid") String cid, @Body Credentials body,@Header("Authorization") String token);
+
     @POST("api/v1/coupons/{cid}/redeem/")
-    Call<ReddemCoupon> getredeem(@Path("cid") String cid, @Body Credentials body,@Header("Authorization") String token);
+    Call<ReddemCoupon> getredeem(@Path("cid") String cid,@Header("Authorization") String token);
 
 
 

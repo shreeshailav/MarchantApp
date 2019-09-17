@@ -99,7 +99,9 @@
                         android:id="@+id/edit_amt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Amount"
+                        android:hint="End Date"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:inputType="number"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,7 +116,9 @@
                         android:id="@+id/edit_reference"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Reference" />
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="End Date" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
