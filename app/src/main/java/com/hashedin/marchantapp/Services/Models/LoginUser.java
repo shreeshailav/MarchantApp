@@ -5,29 +5,29 @@ import android.util.Patterns;
 
 public class LoginUser {
 
-    private String strEmailAddress;
-    private String strPassword;
+    private String userName;
+    private String userPassword;
 
-    public LoginUser(String EmailAddress, String Password) {
-        strEmailAddress = EmailAddress;
-        strPassword = Password;
+    public LoginUser(String userName, String userPassword) {
+        this.userName = userName;
+        this.userPassword = userPassword;
     }
 
-    public String getStrEmailAddress() {
-        return strEmailAddress;
+    public String getuserName() {
+        return userName;
     }
 
-    public String getStrPassword() {
-        return strPassword;
+    public String getuserPassword() {
+        return userPassword;
     }
 
-    public boolean isEmailValid() {
-        return Patterns.EMAIL_ADDRESS.matcher(getStrEmailAddress()).matches();
-    }
+//    public boolean isEmailValid() {
+//        return Patterns.EMAIL_ADDRESS.matcher(getStrEmailAddress()).matches();
+//    }
 
 
     public boolean isPasswordLengthGreaterThan5() {
-        return getStrPassword().length() > 5;
+        return getuserPassword().length() > 2;
     }
 
 }

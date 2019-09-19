@@ -1,47 +1,41 @@
 package com.hashedin.marchantapp.viewactivity;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-
-import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.hardware.Camera;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.BeepManager;
 import com.hashedin.marchantapp.R;
-import com.hashedin.marchantapp.Services.Models.Coupons;
-import com.hashedin.marchantapp.Services.Repository.MarchentServices;
+import com.hashedin.marchantapp.Services.Repository.ApiResponse;
 import com.hashedin.marchantapp.databinding.ActivityQrcodeScannerBinding;
+import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
+import com.hashedin.marchantapp.viewmodel.CouponDetailViewModel;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
-import com.journeyapps.barcodescanner.DecoratedBarcodeView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+
 
 
 public class QRCodeScannerActivity extends AppCompatActivity {
@@ -51,8 +45,7 @@ public class QRCodeScannerActivity extends AppCompatActivity {
     private boolean flash_state = false;
 
     private static final String TAG = LoginActivity.class.getSimpleName();
-    //private DecoratedBarcodeView barcodeView;
-    private BeepManager beepManager;
+     private BeepManager beepManager;
     private String lastText;
 
     private ActivityQrcodeScannerBinding activityQrcodeScannerBinding;
@@ -60,28 +53,29 @@ public class QRCodeScannerActivity extends AppCompatActivity {
 
     BottomSheetBehavior sheetBehavior;
 
-    Snackbar snackbar;
+    CouponDetailViewModel viewModel;
+    String auth_token;
 
+    private String couponcode = "";
 
 
     private BarcodeCallback callback = new BarcodeCallback() {
         @Override
         public void barcodeResult(BarcodeResult result) {
 
-            //            if (result.getText() == null || result.getText().equals(lastText)) {
-//                // Prevent duplicate scans
-//                activityQrcodeScannerBinding.barcodeScanner.setStatusText(result.getText());
-//                return;
-//            }
-//
-//            lastText = result.getText();
-            //activityQrcodeScannerBinding.barcodeScanner.setStatusText(result.getText());
 
-            beepManager.playBeepSoundAndVibrate();
-            //beepManager.setVibrateEnabled(true);
+            if (result.getText() != null && !result.getText().equals(lastText)) {
+
+                if (!TextUtils.isEmpty(result.getText())) {
+                    lastText = result.getText();
+                    couponcode = result.getText();
+                    beepManager.playBeepSoundAndVibrate();
+                    viewModel.getData(result.getText(),auth_token);
+
+                }
+            }
 
 
-            callredeem(result.getText());
 
 
             //Added preview of scanned barcode
@@ -91,6 +85,7 @@ public class QRCodeScannerActivity extends AppCompatActivity {
 
         @Override
         public void possibleResultPoints(List<ResultPoint> resultPoints) {
+            //Log.i("possibleResultPoints",""+resultPoints.toString());
         }
     };
 
@@ -107,9 +102,7 @@ public class QRCodeScannerActivity extends AppCompatActivity {
 
         requestPermission();
 
-        // barcodeView = (DecoratedBarcodeView) findViewById(R.id.barcode_scanner);
         Collection<BarcodeFormat> formats = Arrays.asList(BarcodeFormat.QR_CODE, BarcodeFormat.CODE_39);
-        // barcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(formats));
         activityQrcodeScannerBinding.barcodeScanner.initializeFromIntent(getIntent());
         activityQrcodeScannerBinding.barcodeScanner.decodeContinuous(callback);
 
@@ -119,7 +112,7 @@ public class QRCodeScannerActivity extends AppCompatActivity {
         activityQrcodeScannerBinding.standardBottomSheet.setVisibility(View.GONE);
 
 
-
+ 
         activityQrcodeScannerBinding.editCoupon.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -139,8 +132,19 @@ public class QRCodeScannerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                try {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+
                 if (activityQrcodeScannerBinding.editCoupon != null && activityQrcodeScannerBinding.editCoupon.getText().length() > 3) {
-                    callredeem(activityQrcodeScannerBinding.editCoupon.getText().toString());
+
+                   // getCouponDetail(activityQrcodeScannerBinding.editCoupon.getText().toString());
+                    viewModel.getData(activityQrcodeScannerBinding.editCoupon.getText().toString(),auth_token);
+
+
                 } else {
                     activityQrcodeScannerBinding.editCoupon.setError("Please Enter Valid Code");
                 }
@@ -152,6 +156,9 @@ public class QRCodeScannerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 activityQrcodeScannerBinding.standardBottomSheet.setVisibility(View.GONE);
                 activityQrcodeScannerBinding.barcodeScanner.setStatusText("");
+                lastText = "" ;
+                activityQrcodeScannerBinding.barcodeScanner.resume();
+
             }
         });
 
@@ -205,20 +212,22 @@ public class QRCodeScannerActivity extends AppCompatActivity {
         });
 
 
+        PrefManager prefManager = new PrefManager(this);
+
+         auth_token = "token "+prefManager.getKey();
+
+         viewModel = ViewModelProviders.of(this).get(CouponDetailViewModel.class);
+         getCouponDetail();
     }
-
-
     @Override
     protected void onResume() {
         super.onResume();
-
         activityQrcodeScannerBinding.barcodeScanner.resume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
         activityQrcodeScannerBinding.barcodeScanner.pause();
     }
 
@@ -247,65 +256,7 @@ public class QRCodeScannerActivity extends AppCompatActivity {
             requestPermission();
         } else {
             activityQrcodeScannerBinding.barcodeScanner.resume();
-
         }
-    }
-
-
-
-    public void callredeem(String couponstr) {
-
-        JSONObject jsonObject = null;
-        String uuid = null ;
-
-        try {
-            jsonObject = new JSONObject(couponstr);
-            uuid = jsonObject.getString("UUID");
-        }catch (JSONException err){
-            Log.d("Error", err.toString());
-        }
-
-        if(uuid!=null) {
-
-            if (couponstr.toLowerCase().contains("uuid")) {
-                activityQrcodeScannerBinding.standardBottomSheet.setVisibility(View.GONE);
-                Intent intent = new Intent(getBaseContext(), RedeemActivity.class);
-                intent.putExtra("couponcode", uuid); //"d5384662-4420-4731-99f1-d8b9c76fa487");
-                startActivityForResult(intent, mRequestCode);
-            } else {
-
-                activityQrcodeScannerBinding.barcodeScanner.setStatusText(couponstr);
-
-
-                if (activityQrcodeScannerBinding.editCoupon.isFocused()) {
-                    activityQrcodeScannerBinding.editCoupon.clearFocus();
-                }
-                if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                    sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                } else {
-                    sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                }
-                activityQrcodeScannerBinding.scannerlayout.setVisibility(View.VISIBLE);
-
-                activityQrcodeScannerBinding.standardBottomSheet.setVisibility(View.VISIBLE);
-            }
-        }else {
-            activityQrcodeScannerBinding.barcodeScanner.setStatusText(couponstr);
-
-
-            if (activityQrcodeScannerBinding.editCoupon.isFocused()) {
-                activityQrcodeScannerBinding.editCoupon.clearFocus();
-            }
-            if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            } else {
-                sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-            }
-            activityQrcodeScannerBinding.scannerlayout.setVisibility(View.VISIBLE);
-
-            activityQrcodeScannerBinding.standardBottomSheet.setVisibility(View.VISIBLE);
-        }
-
     }
 
 
@@ -334,43 +285,99 @@ public class QRCodeScannerActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        try{
+            if (resultCode == RESULT_OK) {
+                activityQrcodeScannerBinding.editCoupon.setText("");
+                activityQrcodeScannerBinding.editCoupon.clearFocus();
+                activityQrcodeScannerBinding.barcodeScanner.setStatusText("");
+                // lastText = "";
 
-        if (resultCode == RESULT_OK) {
-            activityQrcodeScannerBinding.editCoupon.setText("");
-            activityQrcodeScannerBinding.editCoupon.clearFocus();
-            activityQrcodeScannerBinding.barcodeScanner.setStatusText("");
-            lastText = "";
+                if(data!=null){
+                    String msg = data.getStringExtra("result");
+                    if(msg!= null && msg.length()>0) {
+                        //  snackbarMessage(msg);
+                        // snackbar.show();
 
-            if(data!=null){
-                String msg = data.getStringExtra("result");
-                if(msg!= null && msg.length()>0) {
-                    snackbarMessage(msg);
-                    snackbar.show();
-                }
-                //Toast.makeText(getBaseContext(),""+msg,Toast.LENGTH_LONG).show();
-            }
+                        activityQrcodeScannerBinding.barcodeScanner.setStatusText(lastText);
 
-        }
+                        if (activityQrcodeScannerBinding.editCoupon.isFocused()) {
+                            activityQrcodeScannerBinding.editCoupon.clearFocus();
+                        }
+                        if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        } else {
+                            sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                        }
+                        activityQrcodeScannerBinding.scannerlayout.setVisibility(View.VISIBLE);
 
-    }
+                        activityQrcodeScannerBinding.standardBottomSheet.setVisibility(View.VISIBLE);
 
-    private void snackbarMessage(String msg){
-        snackbar = Snackbar
-                .make(activityQrcodeScannerBinding.coordinatorLayout, msg, Snackbar.LENGTH_LONG)
-                .setAction("OK", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        snackbar.dismiss();
+                        activityQrcodeScannerBinding.responsecode.setText(msg);
+
+
                     }
-                });
-        // Changing message text color
-        snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimaryDark));
-        snackbar.setDuration(5000);
+                    //Toast.makeText(getBaseContext(),""+msg,Toast.LENGTH_LONG).show();
+                }
+                 lastText = "";
 
-        View sbView = snackbar.getView();
-        sbView.setBackgroundColor(getResources().getColor(R.color.white));
-        TextView message_textView = sbView.findViewById(com.google.android.material.R.id.snackbar_text);
-        message_textView.setTextColor(getResources().getColor(R.color.black));
+            }
+        }catch (Exception e){
+            Log.e("ReturnError",e.getMessage());
+        }
     }
 
+    private void errorMessage(String msg){
+        activityQrcodeScannerBinding.barcodeScanner.setStatusText(lastText);
+
+        if (activityQrcodeScannerBinding.editCoupon.isFocused()) {
+            activityQrcodeScannerBinding.editCoupon.clearFocus();
+        }
+        if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        } else {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+        activityQrcodeScannerBinding.scannerlayout.setVisibility(View.VISIBLE);
+
+        activityQrcodeScannerBinding.standardBottomSheet.setVisibility(View.VISIBLE);
+
+        activityQrcodeScannerBinding.responsecode.setText(msg);
+
+
+        activityQrcodeScannerBinding.barcodeScanner.pause();
+    }
+
+
+    public void getCouponDetail(){
+
+
+
+        viewModel.getData(couponcode,auth_token).observe(this, new Observer<ApiResponse>() {
+            @Override
+            public void onChanged(ApiResponse apiResponse) {
+                if (apiResponse == null) {
+                    // handle error here
+                    return;
+                }
+                if (apiResponse.coupons!=null && apiResponse.getError() == null ) {
+                    // call is successful
+                    //Log.i(TAG, "Data response is " + apiResponse.getPosts());
+
+                    activityQrcodeScannerBinding.standardBottomSheet.setVisibility(View.GONE);
+                    Intent intent = new Intent(getBaseContext(), RedeemActivity.class);
+                    intent.putExtra("couponcode", couponcode); //"d5384662-4420-4731-99f1-d8b9c76fa487");
+                    intent.putExtra("coupons", apiResponse.coupons); //"d5384662-4420-4731-99f1-d8b9c76fa487");
+                    startActivityForResult(intent, mRequestCode);
+
+                }else if(apiResponse.errorMessage!=null){
+                    errorMessage(apiResponse.errorMessage);
+                } else{
+                    // call failed.
+                    Throwable e = apiResponse.getError();
+                    //Toast.makeText(QRCodeScannerActivity.this, "Error is " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    errorMessage("Unable to reach server");
+                }
+            }
+        });
+    }
 }

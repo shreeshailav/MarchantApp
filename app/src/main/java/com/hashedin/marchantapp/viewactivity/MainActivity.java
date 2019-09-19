@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         prefManager = new PrefManager(this);
 
         //prefManager.logout();
+        key = prefManager.getKey();
 
         if(!prefManager.isUserLogedOut()){
             Intent intent = new Intent(this, QRCodeScannerActivity.class);

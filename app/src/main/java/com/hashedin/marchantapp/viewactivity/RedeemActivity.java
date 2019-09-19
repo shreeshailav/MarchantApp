@@ -1,13 +1,8 @@
 package com.hashedin.marchantapp.viewactivity;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -23,16 +18,22 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
 import com.hashedin.marchantapp.R;
 import com.hashedin.marchantapp.Services.Models.Coupons;
-import com.hashedin.marchantapp.Services.Models.Credentials;
 import com.hashedin.marchantapp.Services.Models.ReddemCoupon;
-import com.hashedin.marchantapp.Services.Repository.MarchentServices;
+import com.hashedin.marchantapp.Services.Repository.ApiEndpoints;
+import com.hashedin.marchantapp.Services.Repository.ApiResponse;
+import com.hashedin.marchantapp.databinding.ActivityRedeemBinding;
 import com.hashedin.marchantapp.viewactivity.Utility.DialogsUtils;
 import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
-import com.shreeshail.rxnetworkstate.ConnectionManager;
+import com.hashedin.marchantapp.viewmodel.CouponDetailViewModel;
 import com.shreeshail.rxnetworkstate.ConnectionTracer;
 
 import java.text.DateFormat;
@@ -46,97 +47,80 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.hashedin.marchantapp.Services.Repository.MarchentServices.HTTPS_API_MARCHENT_URL;
+import static com.hashedin.marchantapp.Services.Repository.ApiEndpoints.HTTPS_API_MARCHENT_URL;
+
 
 public class RedeemActivity extends AppCompatActivity implements ConnectionTracer {
 
-    private TextInputEditText edit_name,edit_description,edit_points,edit_item,edit_amt,edit_reference;
-    private Button redeembtn;
-
-    ConnectionManager connectionManager;
     Snackbar snackbar;
     private CoordinatorLayout coordinatorLayout;
 
     private Coupons coupons = null ;
 
 
-    MarchentServices marchentServices;
+    ApiEndpoints marchentServices;
     ProgressDialog myDialog;
 
     String couponcode = null;
 
+    ActivityRedeemBinding activityLoginBinding;
+
+    CouponDetailViewModel viewModel;
+    String auth_token;
+
+    boolean redeemed = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_redeem);
         setTitle("Redeem");
+
+        activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_redeem);
+
 
         Intent intent_extra = getIntent();
         if (intent_extra != null) {
             if(intent_extra.hasExtra("couponcode")) {
                 couponcode = intent_extra.getStringExtra("couponcode");
-                Initializer();
+
+                coupons = (Coupons) intent_extra.getSerializableExtra("coupons");
+               if(coupons!=null) {
+                   Initializer();
+                   updateUI(coupons);
+               }
+               else {
+                   returntback();
+               }
+               Initializer();
+
             }
             else {
-                Intent intent = new Intent();
-                intent.putExtra("result","Invalid Coupon");
-                setResult(RESULT_OK, intent);
-                finish();
+                returntback();
             }
          }else {
-            Intent intent = new Intent();
-            intent.putExtra("result","Invalid Coupon");
-            setResult(RESULT_OK, intent);
-            finish();
+            returntback();
         }
-
-
-
-//        connectionManager = new ConnectionManager.Builder()
-//                .setContext(this)
-//                .setStatusView(this)
-//                .build();
-
-
-
     }
 
 
     private void Initializer(){
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         snackbarMessage("No internet connection!");
-
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        edit_name = findViewById(R.id.edit_name);
-        edit_description = findViewById(R.id.edit_description);
-        edit_points = findViewById(R.id.edit_points);
-        edit_item = findViewById(R.id.edit_item);
-
-        redeembtn = findViewById(R.id.redeembtn);
-
-
-        edit_amt = findViewById(R.id.edit_amt);
-        edit_reference = findViewById(R.id.edit_reference);
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(HTTPS_API_MARCHENT_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        marchentServices = retrofit.create(MarchentServices.class);
-        getcoupons();
-
-        // updateUI();
-
-        redeembtn.setOnClickListener(new View.OnClickListener() {
+        activityLoginBinding.redeembtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 redeemcoupon();
             }
         });
+
+        PrefManager prefManager = new PrefManager(this);
+
+        auth_token = "token "+prefManager.getKey();
+
+        viewModel = ViewModelProviders.of(this).get(CouponDetailViewModel.class);
+
     }
 
     @Override
@@ -155,20 +139,19 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
 
     private void updateUI(Coupons coupons){
         if(coupons.offer.name!=null)
-            edit_name.setText(""+coupons.offer.name);
+            activityLoginBinding.editName.setText(""+coupons.offer.name);
         if(coupons.offer.description!=null)
-            edit_description.setText(""+coupons.offer.description);
+            activityLoginBinding.editDescription.setText(""+coupons.offer.description);
         if(coupons.offer.points!=0)
-            edit_points.setText(""+coupons.offer.points);
+            activityLoginBinding.editPoints.setText(""+coupons.offer.points);
         if(coupons.offer.item!=null)
-            edit_item.setText(""+coupons.offer.item);
+            activityLoginBinding.editItem.setText(""+coupons.offer.item);
         if(coupons.offer.starts_at!=null)
-            edit_amt.setText(""+coupons.offer.starts_at);
+            activityLoginBinding.editStartdate.setText(""+coupons.offer.starts_at);
         if(coupons.offer.ends_at!=null)
-            edit_reference.setText(""+coupons.offer.ends_at);
+            activityLoginBinding.editEnddate.setText(""+coupons.offer.ends_at);
 
     }
-
 
     private void showOptions(Context mcon,String st,ReddemCoupon reddemCoupon){
         try{
@@ -179,27 +162,7 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
             state.setText(st);
 
             if(reddemCoupon!=null){
-
-//                String amountstr = getResources().getString(R.string.amount);
-//                TextView amount = layout.findViewById(R.id.amount);
-//
-//                if(reddemCoupon.amount.contains(".")){
-//                    String[] temp = reddemCoupon.amount.split(".");
-//                    if(temp[1].length()>2)
-//                        amountstr = amountstr + temp[0]+temp[1].substring(0,2);
-//                    else
-//                        amountstr = amountstr + temp[0]+temp[1];
-//
-//                }else {
-//                    amountstr = amountstr + reddemCoupon.amount ;
-//                }
-//               // int pos = reddemCoupon.amount.indexOf(".")+3;
-//               // String amt = " " + reddemCoupon.amount.substring(0,pos);
-//
-//                amount.setText(amountstr);
-//                amount.setVisibility(View.VISIBLE);
-
-
+                // TODO
             }else {
                 TextView amount = layout.findViewById(R.id.amount);
                 amount.setVisibility(View.GONE);
@@ -262,20 +225,11 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
 
     @Override
     protected void onPause() {
-       // connectionManager.unsubcribeme();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
-//        try {
-//            connectionManager = new ConnectionManager.Builder()
-//                    .setContext(this)
-//                    .setStatusView(this)
-//                    .build();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
         super.onResume();
     }
 
@@ -291,137 +245,14 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
 
         // Changing message text color
         snackbar.setActionTextColor(Color.RED);
+        snackbar.setDuration(5000);
 
-
-
-        // Changing action button text color
         View sbView = snackbar.getView();
-//        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-//        textView.setTextColor(Color.YELLOW);
+        sbView.setBackgroundColor(getResources().getColor(R.color.black));
+        TextView message_textView = sbView.findViewById(com.google.android.material.R.id.snackbar_text);
+        message_textView.setTextColor(getResources().getColor(R.color.white));
      }
 
-
-
-    public void getcoupons(){
-
-        PrefManager prefManager = new PrefManager(this);
-
-         String str = couponcode;//"d5384662-4420-4731-99f1-d8b9c76fa487";
-         String auth_token = "token "+prefManager.getKey();
-
-
-         Call<Coupons> couponsdata = marchentServices.getProjectList(str,auth_token);
-         myDialog = DialogsUtils.showProgressDialog(RedeemActivity.this, "Loading please wait");
-
-
-        couponsdata.enqueue(new Callback<Coupons>() {
-            @Override
-            public void onResponse(Call<Coupons> call, Response<Coupons> response) {
-                Log.i("Responce","response"+response.body());
-
-                try{
-                    if (myDialog!=null)
-                        myDialog.dismiss();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-
-
-                if(response.code() ==200) {
-                    coupons = response.body();
-                    updateUI(coupons);
-                }else {
-
-                    //Toast.makeText(getBaseContext(),"Failed",Toast.LENGTH_LONG).show();
-                    snackbarMessage(response.message());
-                    snackbar.show();
-
-                    Intent intent = new Intent();
-                    intent.putExtra("result",response.message());
-                    setResult(RESULT_OK, intent);
-                    finish();
-
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<Coupons> call, Throwable t) {
-                Log.i("ERROR","Error : "+t.getMessage());
-                snackbarMessage("Error");
-                snackbar.show();
-
-                try{
-                    if (myDialog!=null)
-                        myDialog.dismiss();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-
-            }
-        });
-    }
-
-
-    public void getredeem(){
-
-        PrefManager prefManager = new PrefManager(this);
-
-        String str = couponcode; //"d5384662-4420-4731-99f1-d8b9c76fa487";
-        String auth_token = "token "+prefManager.getKey();
-
-
-       // Credentials credentials = new Credentials(amt,ref);
-       // Call<ReddemCoupon> couponsdata = marchentServices.getredeem(str,credentials,auth_token);
-
-        Call<ReddemCoupon> couponsdata = marchentServices.getredeem(str,auth_token);
-
-        myDialog = DialogsUtils.showProgressDialog(RedeemActivity.this, "Loading please wait");
-
-
-        couponsdata.enqueue(new Callback<ReddemCoupon>() {
-            @Override
-            public void onResponse(Call<ReddemCoupon> call, Response<ReddemCoupon> response) {
-                Log.i("Responce","response"+response.toString());
-
-                try{
-                    if (myDialog!=null)
-                        myDialog.dismiss();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                if(response.code() == 201) {
-                    ReddemCoupon reddemCoupon = response.body();
-                    String successstr = getResources().getString(R.string.paid_successfully);
-                    showOptions(getBaseContext(),successstr,reddemCoupon);
-
-                    // updateUI(coupons);
-                }else {
-                    Toast.makeText(getBaseContext(),"Failed",Toast.LENGTH_LONG).show();
-                    String failedstr = getResources().getString(R.string.paid_Failed);
-                    showOptions(getBaseContext(),failedstr,null);
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ReddemCoupon> call, Throwable t) {
-                Log.i("ERROR","Error : "+t.getMessage());
-                try{
-                    if (myDialog!=null)
-                        myDialog.dismiss();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-            }
-        });
-    }
 
 
     public void redeemcoupon(){
@@ -447,12 +278,13 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
                     snackbarMessage("Limit exceeded.");
                     snackbar.show();
                 }else if(cuur_date.before(end_date) && cuur_date.after(start_date) ){
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(HTTPS_API_MARCHENT_URL)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
-                    marchentServices = retrofit.create(MarchentServices.class);
-                    getredeem();
+
+
+                    if(redeemed)
+                        viewModel.getRedeem(couponcode,auth_token);
+                    else
+                        getReddemCoupon();
+
                 }else {
                     snackbarMessage("Invalid Coupon");
                     snackbar.show();
@@ -462,16 +294,57 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
                 Log.e("ERROR",e.getMessage());
                 e.printStackTrace();
             }
-
-
         }else {
             Toast.makeText(getBaseContext(),"Invalid Coupon",Toast.LENGTH_LONG).show();
 
         }
+    }
 
+    private void returntback(){
+        Intent intent = new Intent();
+        intent.putExtra("result", "Invalid Coupon");
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 
 
+    public void getReddemCoupon(){
+
+
+        viewModel.getRedeem(couponcode,auth_token).observe(this, new Observer<ApiResponse>() {
+            @Override
+            public void onChanged(ApiResponse apiResponse) {
+                if (apiResponse == null) {
+                    // handle error here
+                    return;
+                }
+                if (apiResponse.reddemCoupon!=null && apiResponse.getError() == null ) {
+                    // call is successful
+                    //Log.i(TAG, "Data response is " + apiResponse.getPosts());
+
+                    ReddemCoupon reddemCoupon = apiResponse.reddemCoupon;
+                    String successstr = getResources().getString(R.string.paid_successfully);
+                    showOptions(getBaseContext(),successstr,reddemCoupon);
+
+
+
+                }else if(apiResponse.errorMessage!=null){
+                    String failedstr = getResources().getString(R.string.paid_Failed);
+                    showOptions(getBaseContext(),failedstr,null);
+                } else{
+                    // call failed.
+                    Throwable e = apiResponse.getError();
+                    //Toast.makeText(RedeemActivity.this, "Error is " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    snackbarMessage("Unable to reach server");
+                    snackbar.show();                }
+            }
+        });
+
+        redeemed = true;
+
+
+
+    }
 
 }

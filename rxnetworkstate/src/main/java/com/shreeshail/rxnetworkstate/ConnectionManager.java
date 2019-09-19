@@ -61,6 +61,7 @@ public class ConnectionManager {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
+                .onErrorResumeNext(Observable.<Boolean>empty())
                 .subscribe(new Action1<Boolean>() {
                                @Override
                                public void call(Boolean isOnline) {
@@ -79,6 +80,8 @@ public class ConnectionManager {
     public void unsubcribeme(){
          if(subscription!=null && !subscription.isUnsubscribed())
             subscription.unsubscribe();
+
+         Log.i("Unregestered","RxNetwork"+subscription.isUnsubscribed());
 
 
     }

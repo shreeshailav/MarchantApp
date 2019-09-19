@@ -49,6 +49,7 @@
             android:gravity="center_vertical"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
+            android:text="@={loginviewmodel.userName}"
             android:padding="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
@@ -69,6 +70,7 @@
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:hint="@string/passowrd"
+            android:text="@={loginviewmodel.userPassword}"
             android:inputType="textPassword"
             android:padding="10dp"
             android:textColor="@color/white"
@@ -110,6 +112,7 @@
             android:layout_marginTop="3dp"
             android:padding="3dp"
             android:text="@string/login"
+            android:onClick="@{(v) -> loginviewmodel.onClick(v)}"
             android:textColor="#009688"
             android:textSize="17sp"
             android:textStyle="bold" />

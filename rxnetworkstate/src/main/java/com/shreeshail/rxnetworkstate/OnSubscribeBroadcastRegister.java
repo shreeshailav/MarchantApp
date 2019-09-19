@@ -5,12 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
+import android.util.Log;
+
+import java.io.IOException;
 
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.functions.Action0;
 import rx.subscriptions.Subscriptions;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Shreeshail on 29/08/2019.
@@ -47,7 +52,9 @@ public class OnSubscribeBroadcastRegister implements Observable.OnSubscribe<Inte
             }
         });
 
+
         subscriber.add(subscription);
+        subscriber.onError(new IOException("Network Issue"));
         context.registerReceiver(broadcastReceiver,intentFilter,broadcastPermission,schedulerHandler);
 
     }

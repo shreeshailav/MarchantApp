@@ -20,13 +20,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        >
 
-        <activity android:name=".viewactivity.RedeemActivity" />
-        <activity android:name=".viewactivity.LoginActivity" />
-        <activity android:name=".viewactivity.QRCodeScannerActivity" />
-        <activity android:name=".viewactivity.QRCodeGeneratorActivity" />
-        <activity android:name=".viewactivity.MainActivity">
+        <activity android:name=".viewactivity.RedeemActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".viewactivity.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".viewactivity.QRCodeScannerActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".viewactivity.QRCodeGeneratorActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".viewactivity.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,16 +36,16 @@
         </activity>
 
 
-        <activity android:name="net.openid.appauth.RedirectUriReceiverActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="http"
-                    android:host="6c384f3d.ngrok.io"
-                    android:path="/authorize"/>
-            </intent-filter>
-        </activity>
+<!--        <activity android:name="net.openid.appauth.RedirectUriReceiverActivity">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.VIEW"/>-->
+<!--                <category android:name="android.intent.category.DEFAULT"/>-->
+<!--                <category android:name="android.intent.category.BROWSABLE"/>-->
+<!--                <data android:scheme="http"-->
+<!--                    android:host="6c384f3d.ngrok.io"-->
+<!--                    android:path="/authorize"/>-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
 
     </application>

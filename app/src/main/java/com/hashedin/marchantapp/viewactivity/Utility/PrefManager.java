@@ -21,7 +21,7 @@ public class PrefManager {
 
     public String getKey() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-        return sharedPreferences.getString("key", "");
+        return sharedPreferences.getString("key","");
     }
 
     public boolean isUserLogedOut() {

@@ -1,8 +1,9 @@
 package com.hashedin.marchantapp.Services.Models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Offer {
+public class Offer implements Serializable {
 
     public int id ;
     public String created_on ;

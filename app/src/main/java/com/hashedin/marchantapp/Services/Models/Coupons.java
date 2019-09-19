@@ -1,6 +1,8 @@
 package com.hashedin.marchantapp.Services.Models;
 
-public class Coupons {
+import java.io.Serializable;
+
+public class Coupons implements Serializable {
 
     public int id ;
     public Offer offer ;
