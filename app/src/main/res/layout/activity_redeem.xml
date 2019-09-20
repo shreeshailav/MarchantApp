@@ -16,168 +16,238 @@
         android:layout_height="match_parent"
         tools:context=".viewactivity.RedeemActivity">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:scrollbars="none">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="0dp"
+                android:layout_weight="0.3">
 
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
                     android:gravity="center">
 
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:padding="10dp"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="2dp">
+                        app:srcCompat="@mipmap/ic_launcher_round" />
 
-                        <LinearLayout
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/city_rewards"
+                        android:textStyle="bold"
+                        android:shadowRadius="2"
+                        android:shadowDy="1"
+                        android:shadowDx="1"
+                        android:shadowColor="#b3b3b3"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fillViewport="true"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="5dp">
-
+                            android:layout_margin="5dp"
+                            android:padding="10dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="2dp">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="5dp">
 
 
-                                <com.google.android.material.textfield.TextInputLayout
+                                <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
 
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/edit_name"
+
+                                    <com.google.android.material.textfield.TextInputLayout
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:longClickable="false"
-                                        android:focusable="false"
-                                        android:focusableInTouchMode="false"
-                                        android:background="@color/zxing_transparent"
-                                        android:padding="5dp"
-                                        android:hint="Name" />
-                                </com.google.android.material.textfield.TextInputLayout>
+                                        android:layout_height="match_parent">
 
-                                <com.google.android.material.textfield.TextInputLayout
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/edit_name"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:background="@color/zxing_transparent"
+                                            android:focusable="false"
+                                            android:focusableInTouchMode="false"
+                                            android:hint="Name"
+                                            android:longClickable="false"
+                                            android:textColor="@color/text_color"
+                                            android:padding="5dp" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/edit_description"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:background="@color/zxing_transparent"
+                                            android:focusable="false"
+                                            android:focusableInTouchMode="false"
+                                            android:hint="Description"
+                                            android:longClickable="false"
+                                            android:textColor="@color/text_color"
+                                            android:padding="5dp" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/edit_points"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:background="@color/zxing_transparent"
+                                            android:focusable="false"
+                                            android:focusableInTouchMode="false"
+                                            android:hint="Points"
+                                            android:longClickable="false"
+                                            android:textColor="@color/text_color"
+                                            android:padding="5dp" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/edit_item"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:background="@color/zxing_transparent"
+                                            android:focusable="false"
+                                            android:focusableInTouchMode="false"
+                                            android:hint="Item"
+                                            android:longClickable="false"
+                                            android:textColor="@color/text_color"
+                                            android:padding="5dp" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/edit_startdate"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:background="@color/zxing_transparent"
+                                            android:focusable="false"
+                                            android:focusableInTouchMode="false"
+                                            android:hint="Start Date"
+                                            android:textColor="@color/text_color"
+                                            android:inputType="number"
+                                            android:longClickable="false"
+                                            android:padding="5dp" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/edit_enddate"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:background="@color/zxing_transparent"
+                                            android:focusable="false"
+                                            android:focusableInTouchMode="false"
+                                            android:textColor="@color/text_color"
+                                            android:hint="End Date"
+                                            android:longClickable="false"
+                                            android:padding="5dp" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
 
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/edit_description"
-                                        android:layout_width="match_parent"
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_weight="0.5"
+                                        android:layout_height="wrap_content"/>
+
+                                    <Button
+                                        android:id="@+id/redeembtn"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
                                         android:layout_height="wrap_content"
-                                        android:longClickable="false"
-                                        android:background="@color/zxing_transparent"
-                                        android:focusable="false"
-                                        android:focusableInTouchMode="false"
-                                        android:padding="5dp"
-                                        android:hint="Description" />
-                                </com.google.android.material.textfield.TextInputLayout>
+                                        android:layout_marginTop="20dp"
+                                        android:layout_marginBottom="20dp"
+                                        android:background="@drawable/button"                                    android:elevation="2dp"
+                                        android:shadowColor="#b3b3b3"
+                                        android:shadowDx="2"
+                                        android:shadowDy="2"
+                                        android:shadowRadius="2"
+                                        android:text="@string/redeem"
+                                        android:textColor="@color/QRCodeWhiteColor"
+                                        android:textStyle="bold"
 
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+                                        />
 
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/edit_points"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:longClickable="false"
-                                        android:background="@color/zxing_transparent"
-                                        android:focusable="false"
-                                        android:focusableInTouchMode="false"
-                                        android:padding="5dp"
-                                        android:hint="Points" />
-                                </com.google.android.material.textfield.TextInputLayout>
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_weight="0.5"
+                                        android:layout_height="wrap_content"/>
 
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+                                </LinearLayout>
 
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/edit_item"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:focusable="false"
-                                        android:longClickable="false"
-                                        android:background="@color/zxing_transparent"
-                                        android:focusableInTouchMode="false"
-                                        android:padding="5dp"
-                                        android:hint="Item" />
-                                </com.google.android.material.textfield.TextInputLayout>
-
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/edit_startdate"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:focusable="false"
-                                        android:focusableInTouchMode="false"
-                                        android:hint="Start Date"
-                                        android:longClickable="false"
-                                        android:background="@color/zxing_transparent"
-                                        android:padding="5dp"
-                                        android:inputType="number" />
-                                </com.google.android.material.textfield.TextInputLayout>
-
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/edit_enddate"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:focusable="false"
-                                        android:focusableInTouchMode="false"
-                                        android:background="@color/zxing_transparent"
-                                        android:padding="5dp"
-                                        android:longClickable="false"
-                                        android:hint="End Date" />
-                                </com.google.android.material.textfield.TextInputLayout>
 
 
                             </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                    </RelativeLayout>
+                </LinearLayout>
+            </ScrollView>
 
-                            <Button
-                                android:id="@+id/redeembtn"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
-                                android:layout_marginBottom="20dp"
-                                android:background="@color/redeembtncolor"
-                                android:elevation="2dp"
-                                android:shadowColor="#b3b3b3"
-                                android:shadowDx="2"
-                                android:shadowDy="2"
-                                android:shadowRadius="2"
-                                android:text="Redeem"
-                                android:textColor="@color/QRCodeWhiteColor"
-                                android:textStyle="bold">
-                            </Button>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                </RelativeLayout>
-            </LinearLayout>
-        </ScrollView>
+
+        </LinearLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

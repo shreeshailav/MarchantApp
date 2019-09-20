@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hashedin.marchantapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- Allows access to the flashlight -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Allows access to the flashlight -->
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
-    <uses-permission android:name="android.permission.HARDWARE_TEST"
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission
+        android:name="android.permission.HARDWARE_TEST"
         tools:ignore="ProtectedPermissions" />
 
     <application
@@ -20,34 +21,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="GoogleAppIndexingWarning"
-        >
-
-        <activity android:name=".viewactivity.RedeemActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".viewactivity.LoginActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".viewactivity.QRCodeScannerActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".viewactivity.QRCodeGeneratorActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".viewactivity.MainActivity" android:screenOrientation="portrait">
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".viewactivity.MerchantMainActivity"
+            android:label="@string/title_activity_merchant_main"></activity>
+        <activity
+            android:name=".viewactivity.RedeemActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".viewactivity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".viewactivity.QRCodeScannerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".viewactivity.QRCodeGeneratorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".viewactivity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-<!--        <activity android:name="net.openid.appauth.RedirectUriReceiverActivity">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.VIEW"/>-->
-<!--                <category android:name="android.intent.category.DEFAULT"/>-->
-<!--                <category android:name="android.intent.category.BROWSABLE"/>-->
-<!--                <data android:scheme="http"-->
-<!--                    android:host="6c384f3d.ngrok.io"-->
-<!--                    android:path="/authorize"/>-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
-
-
     </application>
 
 </manifest>

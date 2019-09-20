@@ -20,13 +20,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().hide();
+
+
         prefManager = new PrefManager(this);
 
         //prefManager.logout();
         key = prefManager.getKey();
 
         if(!prefManager.isUserLogedOut()){
-            Intent intent = new Intent(this, QRCodeScannerActivity.class);
+           // Intent intent = new Intent(this, QRCodeScannerActivity.class);
+            Intent intent = new Intent(this, MerchantMainActivity.class);
             startActivity(intent);
             finish();
         }else {

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -31,7 +33,6 @@ import com.hashedin.marchantapp.Services.Models.ReddemCoupon;
 import com.hashedin.marchantapp.Services.Repository.ApiEndpoints;
 import com.hashedin.marchantapp.Services.Repository.ApiResponse;
 import com.hashedin.marchantapp.databinding.ActivityRedeemBinding;
-import com.hashedin.marchantapp.viewactivity.Utility.DialogsUtils;
 import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
 import com.hashedin.marchantapp.viewmodel.CouponDetailViewModel;
 import com.shreeshail.rxnetworkstate.ConnectionTracer;
@@ -40,14 +41,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.hashedin.marchantapp.Services.Repository.ApiEndpoints.HTTPS_API_MARCHENT_URL;
 
 
 public class RedeemActivity extends AppCompatActivity implements ConnectionTracer {
@@ -75,7 +68,12 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
         super.onCreate(savedInstanceState);
         setTitle("Redeem");
 
+        getSupportActionBar().hide();
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
         activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_redeem);
+
 
 
         Intent intent_extra = getIntent();
@@ -87,7 +85,8 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
                if(coupons!=null) {
                    Initializer();
                    updateUI(coupons);
-               }
+
+                }
                else {
                    returntback();
                }
@@ -150,6 +149,14 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
             activityLoginBinding.editStartdate.setText(""+coupons.offer.starts_at);
         if(coupons.offer.ends_at!=null)
             activityLoginBinding.editEnddate.setText(""+coupons.offer.ends_at);
+
+        activityLoginBinding.editName.setPaintFlags(activityLoginBinding.editName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        activityLoginBinding.editDescription.setPaintFlags(activityLoginBinding.editDescription.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        activityLoginBinding.editPoints.setPaintFlags(activityLoginBinding.editPoints.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        activityLoginBinding.editItem.setPaintFlags(activityLoginBinding.editItem.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        activityLoginBinding.editStartdate.setPaintFlags(activityLoginBinding.editStartdate.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        activityLoginBinding.editEnddate.setPaintFlags(activityLoginBinding.editEnddate.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
 
     }
 
@@ -251,6 +258,8 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
         sbView.setBackgroundColor(getResources().getColor(R.color.black));
         TextView message_textView = sbView.findViewById(com.google.android.material.R.id.snackbar_text);
         message_textView.setTextColor(getResources().getColor(R.color.white));
+
+
      }
 
 
@@ -300,12 +309,6 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
         }
     }
 
-    private void returntback(){
-        Intent intent = new Intent();
-        intent.putExtra("result", "Invalid Coupon");
-        setResult(RESULT_OK, intent);
-        finish();
-    }
 
 
 
@@ -335,7 +338,6 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
                 } else{
                     // call failed.
                     Throwable e = apiResponse.getError();
-                    //Toast.makeText(RedeemActivity.this, "Error is " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     snackbarMessage("Unable to reach server");
                     snackbar.show();                }
             }
@@ -346,5 +348,13 @@ public class RedeemActivity extends AppCompatActivity implements ConnectionTrace
 
 
     }
+
+    private void returntback(){
+        Intent intent = new Intent();
+        intent.putExtra("result", "Invalid Coupon");
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
 
 }

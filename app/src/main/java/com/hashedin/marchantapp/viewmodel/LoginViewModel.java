@@ -10,7 +10,6 @@ package com.hashedin.marchantapp.viewmodel;
 
 public class LoginViewModel extends ViewModel {
 
-    public String test = "test";
 
     public MutableLiveData<String> userName = new MutableLiveData<>();
     public MutableLiveData<String> userPassword = new MutableLiveData<>();

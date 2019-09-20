@@ -28,6 +28,8 @@ public class QRCodeGeneratorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("");
+        getSupportActionBar().hide();
+
 
         setContentView(R.layout.activity_qrcode_generator);
 

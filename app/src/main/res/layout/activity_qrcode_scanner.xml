@@ -63,6 +63,8 @@
             android:layout_height="match_parent"
             app:zxing_scanner_layout="@layout/custom_scanner"
 
+
+
             >
         </com.journeyapps.barcodescanner.DecoratedBarcodeView>
 

@@ -22,8 +22,24 @@
     <string name="paid_successfully">Coupon Redeemed</string>
     <string name="paid_Failed">Redeem Failed</string>
     <string name="amount"> ₹ </string>
+    <string name="city_rewards">City Rewards\nMerchant</string>
+    <string name="redeem">Redeem</string>
+    <string name="close">Close</string>
 
 
     <integer name="viewfinder_border_width">4</integer>
     <integer name="viewfinder_border_length">60</integer>
+    <string name="title_activity_merchant_main">MerchantMainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">SCAN</string>
+    <string name="title_qr">QR</string>
+    <string name="title_support">SUPPORT</string>
+    <string name="title_scan">SCAN</string>
+    <string name="title_history">HISTORY</string>
+    <string name="invalid_qr_code_try_again">Invalid QR Code. Try again</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="transaction_history">Transaction History</string>
 </resources>
