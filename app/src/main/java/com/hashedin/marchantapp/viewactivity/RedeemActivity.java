@@ -28,8 +28,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.hashedin.marchantapp.R;
-import com.hashedin.marchantapp.Services.Models.Coupons;
-import com.hashedin.marchantapp.Services.Models.ReddemCoupon;
+import com.hashedin.marchantapp.Services.models.Coupons;
+import com.hashedin.marchantapp.Services.models.ReddemCoupon;
 import com.hashedin.marchantapp.Services.Repository.ApiEndpoints;
 import com.hashedin.marchantapp.Services.Repository.ApiResponse;
 import com.hashedin.marchantapp.databinding.ActivityRedeemBinding;

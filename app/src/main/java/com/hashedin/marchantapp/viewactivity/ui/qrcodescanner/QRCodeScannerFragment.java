@@ -3,7 +3,6 @@ package com.hashedin.marchantapp.viewactivity.ui.qrcodescanner;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -38,13 +37,10 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.BeepManager;
 import com.hashedin.marchantapp.R;
-import com.hashedin.marchantapp.Services.Models.Coupons;
 import com.hashedin.marchantapp.Services.Repository.ApiResponse;
 import com.hashedin.marchantapp.databinding.ActivityQrcodeScannerBinding;
 import com.hashedin.marchantapp.viewactivity.LoginActivity;
-import com.hashedin.marchantapp.viewactivity.RedeemActivity;
 import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
-import com.hashedin.marchantapp.viewactivity.ui.support.SupportFragment;
 import com.hashedin.marchantapp.viewmodel.CouponDetailViewModel;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
@@ -134,7 +130,7 @@ public class QRCodeScannerFragment extends Fragment implements RedeemFragment.On
         View root = activityQrcodeScannerBinding.getRoot();
 
 
-        final TextView textView = root.findViewById(R.id.text_dashboard);
+       // final TextView textView = root.findViewById(R.id.text_dashboard);
         qrCodeScannerViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -170,7 +166,7 @@ public class QRCodeScannerFragment extends Fragment implements RedeemFragment.On
 
         beepManager = new BeepManager(getActivity());
 
-        activityQrcodeScannerBinding.proceedbtn.setVisibility(View.GONE);
+        //activityQrcodeScannerBinding.proceedbtn.setVisibility(View.GONE);
         activityQrcodeScannerBinding.standardBottomSheet.setVisibility(View.GONE);
 
 
@@ -181,13 +177,13 @@ public class QRCodeScannerFragment extends Fragment implements RedeemFragment.On
                 activityQrcodeScannerBinding.barcodeScanner.setStatusText("");
                 activityQrcodeScannerBinding.standardBottomSheet.setVisibility(View.GONE);
 
-                if (b) {
-                    activityQrcodeScannerBinding.proceedbtn.setVisibility(View.VISIBLE);
-                    activityQrcodeScannerBinding.barcodeScanner.setVisibility(View.GONE);
-                } else {
-                    activityQrcodeScannerBinding.proceedbtn.setVisibility(View.GONE);
-                    activityQrcodeScannerBinding.barcodeScanner.setVisibility(View.VISIBLE);
-                }
+//                if (b) {
+//                    activityQrcodeScannerBinding.proceedbtn.setVisibility(View.VISIBLE);
+//                    activityQrcodeScannerBinding.barcodeScanner.setVisibility(View.GONE);
+//                } else {
+//                    activityQrcodeScannerBinding.proceedbtn.setVisibility(View.GONE);
+//                    activityQrcodeScannerBinding.barcodeScanner.setVisibility(View.VISIBLE);
+//                }
             }
         });
         activityQrcodeScannerBinding.proceedbtn.setOnClickListener(new View.OnClickListener() {
@@ -225,19 +221,32 @@ public class QRCodeScannerFragment extends Fragment implements RedeemFragment.On
         });
 
 
-        activityQrcodeScannerBinding.flashimage.setOnClickListener(new View.OnClickListener() {
+
+        activityQrcodeScannerBinding.closeaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getFragmentManager()!=null)
+                    getFragmentManager().popBackStack();
+             }
+        });
+
+
+        activityQrcodeScannerBinding.flashlight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (flash_state) {
-                    activityQrcodeScannerBinding.flashimage.setImageResource(R.drawable.ic_flash_off);
+                    activityQrcodeScannerBinding.flashlight.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_flash_off),null,null,null);
+
+                    activityQrcodeScannerBinding.flashlight.setText("TURN OF FLASH");
                     flash_state = false;
 
                     activityQrcodeScannerBinding.barcodeScanner.setTorchOff();
 
 
                 } else {
-                    activityQrcodeScannerBinding.flashimage.setImageResource(R.drawable.ic_flash_on);
+                    activityQrcodeScannerBinding.flashlight.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_flash_on),null,null,null);
+                    activityQrcodeScannerBinding.flashlight.setText("TURN ON FLASH");
                     flash_state = true;
 
                     activityQrcodeScannerBinding.barcodeScanner.setTorchOn();
@@ -245,6 +254,9 @@ public class QRCodeScannerFragment extends Fragment implements RedeemFragment.On
                 }
             }
         });
+
+
+
         sheetBehavior = BottomSheetBehavior.from(activityQrcodeScannerBinding.standardBottomSheet);
 
         sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {

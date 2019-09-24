@@ -2,14 +2,11 @@ package com.hashedin.marchantapp.Services.Repository;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.hashedin.marchantapp.Services.Models.Coupons;
-import com.hashedin.marchantapp.Services.Models.ReddemCoupon;
-
-import java.util.List;
+import com.hashedin.marchantapp.Services.models.Coupons;
+import com.hashedin.marchantapp.Services.models.ReddemCoupon;
 
 import retrofit2.Call;
 import retrofit2.Callback;

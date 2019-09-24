@@ -27,6 +27,11 @@ public class MerchantMainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+
+
+
+
+
     }
 
 

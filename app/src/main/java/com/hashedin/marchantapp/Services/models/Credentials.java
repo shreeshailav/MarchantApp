@@ -1,6 +1,4 @@
-package com.hashedin.marchantapp.Services.Models;
-
-import java.lang.ref.SoftReference;
+package com.hashedin.marchantapp.Services.models;
 
 public class Credentials
 {

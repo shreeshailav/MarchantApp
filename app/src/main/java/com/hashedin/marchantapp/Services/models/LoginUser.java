@@ -1,6 +1,4 @@
-package com.hashedin.marchantapp.Services.Models;
-
-import android.util.Patterns;
+package com.hashedin.marchantapp.Services.models;
 
 
 public class LoginUser {

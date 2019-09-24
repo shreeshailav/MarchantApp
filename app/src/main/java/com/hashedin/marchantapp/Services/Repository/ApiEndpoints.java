@@ -1,9 +1,9 @@
 package com.hashedin.marchantapp.Services.Repository;
 
-import com.hashedin.marchantapp.Services.Models.Coupons;
-import com.hashedin.marchantapp.Services.Models.ReddemCoupon;
-import com.hashedin.marchantapp.Services.Models.UserCredentials;
-import com.hashedin.marchantapp.Services.Models.UserKey;
+import com.hashedin.marchantapp.Services.models.Coupons;
+import com.hashedin.marchantapp.Services.models.ReddemCoupon;
+import com.hashedin.marchantapp.Services.models.UserCredentials;
+import com.hashedin.marchantapp.Services.models.UserKey;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

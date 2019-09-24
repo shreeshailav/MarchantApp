@@ -22,9 +22,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.hashedin.marchantapp.R;
-import com.hashedin.marchantapp.Services.Models.LoginUser;
-import com.hashedin.marchantapp.Services.Models.UserCredentials;
-import com.hashedin.marchantapp.Services.Models.UserKey;
+import com.hashedin.marchantapp.Services.models.LoginUser;
+import com.hashedin.marchantapp.Services.models.UserCredentials;
+import com.hashedin.marchantapp.Services.models.UserKey;
 import com.hashedin.marchantapp.Services.Repository.ApiEndpoints;
 import com.hashedin.marchantapp.databinding.ActivityLoginBinding;
 import com.hashedin.marchantapp.viewactivity.Utility.DialogsUtils;

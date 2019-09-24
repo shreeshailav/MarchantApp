@@ -63,7 +63,7 @@ public class QRCodeGenerateFragment extends Fragment {
 
     ImageView imageView;
     Button button;
-    EditText editText;
+    EditText editText,editunit;
     String EditTextValue ;
     Thread thread ;
     public final static int QRcodeWidth = 500 ;
@@ -85,9 +85,10 @@ public class QRCodeGenerateFragment extends Fragment {
 
 
 
-        imageView = (ImageView)root.findViewById(R.id.imageView);
-        editText = (EditText)root.findViewById(R.id.editText);
-        button = (Button)root.findViewById(R.id.button);
+        imageView = (ImageView)root.findViewById(R.id.qrimage);
+        editText = (EditText)root.findViewById(R.id.edit_amount);
+        editunit = (EditText)root.findViewById(R.id.edit_unit);
+        button = (Button)root.findViewById(R.id.genqrbtn);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

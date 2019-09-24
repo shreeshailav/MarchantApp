@@ -1,4 +1,4 @@
-package com.hashedin.marchantapp.Services.Models;
+package com.hashedin.marchantapp.Services.models;
 
 import java.io.Serializable;
 import java.util.List;

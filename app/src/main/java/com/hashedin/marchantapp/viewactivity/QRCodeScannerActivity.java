@@ -20,8 +20,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.PopupWindow;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,7 +34,6 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.BeepManager;
 import com.hashedin.marchantapp.R;
-import com.hashedin.marchantapp.Services.Models.ReddemCoupon;
 import com.hashedin.marchantapp.Services.Repository.ApiResponse;
 import com.hashedin.marchantapp.databinding.ActivityQrcodeScannerBinding;
 import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
@@ -182,26 +179,7 @@ public class QRCodeScannerActivity extends AppCompatActivity {
         });
 
 
-        activityQrcodeScannerBinding.flashimage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                if (flash_state) {
-                    activityQrcodeScannerBinding.flashimage.setImageResource(R.drawable.ic_flash_off);
-                    flash_state = false;
-
-                    activityQrcodeScannerBinding.barcodeScanner.setTorchOff();
-
-
-                } else {
-                    activityQrcodeScannerBinding.flashimage.setImageResource(R.drawable.ic_flash_on);
-                    flash_state = true;
-
-                    activityQrcodeScannerBinding.barcodeScanner.setTorchOn();
-
-                }
-            }
-        });
         sheetBehavior = BottomSheetBehavior.from(activityQrcodeScannerBinding.standardBottomSheet);
 
         sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {

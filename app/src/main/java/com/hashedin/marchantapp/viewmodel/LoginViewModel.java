@@ -5,7 +5,7 @@ package com.hashedin.marchantapp.viewmodel;
  import androidx.lifecycle.MutableLiveData;
  import androidx.lifecycle.ViewModel;
 
- import com.hashedin.marchantapp.Services.Models.LoginUser;
+ import com.hashedin.marchantapp.Services.models.LoginUser;
 
 
 public class LoginViewModel extends ViewModel {

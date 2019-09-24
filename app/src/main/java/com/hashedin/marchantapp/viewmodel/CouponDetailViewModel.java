@@ -9,7 +9,7 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
-import com.hashedin.marchantapp.Services.Models.Coupons;
+import com.hashedin.marchantapp.Services.models.Coupons;
 import com.hashedin.marchantapp.Services.Repository.ApiRepo;
 import com.hashedin.marchantapp.Services.Repository.ApiResponse;
 

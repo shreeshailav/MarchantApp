@@ -1,4 +1,4 @@
-package com.hashedin.marchantapp.Services.Models;
+package com.hashedin.marchantapp.Services.models;
 
 public class UserKey {
     public String key ;

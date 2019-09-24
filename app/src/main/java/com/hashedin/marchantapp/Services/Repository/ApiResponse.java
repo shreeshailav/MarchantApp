@@ -1,9 +1,7 @@
 package com.hashedin.marchantapp.Services.Repository;
 
-import com.hashedin.marchantapp.Services.Models.Coupons;
-import com.hashedin.marchantapp.Services.Models.ReddemCoupon;
-
-import java.util.List;
+import com.hashedin.marchantapp.Services.models.Coupons;
+import com.hashedin.marchantapp.Services.models.ReddemCoupon;
 
 public class ApiResponse {
 

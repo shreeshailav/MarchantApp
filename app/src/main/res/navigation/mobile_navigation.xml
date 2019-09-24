@@ -15,7 +15,7 @@
         android:id="@+id/navigation_history"
         android:name="com.hashedin.marchantapp.viewactivity.ui.history.HistoryFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/navigation_scan"
@@ -28,6 +28,7 @@
         android:name="com.hashedin.marchantapp.viewactivity.ui.qrcodegenerate.QRCodeGenerateFragment"
         android:label="@string/title_scan"
         tools:layout="@layout/fragment_notifications" />
+
 
 
     <fragment

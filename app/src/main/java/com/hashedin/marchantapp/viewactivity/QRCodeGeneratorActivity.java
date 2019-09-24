@@ -19,7 +19,7 @@ public class QRCodeGeneratorActivity extends AppCompatActivity {
 
     ImageView imageView;
     Button button;
-    EditText editText;
+    EditText editText,editunit;
     String EditTextValue ;
     Thread thread ;
     public final static int QRcodeWidth = 500 ;
@@ -33,9 +33,10 @@ public class QRCodeGeneratorActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_qrcode_generator);
 
-        imageView = (ImageView)findViewById(R.id.imageView);
-        editText = (EditText)findViewById(R.id.editText);
-        button = (Button)findViewById(R.id.button);
+        imageView = (ImageView)findViewById(R.id.qrimage);
+        editText = (EditText)findViewById(R.id.edit_amount);
+        editunit = (EditText)findViewById(R.id.edit_unit);
+        button = (Button)findViewById(R.id.genqrbtn);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
