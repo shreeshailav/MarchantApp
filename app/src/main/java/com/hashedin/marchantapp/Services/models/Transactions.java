@@ -48,6 +48,21 @@ public class Transactions extends BaseObservable {
             }
         };
 
+        List<Transaction> transactions = new ArrayList<>();
+
+        for(int i=0;i<5;i++){
+            Transaction transaction = new Transaction();
+            transaction.setBreed("A"+i);
+            transactions.add(transaction);
+        }
+
+       // breeds.setValue(transactions);
+
+
+
+
+
+
         //Api.getApi().getBreeds().enqueue(callback);
     }
 }

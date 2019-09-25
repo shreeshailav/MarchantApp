@@ -9,9 +9,10 @@
     <color name="QRCodeWhiteColor">#FFFFFF</color>
 
 
-    <color name="viewfinder_mask">#3F51B5</color>
-    <color name="viewfinder_laser">#00FFFFFF</color>
-    <color name="viewfinder_border">#ffFF4081</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="viewfinder_laser">#FFFFFF</color>
+
+    <color name="viewfinder_border">#FFFFFF</color>
     <color name="redeembtncolor">#F58E07</color>
 
     <color name="popupcolor">#13659C</color>
@@ -21,9 +22,12 @@
     <color name="black">#000000</color>
     <color name="white_greyish">#EEEEEE</color>
     <color name="button_selectorcolor">#9E9E9E</color>
+    <color name="Home_buttons_color">#F5CE23</color>
+    <color name="bottom_nav_icon_color">#A4417A</color>
+    <color name="button_text_color">#6e539f</color>
 
 
-    <color name="text_color">#3D4B96</color>
+    <color name="text_color">#6e539f</color>
 
 
 </resources>

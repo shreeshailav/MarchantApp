@@ -46,8 +46,10 @@ dependencies {
 
 
     // QR code/Barcode scanning
-    implementation 'com.journeyapps:zxing-android-embedded:3.3.0@aar'
-    implementation 'com.google.zxing:core:3.2.1'
+   // implementation 'com.journeyapps:zxing-android-embedded:3.3.0@aar'
+   // implementation 'com.google.zxing:core:3.4.0'
+   // implementation 'com.google.zxing:android-core:3.3.0'
+
 
 
     // Lifecycle components
@@ -72,5 +74,6 @@ dependencies {
     //implementation 'net.openid:appauth:0.7.1'
 
     implementation 'com.google.android.material:material:1.0.0'
+    implementation project(path: ':zxing-android-embedded')
 
 }

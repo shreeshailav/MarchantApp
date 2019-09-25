@@ -1,6 +1,7 @@
 package com.hashedin.marchantapp.viewactivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,6 +11,9 @@ import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
@@ -44,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
 
+    boolean show_password = true ;
+
 
     public static final String MyPREFERENCES = "LoginDetails" ;
     public static String key = null;
@@ -53,12 +59,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding activityLoginBinding;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
 
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
         activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
@@ -81,6 +89,70 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        activityLoginBinding.loginPassword.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    if(motionEvent.getRawX() >= (activityLoginBinding.loginPassword.getRight() - activityLoginBinding.loginPassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+
+                        if(show_password){
+                            activityLoginBinding.loginPassword.setTransformationMethod(HideReturnsTransformationMethod
+                                    .getInstance());// show password
+                            activityLoginBinding.loginPassword.setCompoundDrawablesWithIntrinsicBounds(null,null,getResources().getDrawable(R.drawable.ic_action_visiible),null);
+
+                            show_password = false ;
+                        }else {
+                            activityLoginBinding.loginPassword.setInputType(InputType.TYPE_CLASS_TEXT
+                                    | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                            activityLoginBinding.loginPassword.setTransformationMethod(PasswordTransformationMethod
+                                    .getInstance());// hide password
+                            activityLoginBinding.loginPassword.setCompoundDrawablesWithIntrinsicBounds(null,null,getResources().getDrawable(R.drawable.ic_action_invisiible),null);
+                            show_password = true ;
+
+                        }
+
+
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+        });
+
+
+
+
+
+//                (new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                final int DRAWABLE_LEFT = 0;
+//                final int DRAWABLE_TOP = 1;
+//                final int DRAWABLE_RIGHT = 2;
+//                final int DRAWABLE_BOTTOM = 3;
+//
+//                if(event.getAction() == MotionEvent.ACTION_UP) {
+//                    if(event.getRawX() >= (editComment.getRight() - editComment.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+//                        // your action here
+//
+//                        return true;
+//                    }
+//                }
+//                return false;
+//            }
+//        });
+
+
+
 
 
         activityLoginBinding.setLifecycleOwner(this);
@@ -129,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
                         prefManager = new PrefManager(getBaseContext());
                         prefManager.saveLoginDetails(userKey.key);
 
-                        Intent intent = new Intent(getBaseContext(),QRCodeScannerActivity.class);
+                        Intent intent = new Intent(getBaseContext(),MerchantMainActivity.class);
                         startActivity(intent);
                         finish();
                     }

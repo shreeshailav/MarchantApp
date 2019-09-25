@@ -1,6 +1,7 @@
 package com.hashedin.marchantapp.Services.Repository;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -53,6 +54,8 @@ public class ApiRepo{
         call.enqueue(new Callback<ReddemCoupon>() {
             @Override
             public void onResponse(Call<ReddemCoupon> call, Response<ReddemCoupon> response) {
+
+
                 if (response.isSuccessful() && response.code() == 201 ) {
                     apiResponse.postValue(new ApiResponse(response.body()));
                 }else {

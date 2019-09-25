@@ -1,49 +1,55 @@
 <resources>
-    <string name="app_name">MarchantApp</string>
-    <string name="start_scan">Start scan</string>
-    <string name="generate_new_qr_code">Generate New QR code</string>
+    <string name="app_name" translatable="false">MerchantApp</string>
+    <string name="start_scan" translatable="false">Start scan</string>
+    <string name="generate_new_qr_code" translatable="false">Generate New QR code</string>
 
 
-    <string name="com_auth0_client_id">YOUR_CLIENT_ID</string>
-    <string name="com_auth0_domain">YOUR_DOMAIN</string>
-    <string name="enter_coupon_code">Enter Coupon Code</string>
-    <string name="looks_like_you_ve_scanned_a_wrong_qr_code_please_scan_a_valid_qr_code_and_try_again">Looks like you\'ve scanned a wrong QR code.\nPlease scan a valid QR code and try again</string>
-    <string name="scan_again">SCAN AGAIN</string>
+    <string name="com_auth0_client_id" translatable="false">YOUR_CLIENT_ID</string>
+    <string name="com_auth0_domain" translatable="false">YOUR_DOMAIN</string>
+    <string name="enter_coupon_code" translatable="false">Enter Coupon code here</string>
+    <string name="looks_like_you_ve_scanned_a_wrong_qr_code_please_scan_a_valid_qr_code_and_try_again" translatable="false">Looks like you\'ve scanned a wrong QR code.\nPlease scan a valid QR code and try again</string>
+    <string name="scan_again" translatable="false">SCAN AGAIN</string>
 
 
-    <string name="email">User Name</string>
-    <string name="passowrd">Password</string>
-    <string name="login">LOGIN</string>
+    <string name="email" translatable="false">User Name</string>
+    <string name="passowrd" translatable="false">Password</string>
+    <string name="login" translatable="false">LOGIN</string>
 
-    <string name="show_pwd">Show Password</string>
-    <string name="hide_pwd">Hide Password</string>
-    <string name="forgot">Forgot password?</string>
-    <string name="newUser">Not a Member yet? Sign Up here.</string>
-    <string name="paid_successfully">Coupon Redeemed</string>
-    <string name="paid_Failed">Redeem Failed</string>
-    <string name="amount"> ₹ </string>
-    <string name="city_rewards">City Rewards\nMerchant</string>
-    <string name="redeem">Redeem</string>
-    <string name="close">Close</string>
+    <string name="show_pwd" translatable="false">Show Password</string>
+    <string name="hide_pwd" translatable="false">Hide Password</string>
+    <string name="forgot" translatable="false">Forgot password?</string>
+    <string name="newUser" translatable="false">Not a Member yet? Sign Up here.</string>
+    <string name="paid_successfully" translatable="false">REDEEMED SUCCESSFULLY</string>
+    <string name="paid_Failed" translatable="false">COUPON ALREADY REDEEMED</string>
+    <string name="amount" translatable="false"> ₹ </string>
+    <string name="city_rewards" translatable="false">City Rewards</string>
+    <string name="redeem" translatable="false">Redeem</string>
+    <string name="close" translatable="false">Close</string>
 
 
     <integer name="viewfinder_border_width">4</integer>
     <integer name="viewfinder_border_length">60</integer>
-    <string name="title_activity_merchant_main">MerchantMainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">SCAN</string>
-    <string name="title_qr">QR</string>
-    <string name="title_support">SUPPORT</string>
-    <string name="title_scan">SCAN</string>
-    <string name="title_history">HISTORY</string>
-    <string name="invalid_qr_code_try_again">Invalid QR Code. Try again</string>
+    <string name="title_activity_merchant_main" translatable="false">MerchantMainActivity</string>
+    <string name="title_home" translatable="false">Home</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_notifications" translatable="false">SCAN</string>
+    <string name="title_qr" translatable="false">QR</string>
+    <string name="title_support" translatable="false">SUPPORT</string>
+    <string name="title_scan" translatable="false">SCAN</string>
+    <string name="title_history" translatable="false">HISTORY</string>
+    <string name="invalid_qr_code_try_again" translatable="false">Invalid QR Code. Try again</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="transaction_history">Transaction History</string>
-    <string name="generate_qr_code">Generate QR Code</string>
-    <string name="enter_amount">Enter Amount</string>
-    <string name="unit">Unit</string>
-    <string name="no_transactions">No Transactions.</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="transaction_history" translatable="false">Transaction History</string>
+    <string name="generate_qr_code" translatable="false">Generate QR Code</string>
+    <string name="enter_amount" translatable="false">Enter Amount</string>
+    <string name="unit" translatable="false">Unit</string>
+    <string name="no_transactions" translatable="false">No Transactions.</string>
+    <string name="sign_in" translatable="false">SIGN IN</string>
+    <string name="employee_id" translatable="false">Employee ID</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="forgot_password" translatable="false">Forgot Password?</string>
+    <string name="don_t_have_an_account" translatable="false">Don\'t have an account?</string>
+    <string name="scan_coupon" translatable="false">Scan Coupon</string>
 </resources>

@@ -214,12 +214,12 @@ public class RedeemFragment extends Fragment {
         if(coupons.offer.ends_at!=null)
             activityRedeemBinding.editEnddate.setText(""+coupons.offer.ends_at);
 
-        activityRedeemBinding.editName.setPaintFlags(activityRedeemBinding.editName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        activityRedeemBinding.editDescription.setPaintFlags(activityRedeemBinding.editDescription.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        activityRedeemBinding.editPoints.setPaintFlags(activityRedeemBinding.editPoints.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        activityRedeemBinding.editItem.setPaintFlags(activityRedeemBinding.editItem.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        activityRedeemBinding.editStartdate.setPaintFlags(activityRedeemBinding.editStartdate.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        activityRedeemBinding.editEnddate.setPaintFlags(activityRedeemBinding.editEnddate.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+//        activityRedeemBinding.editName.setPaintFlags(activityRedeemBinding.editName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+//        activityRedeemBinding.editDescription.setPaintFlags(activityRedeemBinding.editDescription.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+//        activityRedeemBinding.editPoints.setPaintFlags(activityRedeemBinding.editPoints.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+//        activityRedeemBinding.editItem.setPaintFlags(activityRedeemBinding.editItem.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+//        activityRedeemBinding.editStartdate.setPaintFlags(activityRedeemBinding.editStartdate.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+//        activityRedeemBinding.editEnddate.setPaintFlags(activityRedeemBinding.editEnddate.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
 
     }
@@ -366,13 +366,14 @@ public class RedeemFragment extends Fragment {
 
                     ReddemCoupon reddemCoupon = apiResponse.reddemCoupon;
                     String successstr = getResources().getString(R.string.paid_successfully);
-                    showOptions(getContext(),successstr,reddemCoupon);
+                    //showOptions(getContext(),successstr,reddemCoupon);
+                    showOptions(getContext(),successstr);
 
 
 
                 }else if(apiResponse.errorMessage!=null){
                     String failedstr = getResources().getString(R.string.paid_Failed);
-                    showOptions(getContext(),failedstr,null);
+                    showOptions(getContext(),failedstr);
                 } else{
                     // call failed.
                     Throwable e = apiResponse.getError();
@@ -406,6 +407,9 @@ public class RedeemFragment extends Fragment {
                 public void onClick(View view) {
                     if(optionspu!=null)
                         optionspu.dismiss();
+
+                    if(getFragmentManager()!=null)
+                        getFragmentManager().popBackStack();
                 }
             });
 

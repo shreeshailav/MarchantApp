@@ -49,7 +49,26 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+
+        fragmentHomeBinding.scanqrbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.navigation_scan);
+            }
+        }); fragmentHomeBinding.generateqrbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.navigation_qr);
+            }
+        }); fragmentHomeBinding.historybtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.navigation_history);
+            }
+        });
 
 
 

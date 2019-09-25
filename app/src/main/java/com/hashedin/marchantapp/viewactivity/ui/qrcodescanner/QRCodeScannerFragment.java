@@ -18,7 +18,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -138,6 +137,25 @@ public class QRCodeScannerFragment extends Fragment implements RedeemFragment.On
                 Log.i("onChanged","changed");
             }
         });
+
+      //  ViewFinderView viewfinderView = activityQrcodeScannerBinding.barcodeScanner.getViewFinder();
+
+
+        //viewfinderView.getClass().getDeclaredFields(
+        //remove the laser
+//        ViewfinderView viewFinder = viewfinderView;
+//        Field scannerAlphaField = null;
+//        try {
+//            scannerAlphaField = viewFinder.getClass().getDeclaredField("SCANNER_ALPHA");
+//            scannerAlphaField.setAccessible(true);
+//            scannerAlphaField.set(viewFinder, new int[1]);
+//        } catch (NoSuchFieldException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+
+
         initialize();
         return root;
     }
@@ -200,6 +218,7 @@ public class QRCodeScannerFragment extends Fragment implements RedeemFragment.On
                 if (activityQrcodeScannerBinding.editCoupon != null && activityQrcodeScannerBinding.editCoupon.getText().length() > 3) {
 
                     // getCouponDetail(activityQrcodeScannerBinding.editCoupon.getText().toString());
+                    couponcode = activityQrcodeScannerBinding.editCoupon.getText().toString() ;
                     viewModel.getData(activityQrcodeScannerBinding.editCoupon.getText().toString(),auth_token);
 
 
@@ -424,14 +443,19 @@ public class QRCodeScannerFragment extends Fragment implements RedeemFragment.On
             closebtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(optionspu!=null)
+                    if(optionspu!=null) {
                         optionspu.dismiss();
+                        if (activityQrcodeScannerBinding.editCoupon.isFocused()) {
+                            activityQrcodeScannerBinding.editCoupon.clearFocus();
+                        }
 
-                    if (activityQrcodeScannerBinding.editCoupon.isFocused()) {
-                        activityQrcodeScannerBinding.editCoupon.clearFocus();
+                        //activityQrcodeScannerBinding.barcodeScanner.is
+
+                       // activityQrcodeScannerBinding.barcodeScanner.resume();
                     }
 
-                    //activityQrcodeScannerBinding.barcodeScanner.is
+
+
 
                 }
             });
@@ -448,8 +472,10 @@ public class QRCodeScannerFragment extends Fragment implements RedeemFragment.On
             optionspu.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
-                   // lastText = "" ;
-                   // activityQrcodeScannerBinding.barcodeScanner.resume();
+
+
+                    lastText = "" ;
+                    activityQrcodeScannerBinding.barcodeScanner.resume();
                 }
             });
 

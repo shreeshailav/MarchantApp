@@ -16,16 +16,16 @@ public interface ApiEndpoints {
     String HTTPS_API_MARCHENT_URL = "http://city-rewards-dev.ap-southeast-1.elasticbeanstalk.com/";
 
 
-    @GET("api/v1/coupons/{user}/")
+    @GET("merchant/api/v1/coupons/{user}/")
     Call<Coupons> getCouponDetails(@Path("user") String user, @Header("Authorization") String token);
 
 
     // For Login
-    @POST("merchant/login/")
+    @POST("merchant/api/v1/auth/login/")
     Call<UserKey> getLoginkey(@Body UserCredentials body);
 
 
-    @POST("api/v1/coupons/{cid}/redeem/")
+    @POST("merchant/api/v1/coupons/{cid}/redeem/")
     Call<ReddemCoupon> getredeem(@Path("cid") String cid, @Header("Authorization") String token);
 
 

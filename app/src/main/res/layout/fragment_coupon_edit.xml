@@ -102,7 +102,7 @@
                                         android:layout_height="match_parent"
                                         android:theme="@style/EditTextTheme"
 
-                                        android:padding="5dp">
+                                        android:padding="10dp">
 
                                         <com.google.android.material.textfield.TextInputEditText
                                             android:id="@+id/edit_name"
@@ -110,111 +110,13 @@
                                             android:layout_height="wrap_content"
                                             android:focusable="false"
                                             android:focusableInTouchMode="false"
-                                            android:hint="Name"
-                                            android:singleLine="false"
+                                            android:hint="Enter Coupon code here"
                                             android:longClickable="false"
                                             android:textColor="@color/text_color"
                                             android:padding="5dp"
                                             android:theme="@style/EditTextTheme"/>
                                     </com.google.android.material.textfield.TextInputLayout>
 
-                                    <com.google.android.material.textfield.TextInputLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:theme="@style/EditTextTheme"
-                                        android:padding="5dp">
-
-                                        <com.google.android.material.textfield.TextInputEditText
-                                            android:id="@+id/edit_description"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:focusable="false"
-                                            android:focusableInTouchMode="false"
-                                            android:hint="Description"
-                                            android:longClickable="false"
-                                            android:textColor="@color/text_color"
-                                            android:theme="@style/EditTextTheme"
-                                            android:padding="5dp" />
-                                    </com.google.android.material.textfield.TextInputLayout>
-
-                                    <com.google.android.material.textfield.TextInputLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:theme="@style/EditTextTheme"
-                                        android:padding="5dp">
-
-                                        <com.google.android.material.textfield.TextInputEditText
-                                            android:id="@+id/edit_points"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:focusable="false"
-                                            android:focusableInTouchMode="false"
-                                            android:hint="Points"
-                                            android:longClickable="false"
-                                            android:textColor="@color/text_color"
-                                            android:theme="@style/EditTextTheme"
-                                            android:padding="5dp" />
-                                    </com.google.android.material.textfield.TextInputLayout>
-
-                                    <com.google.android.material.textfield.TextInputLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:theme="@style/EditTextTheme"
-                                        android:padding="5dp">
-
-                                        <com.google.android.material.textfield.TextInputEditText
-                                            android:id="@+id/edit_item"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:focusable="false"
-                                            android:focusableInTouchMode="false"
-                                            android:hint="Item"
-                                            android:longClickable="false"
-                                            android:textColor="@color/text_color"
-                                            android:theme="@style/EditTextTheme"
-                                            android:padding="5dp" />
-                                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                                    <com.google.android.material.textfield.TextInputLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:theme="@style/EditTextTheme"
-                                        android:padding="5dp">
-
-                                        <com.google.android.material.textfield.TextInputEditText
-                                            android:id="@+id/edit_startdate"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:focusable="false"
-                                            android:focusableInTouchMode="false"
-                                            android:hint="Start Date"
-                                            android:textColor="@color/text_color"
-                                            android:theme="@style/EditTextTheme"
-                                            android:inputType="number"
-                                            android:longClickable="false"
-                                            android:padding="5dp" />
-                                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                                    <com.google.android.material.textfield.TextInputLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:theme="@style/EditTextTheme"
-                                        android:padding="5dp">
-
-                                        <com.google.android.material.textfield.TextInputEditText
-                                            android:id="@+id/edit_enddate"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:focusable="false"
-                                            android:focusableInTouchMode="false"
-                                            android:textColor="@color/text_color"
-                                            android:hint="End Date"
-                                            android:theme="@style/EditTextTheme"
-                                            android:longClickable="false"
-                                            android:padding="5dp" />
-                                    </com.google.android.material.textfield.TextInputLayout>
 
 
                                 </LinearLayout>
@@ -252,7 +154,7 @@
                                 android:shadowDx="2"
                                 android:shadowDy="2"
                                 android:shadowRadius="2"
-                                android:text="@string/redeem"
+                                android:text="Submit"
                                 android:textColor="@color/button_text_color"
                                 android:textStyle="bold"
 

@@ -1,2 +1,2 @@
-include ':app', ':rxnetworkstate'
+include ':app', ':rxnetworkstate', ':zxing-android-embedded'
 rootProject.name='MarchantApp'

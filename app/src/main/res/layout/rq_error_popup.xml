@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".viewactivity.RedeemActivity"
     android:gravity="center"
-    android:background="@android:color/transparent">
+    android:background="#99000000">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,9 +47,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorPrimaryDark"
+                        android:background="@drawable/gradient_color_layout"
                         android:gravity="center"
-                        android:padding="10dp"
+                        android:padding="20dp"
                         >
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -86,9 +86,6 @@
                             android:textStyle="bold"
 
                             />
-
-
-
                         <Button
                             android:id="@+id/closebtn"
                             android:layout_width="wrap_content"
@@ -99,7 +96,7 @@
                             android:shadowDy="1"
                             android:shadowRadius="2"
                             android:text="@string/close"
-                            android:textColor="@color/QRCodeWhiteColor"
+                            android:textColor="@color/button_text_color"
                             android:visibility="visible" />
 
                     </LinearLayout>
