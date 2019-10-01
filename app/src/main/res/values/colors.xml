@@ -22,9 +22,9 @@
     <color name="black">#000000</color>
     <color name="white_greyish">#EEEEEE</color>
     <color name="button_selectorcolor">#9E9E9E</color>
-    <color name="Home_buttons_color">#F5CE23</color>
+    <color name="Home_buttons_color">#ffd33b</color>
     <color name="bottom_nav_icon_color">#A4417A</color>
-    <color name="button_text_color">#6e539f</color>
+    <color name="button_text_color">#5a328b</color>
 
 
     <color name="text_color">#6e539f</color>

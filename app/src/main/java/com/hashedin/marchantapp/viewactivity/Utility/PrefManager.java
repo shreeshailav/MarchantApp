@@ -11,10 +11,10 @@ public class PrefManager {
         this.context = context;
     }
 
-    public void saveLoginDetails(String email) {
+    public void saveLoginDetails(String keyString) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("key", email);
+        editor.putString("key", keyString);
         //editor.putString("Password", password);
         editor.commit();
     }

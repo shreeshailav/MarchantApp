@@ -3,16 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<RelativeLayout
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".viewactivity.RedeemActivity"
-    android:gravity="center"
-    android:background="#99000000">
+     android:background="#99000000"
+    android:orientation="vertical"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1.1"
             android:orientation="horizontal">
 
 
@@ -46,55 +56,106 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/gradient_color_layout"
+                        android:layout_height="0dp"
+                        android:layout_weight="1.1"
+                        android:background="@drawable/ic_rectangle_1"
                         android:gravity="center"
-                        android:padding="20dp"
-                        >
+                        android:orientation="horizontal"
+                         >
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/ic_close" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"/>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_weight="0.5"
+                                android:layout_height="0dp"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_weight="2"
+                                android:layout_height="0dp">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imageViewstatus"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    app:srcCompat="@drawable/ic_close" />
+
+                            </LinearLayout>
+
+
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_weight="0.5"
+                                android:layout_height="0dp"/>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"/>
+
+
+
+
+
 
                     </LinearLayout>
 
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         android:background="@color/white"
                         android:gravity="center"
-                        android:padding="10dp"
+                        android:padding="5dp"
 
                         >
 
                         <TextView
                             android:id="@+id/errormessage"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:shadowColor="#b3b3b3"
-                            android:shadowDx="2"
-                            android:shadowDy="2"
-                            android:shadowRadius="2"
+                            android:gravity="center"
+                            android:shadowDx="1"
+                            android:shadowDy="1"
+                            android:shadowRadius="1"
                             android:text="@string/invalid_qr_code_try_again"
                             android:textColor="@color/text_color"
-                            android:textStyle="bold"
 
                             />
-                        <Button
+                        <TextView
                             android:id="@+id/closebtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/button"
                             android:shadowColor="#b3b3b3"
-                            android:shadowDx="1"
-                            android:shadowDy="1"
-                            android:shadowRadius="2"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:paddingRight="20dp"
+                            android:paddingLeft="20dp"
+
                             android:text="@string/close"
                             android:textColor="@color/button_text_color"
                             android:visibility="visible" />
@@ -122,8 +183,14 @@
 
 
         </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        />
 
 
-</RelativeLayout>
+</LinearLayout>
 
 </layout>

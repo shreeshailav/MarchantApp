@@ -56,7 +56,7 @@ public class Transactions extends BaseObservable {
             transactions.add(transaction);
         }
 
-       // breeds.setValue(transactions);
+        breeds.setValue(transactions);
 
 
 

@@ -1,91 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context="com.hashedin.marchantapp.viewactivity.QRCodeGeneratorActivity"
-    android:gravity="center">
-
-    <ImageView
-        android:id="@+id/qrimage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:id="@+id/editlayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/qrimage"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@drawable/pattern"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context="com.hashedin.marchantapp.viewactivity.MerchantMainActivity">
 
-        <com.google.android.material.textfield.TextInputLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:background="@drawable/gradient_color_layout"
+            android:gravity="center_vertical"
+            android:padding="5dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_amount"
+
+            <ImageView
+                android:id="@+id/backimage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_back_action" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/zxing_transparent"
-                android:hint="@string/enter_amount"
-                android:padding="5dp"
-                android:textColor="@color/text_color" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_alignTop="@+id/backimage"
+                android:layout_alignBottom="@+id/backimage"
+                android:gravity="center"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
+                android:text="GENERATE QR CODE"
+                android:textColor="#ffd33b"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1.5">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_unit"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/zxing_transparent"
-                android:hint="@string/unit"
-                android:padding="5dp"
-                android:textColor="@color/text_color" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:gravity="center">
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="2dp"
+                    app:cardPreventCornerOverlap="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="10dp"
+
+                                android:theme="@style/EditTextTheme">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edit_transaction_id"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/enter_transaction_id"
+                                    android:imeOptions="actionNext"
+                                    android:padding="5dp"
+                                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-,/\|.1234567890"
+                                    android:singleLine="true"
+                                    android:textColor="@color/text_color"
+                                    android:theme="@style/EditTextTheme" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="10dp"
+                                android:singleLine="true"
+
+                                android:theme="@style/EditTextTheme">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edit_transaction_amount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/enter_bill_amount"
+                                    android:imeOptions="actionDone"
+                                    android:padding="5dp"
+                                    android:inputType="numberDecimal"
+                                    android:singleLine="true"
+                                    android:textColor="@color/text_color"
+                                    android:theme="@style/EditTextTheme" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5" />
+
+                    <Button
+                        android:id="@+id/generate_qr_code_submit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="1"
+                        android:alpha="0.5"
+                        android:background="@drawable/button"
+                        android:elevation="2dp"
+                        android:shadowColor="#b3b3b3"
+                        android:enabled="false"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="2"
+                        android:text="GENERATE QR"
+                        android:textColor="@color/button_text_color"
+
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
 
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/editlayout">
+</layout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5" />
+    <!--<ImageView-->
+    <!--android:id="@+id/qrimage"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true" />-->
 
-        <Button
-            android:id="@+id/genqrbtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/button"
-            android:elevation="2dp"
-            android:shadowColor="#b3b3b3"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:shadowRadius="2"
-            android:text="@string/generate_qr_code"
-            android:textColor="@color/QRCodeWhiteColor"
-            android:textStyle="bold"
+    <!--<LinearLayout-->
+    <!--android:id="@+id/editlayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/qrimage"-->
+    <!--android:orientation="vertical">-->
 
-            />
+    <!--<com.google.android.material.textfield.TextInputLayout-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent">-->
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5" />
+    <!--    <com.google.android.material.textfield.TextInputEditText-->
+    <!--        android:id="@+id/edit_amount"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@color/zxing_transparent"-->
+    <!--        android:hint="@string/enter_amount"-->
+    <!--        android:padding="5dp"-->
+    <!--        android:textColor="@color/text_color" />-->
+    <!--</com.google.android.material.textfield.TextInputLayout>-->
 
-    </LinearLayout>
+    <!--<com.google.android.material.textfield.TextInputLayout-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent">-->
 
-</RelativeLayout>
+    <!--    <com.google.android.material.textfield.TextInputEditText-->
+    <!--        android:id="@+id/edit_unit"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@color/zxing_transparent"-->
+    <!--        android:hint="@string/unit"-->
+    <!--        android:padding="5dp"-->
+    <!--        android:textColor="@color/text_color" />-->
+    <!--</com.google.android.material.textfield.TextInputLayout>-->
+
+    <!--</LinearLayout>-->
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:layout_below="@+id/editlayout">-->
+
+    <!--<LinearLayout-->
+    <!--    android:layout_width="0dp"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:layout_weight="0.5" />-->
+
+    <!--<Button-->
+    <!--    android:id="@+id/genqrbtn"-->
+    <!--    android:layout_width="0dp"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:layout_marginTop="20dp"-->
+    <!--    android:layout_marginBottom="20dp"-->
+    <!--    android:layout_weight="1"-->
+    <!--    android:background="@drawable/button"-->
+    <!--    android:elevation="2dp"-->
+    <!--    android:shadowColor="#b3b3b3"-->
+    <!--    android:shadowDx="2"-->
+    <!--    android:shadowDy="2"-->
+    <!--    android:shadowRadius="2"-->
+    <!--    android:text="@string/generate_qr_code"-->
+    <!--    android:textColor="@color/QRCodeWhiteColor"-->
+    <!--    android:textStyle="bold"-->
+
+    <!--    />-->
+
+    <!--<LinearLayout-->
+    <!--    android:layout_width="0dp"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:layout_weight="0.5" />-->
+
+    <!--</LinearLayout>-->

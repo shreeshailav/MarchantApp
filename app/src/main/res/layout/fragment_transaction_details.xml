@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/pattern"
+        tools:context=".viewactivity.RedeemActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/pattern"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:background="#12c43b"
+                android:gravity="center_vertical"
+                android:padding="5dp">
+
+
+                <ImageView
+                    android:id="@+id/backimage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_back_action" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/backimage"
+                    android:layout_alignBottom="@+id/backimage"
+                    android:layout_toEndOf="@+id/backimage"
+                    android:layout_toRightOf="@+id/backimage"
+                    android:paddingLeft="10dp"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:text="ENTER COUPON CODE"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    >
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="2dp"
+                        app:cardPreventCornerOverlap="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/trantype"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Received from"
+                                    android:textColor="#c7c7c7"
+                                    android:textSize="12sp" />
+
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/customerid"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/trantype"
+                                    android:theme="@style/EditTextTheme">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/customer_id"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:enabled="false"
+                                        android:hint="Customer ID"
+                                        android:imeOptions="actionDone"
+                                        android:padding="5dp"
+                                        android:singleLine="true"
+                                        android:text="CR-82042413"
+                                        android:textColor="@color/text_color"
+                                        android:theme="@style/EditTextTheme" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/transactionid"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/customerid"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:theme="@style/EditTextTheme">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/transaction_id"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:enabled="false"
+                                        android:hint="Customer ID"
+                                        android:imeOptions="actionDone"
+                                        android:padding="5dp"
+                                        android:singleLine="true"
+                                        android:text="CR-82042413"
+                                        android:textColor="@color/text_color"
+                                        android:theme="@style/EditTextTheme" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    >
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardview2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="2dp"
+                         app:cardPreventCornerOverlap="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/paymenttext"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Payment Details"
+                                    android:paddingLeft="5dp"
+
+                                    android:textColor="#c7c7c7"
+                                    android:textSize="12sp" />
+
+
+                                    <TextView
+                                        android:id="@+id/totalamount"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:enabled="false"
+                                        android:hint="Customer ID"
+                                        android:imeOptions="actionDone"
+                                        android:layout_below="@+id/paymenttext"
+                                        android:paddingLeft="5dp"
+                                        android:singleLine="true"
+                                        android:text="Total amount 356"
+                                        android:textColor="@color/text_color"
+                                        android:theme="@style/EditTextTheme" />
+
+                                <TextView
+                                    android:id="@+id/paidvia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Paid via"
+                                    android:layout_alignParentEnd="true"
+                                    android:textColor="#c7c7c7"
+                                    android:textSize="12sp"
+                                    android:layout_alignParentRight="true" />
+
+
+
+
+                                <TextView
+                                    android:id="@+id/rewardpoints"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Reward points 200"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_below="@+id/paidvia"
+                                    android:textColor="#c7c7c7"
+                                    android:textSize="12sp"
+                                    android:layout_alignParentRight="true" />
+
+
+                                <TextView
+                                    android:id="@+id/mmk"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/rewardpoints"
+                                    android:text="MMK 156"
+                                    android:layout_alignParentEnd="true"
+                                    android:textColor="#c7c7c7"
+                                    android:textSize="12sp"
+                                    android:layout_alignParentRight="true" />
+
+
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

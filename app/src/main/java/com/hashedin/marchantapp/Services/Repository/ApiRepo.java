@@ -9,6 +9,12 @@ import androidx.lifecycle.MutableLiveData;
 import com.hashedin.marchantapp.Services.models.Coupons;
 import com.hashedin.marchantapp.Services.models.ReddemCoupon;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,7 +66,16 @@ public class ApiRepo{
                     apiResponse.postValue(new ApiResponse(response.body()));
                 }else {
                     Log.i("error code",""+response.code());
-                    apiResponse.postValue(new ApiResponse(response.message()));
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        apiResponse.postValue(new ApiResponse(jObjError.getString("detail")));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
 

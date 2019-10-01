@@ -14,20 +14,23 @@
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".viewactivity.RedeemActivity">
+        tools:context=".viewactivity.RedeemActivity"
+        android:background="@drawable/pattern">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/white_greyish">
+            android:background="@drawable/pattern"
+            >
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.2"
                 android:background="@drawable/gradient_color_layout"
-                android:padding="10dp"
+                android:gravity="center_vertical"
+                android:padding="5dp"
                 >
 
 
@@ -110,13 +113,44 @@
                                             android:layout_height="wrap_content"
                                             android:focusable="false"
                                             android:focusableInTouchMode="false"
-                                            android:hint="Name"
-                                            android:singleLine="false"
+                                            android:hint="Offer Name"
+                                            android:scrollHorizontally="true"
+                                            android:ellipsize="end"
+                                            android:editable="false"
+                                            android:singleLine="true"
                                             android:longClickable="false"
                                             android:textColor="@color/text_color"
                                             android:padding="5dp"
-                                            android:theme="@style/EditTextTheme"/>
+                                            android:theme="@style/EditTextTheme"
+                                            tools:ignore="Deprecated" />
                                     </com.google.android.material.textfield.TextInputLayout>
+
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:theme="@style/EditTextTheme"
+                                        android:padding="5dp"
+                                        >
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/edit_merchantname"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:focusable="false"
+                                            android:focusableInTouchMode="false"
+                                            android:singleLine="true"
+                                            android:scrollHorizontally="true"
+                                            android:ellipsize="end"
+                                            android:editable="false"
+                                            android:hint="Merchant Name"
+                                            android:longClickable="false"
+                                            android:textColor="@color/text_color"
+                                            android:theme="@style/EditTextTheme"
+                                            android:padding="5dp"
+                                            tools:ignore="Deprecated" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+
 
                                     <com.google.android.material.textfield.TextInputLayout
                                         android:layout_width="match_parent"
@@ -132,16 +166,25 @@
                                             android:focusableInTouchMode="false"
                                             android:hint="Description"
                                             android:longClickable="false"
+                                            android:singleLine="true"
+
+
+                                            android:scrollHorizontally="true"
+                                            android:ellipsize="end"
+                                            android:editable="false"
+
                                             android:textColor="@color/text_color"
                                             android:theme="@style/EditTextTheme"
-                                            android:padding="5dp" />
+                                            android:padding="5dp"
+                                            tools:ignore="Deprecated" />
                                     </com.google.android.material.textfield.TextInputLayout>
 
                                     <com.google.android.material.textfield.TextInputLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:theme="@style/EditTextTheme"
-                                        android:padding="5dp">
+                                        android:padding="5dp"
+                                        android:visibility="gone">
 
                                         <com.google.android.material.textfield.TextInputEditText
                                             android:id="@+id/edit_points"
@@ -149,6 +192,8 @@
                                             android:layout_height="wrap_content"
                                             android:focusable="false"
                                             android:focusableInTouchMode="false"
+                                            android:singleLine="true"
+
                                             android:hint="Points"
                                             android:longClickable="false"
                                             android:textColor="@color/text_color"
@@ -160,7 +205,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:theme="@style/EditTextTheme"
-                                        android:padding="5dp">
+                                        android:padding="5dp"
+                                        android:visibility="gone">
 
                                         <com.google.android.material.textfield.TextInputEditText
                                             android:id="@+id/edit_item"
@@ -169,6 +215,8 @@
                                             android:focusable="false"
                                             android:focusableInTouchMode="false"
                                             android:hint="Item"
+                                            android:singleLine="true"
+
                                             android:longClickable="false"
                                             android:textColor="@color/text_color"
                                             android:theme="@style/EditTextTheme"
@@ -188,10 +236,11 @@
                                             android:layout_height="wrap_content"
                                             android:focusable="false"
                                             android:focusableInTouchMode="false"
-                                            android:hint="Start Date"
+                                            android:hint="Purchased on"
+                                            android:singleLine="true"
+                                            android:enabled="false"
                                             android:textColor="@color/text_color"
                                             android:theme="@style/EditTextTheme"
-                                            android:inputType="number"
                                             android:longClickable="false"
                                             android:padding="5dp" />
                                     </com.google.android.material.textfield.TextInputLayout>
@@ -210,11 +259,16 @@
                                             android:focusable="false"
                                             android:focusableInTouchMode="false"
                                             android:textColor="@color/text_color"
-                                            android:hint="End Date"
+                                            android:hint="Valid upto"
+                                            android:singleLine="true"
+                                            android:enabled="false"
                                             android:theme="@style/EditTextTheme"
                                             android:longClickable="false"
                                             android:padding="5dp" />
                                     </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
 
                                 </LinearLayout>
@@ -247,14 +301,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
                                 android:layout_marginBottom="20dp"
-                                android:background="@drawable/button"                                    android:elevation="2dp"
-                                android:shadowColor="#b3b3b3"
-                                android:shadowDx="2"
-                                android:shadowDy="2"
-                                android:shadowRadius="2"
+                                android:background="@drawable/button"
+                                android:elevation="2dp"
+                                android:textSize="18sp"
                                 android:text="@string/redeem"
                                 android:textColor="@color/button_text_color"
-                                android:textStyle="bold"
 
                                 />
 

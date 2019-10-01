@@ -1,7 +1,9 @@
 package com.hashedin.marchantapp.viewactivity.adapters;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -9,8 +11,10 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.recyclerview.widget.RecyclerView;
+ import androidx.recyclerview.widget.RecyclerView;
 
+import com.hashedin.marchantapp.BR;
+import com.hashedin.marchantapp.R;
 import com.hashedin.marchantapp.Services.models.Transaction;
 import com.hashedin.marchantapp.viewmodel.TransactionViewModel;
 
@@ -55,6 +59,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         this.transactions = breeds;
     }
 
+    public void addItems(List<Transaction> transactions) {
+        this.transactions.addAll(transactions);
+        notifyDataSetChanged();
+    }
     class GenericViewHolder extends RecyclerView.ViewHolder {
         final ViewDataBinding binding;
 
@@ -66,11 +74,13 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         void bind(TransactionViewModel viewModel, Integer position) {
             //viewModel.fetchDogBreedImagesAt(position);
 
-//            binding.setVariable(BR.viewModel, viewModel);
-//            binding.setVariable(BR.position, position);
-//            binding.executePendingBindings();
+            binding.setVariable(com.hashedin.marchantapp.BR.viewModel, viewModel);
+            binding.setVariable(BR.position, position);
+            binding.executePendingBindings();
 
         }
 
     }
+
+
 }

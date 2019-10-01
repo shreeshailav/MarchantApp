@@ -4,18 +4,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,20 +16,23 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.hashedin.marchantapp.R;
-import com.hashedin.marchantapp.Services.models.Coupons;
-import com.hashedin.marchantapp.Services.models.ReddemCoupon;
 import com.hashedin.marchantapp.Services.Repository.ApiEndpoints;
 import com.hashedin.marchantapp.Services.Repository.ApiResponse;
+import com.hashedin.marchantapp.Services.models.Coupons;
+import com.hashedin.marchantapp.Services.models.ReddemCoupon;
 import com.hashedin.marchantapp.databinding.ActivityRedeemBinding;
+import com.hashedin.marchantapp.viewactivity.Utility.DialogsUtils;
 import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
 import com.hashedin.marchantapp.viewmodel.CouponDetailViewModel;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,7 +47,7 @@ public class RedeemFragment extends Fragment {
     Snackbar snackbar;
     private CoordinatorLayout coordinatorLayout;
 
-    private Coupons coupons = null ;
+    private Coupons coupons = null;
 
     private ActivityRedeemBinding activityRedeemBinding;
     private PopupWindow optionspu;
@@ -64,7 +58,10 @@ public class RedeemFragment extends Fragment {
 
     String couponcode = null;
 
-   // ActivityRedeemBinding activityLoginBinding;
+
+    boolean offernameExpand = true, merchantnameExpand = true, descriptionExpand = true;
+
+    // ActivityRedeemBinding activityLoginBinding;
 
     CouponDetailViewModel viewModel;
     String auth_token;
@@ -125,7 +122,7 @@ public class RedeemFragment extends Fragment {
         View root = activityRedeemBinding.getRoot();
 
         Bundle bundle = getArguments();
-        if(bundle!=null) {
+        if (bundle != null) {
 
             couponcode = bundle.getString("couponcode");
             coupons = (Coupons) bundle.getSerializable("coupons");
@@ -136,6 +133,57 @@ public class RedeemFragment extends Fragment {
 
         coordinatorLayout = (CoordinatorLayout) root.findViewById(R.id.coordinatorLayout);
 
+        activityRedeemBinding.backimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getFragmentManager() != null)
+                    getFragmentManager().popBackStack();
+            }
+        });
+
+
+        activityRedeemBinding.editName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getContext(),"clicked",Toast.LENGTH_LONG).show();
+
+                if (offernameExpand) {
+                    activityRedeemBinding.editName.setSingleLine(false);
+                    offernameExpand = false;
+                } else {
+                    activityRedeemBinding.editName.setSingleLine(true);
+                    offernameExpand = true;
+                }
+            }
+        });
+        activityRedeemBinding.editMerchantname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getContext(),"clicked",Toast.LENGTH_LONG).show();
+
+                if (merchantnameExpand) {
+                    activityRedeemBinding.editMerchantname.setSingleLine(false);
+                    merchantnameExpand = false;
+                } else {
+                    activityRedeemBinding.editMerchantname.setSingleLine(true);
+                    merchantnameExpand = true;
+                }
+            }
+        });
+        activityRedeemBinding.editDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getContext(),"clicked",Toast.LENGTH_LONG).show();
+
+                if (descriptionExpand) {
+                    activityRedeemBinding.editDescription.setSingleLine(false);
+                    descriptionExpand = false;
+                } else {
+                    activityRedeemBinding.editDescription.setSingleLine(true);
+                    descriptionExpand = true;
+                }
+            }
+        });
 
 
         return root;
@@ -181,7 +229,7 @@ public class RedeemFragment extends Fragment {
     }
 
 
-    private void Initializer(){
+    private void Initializer() {
 
         activityRedeemBinding.redeembtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,27 +240,85 @@ public class RedeemFragment extends Fragment {
 
         PrefManager prefManager = new PrefManager(getContext());
 
-        auth_token = "token "+prefManager.getKey();
+        auth_token = "token " + prefManager.getKey();
 
         viewModel = ViewModelProviders.of(this).get(CouponDetailViewModel.class);
 
     }
 
 
+    private void updateUI(Coupons coupons) {
+        if (coupons.offer.name != null)
+            activityRedeemBinding.editName.setText("" + coupons.offer.name);
+        if (coupons.offer.description != null)
+            activityRedeemBinding.editDescription.setText("" + coupons.offer.description);
+        if (coupons.offer.points != 0)
+            activityRedeemBinding.editPoints.setText("" + coupons.offer.points);
+        if (coupons.offer.item != null)
+            activityRedeemBinding.editItem.setText("" + coupons.offer.item);
 
-    private void updateUI(Coupons coupons){
-        if(coupons.offer.name!=null)
-            activityRedeemBinding.editName.setText(""+coupons.offer.name);
-        if(coupons.offer.description!=null)
-            activityRedeemBinding.editDescription.setText(""+coupons.offer.description);
-        if(coupons.offer.points!=0)
-            activityRedeemBinding.editPoints.setText(""+coupons.offer.points);
-        if(coupons.offer.item!=null)
-            activityRedeemBinding.editItem.setText(""+coupons.offer.item);
-        if(coupons.offer.starts_at!=null)
-            activityRedeemBinding.editStartdate.setText(""+coupons.offer.starts_at);
-        if(coupons.offer.ends_at!=null)
-            activityRedeemBinding.editEnddate.setText(""+coupons.offer.ends_at);
+        try {
+
+
+            if (coupons.created_on != null) {
+
+                if (coupons.created_on.contains("T") && coupons.created_on.contains("Z")) {
+
+                    String[] str = coupons.created_on.split("T"); //replace("T", " ").replace("Z", " ");
+
+//                    if (coupons.created_on.contains(".")) {
+//                        String[] temp = str.split("\\.");
+//                        str = temp[0];
+//                    }
+
+                    if (str.length>=2){
+                    activityRedeemBinding.editStartdate.setText("" + str[0]);
+                    }else {
+                        activityRedeemBinding.editStartdate.setText("" + coupons.created_on);
+
+                    }
+
+                } else
+                    activityRedeemBinding.editStartdate.setText("" + coupons.created_on);
+            }
+            if (coupons.offer.ends_at != null) {
+                if (coupons.offer.ends_at.contains("T") && coupons.offer.starts_at.contains("Z")) {
+
+                    String[] str = coupons.offer.ends_at.split("T");//replace("T", " ").replace("Z", " ")
+                    if (str.length>=2) {
+                        activityRedeemBinding.editEnddate.setText("" +str[0]);
+                        // activityRedeemBinding.editEnddate.setText("" + coupons.offer.ends_at.replace("T", " ").replace("Z", " "));
+                    }else {
+                        activityRedeemBinding.editEnddate.setText("" +coupons.offer.ends_at);
+                    }
+
+
+                }else {
+                    activityRedeemBinding.editEnddate.setText("" + coupons.offer.ends_at);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+
+            if (coupons.created_on != null) {
+                activityRedeemBinding.editStartdate.setText("" + coupons.created_on);
+            }
+
+
+            if (coupons.offer.ends_at != null) {
+
+                activityRedeemBinding.editEnddate.setText("" + coupons.offer.ends_at);
+
+            }
+
+
+
+
+            }
+
+        if (coupons.offer.merchant.name != null)
+            activityRedeemBinding.editMerchantname.setText("" + coupons.offer.merchant.name);
 
 //        activityRedeemBinding.editName.setPaintFlags(activityRedeemBinding.editName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 //        activityRedeemBinding.editDescription.setPaintFlags(activityRedeemBinding.editDescription.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -224,17 +330,17 @@ public class RedeemFragment extends Fragment {
 
     }
 
-    private void showOptions(Context mcon,String st,ReddemCoupon reddemCoupon){
-        try{
+    private void showOptions(Context mcon, String st, ReddemCoupon reddemCoupon) {
+        try {
             LayoutInflater inflater = (LayoutInflater) mcon.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            View layout = inflater.inflate(R.layout.redeem_response_popup,null);
+            View layout = inflater.inflate(R.layout.redeem_response_popup, null);
 
             TextView state = layout.findViewById(R.id.state);
             state.setText(st);
 
-            if(reddemCoupon!=null){
+            if (reddemCoupon != null) {
                 // TODO
-            }else {
+            } else {
                 TextView amount = layout.findViewById(R.id.amount);
                 amount.setVisibility(View.GONE);
             }
@@ -266,15 +372,13 @@ public class RedeemFragment extends Fragment {
                 }
             });
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-
-    private void snackbarMessage(String msg){
+    private void snackbarMessage(String msg) {
         snackbar = Snackbar
                 .make(coordinatorLayout, msg, Snackbar.LENGTH_LONG)
                 .setAction("OK", new View.OnClickListener() {
@@ -297,87 +401,107 @@ public class RedeemFragment extends Fragment {
     }
 
 
+    public void redeemcoupon() {
 
-    public void redeemcoupon(){
-
-        if(coupons!=null){
-
-            String start_at = coupons.offer.starts_at;
-            String end_at = coupons.offer.ends_at;
-            Date cuur_date = new Date();
-
-            int redeem_limit = coupons.offer.redeem_limit;
-            int total_redeem = coupons.redeemed;
+        if (coupons != null) {
 
 
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            myDialog = DialogsUtils.showProgressDialog(getContext(), "Loading please wait");
 
 
-            try {
-                Date start_date = dateFormat.parse(start_at);
-                Date end_date = dateFormat.parse(end_at);
-
-                if(total_redeem>=redeem_limit){
-//                    snackbarMessage("Limit exceeded.");
-//                    snackbar.show();
-                    showOptions(getContext(),"Coupon Already Redeemed ");
-
-                }else if(cuur_date.before(end_date) && cuur_date.after(start_date) ){
-
-
-                    if(redeemed)
-                        viewModel.getRedeem(couponcode,auth_token);
-                    else
-                        getReddemCoupon();
-
-                }else {
-//                    snackbarMessage("Invalid Coupon");
-//                    snackbar.show();
-                    showOptions(getContext(),"Invalid Coupon");
-
-                }
-
-            } catch (ParseException e) {
-                Log.e("ERROR",e.getMessage());
-                e.printStackTrace();
+            if (redeemed) {
+                viewModel.getRedeem(couponcode, auth_token);
+            } else {
+                getReddemCoupon();
             }
-        }else {
-            Toast.makeText(getContext(),"Invalid Coupon",Toast.LENGTH_LONG).show();
+
+
+//            String start_at = coupons.offer.starts_at;
+//            String end_at = coupons.offer.ends_at;
+//            Date cuur_date = new Date();
+//
+//            int redeem_limit = coupons.offer.redeem_limit;
+//            int total_redeem = coupons.redeemed;
+//
+//
+//            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+//
+//
+//            try {
+//                Date start_date = dateFormat.parse(start_at);
+//                Date end_date = dateFormat.parse(end_at);
+//
+//
+//
+//
+//
+//                if (total_redeem >= redeem_limit) {
+////                    snackbarMessage("Limit exceeded.");
+////                    snackbar.show();
+//                    String msg = getResources().getString(R.string.paid_Failed);
+//                    showOptions(getContext(), msg);
+//
+//                } else if (cuur_date.before(end_date) && cuur_date.after(start_date)) {
+//
+//                    myDialog = DialogsUtils.showProgressDialog(getContext(), "Loading please wait");
+//
+//
+//                    if (redeemed) {
+//                        viewModel.getRedeem(couponcode, auth_token);
+//                    } else {
+//                        getReddemCoupon();
+//                    }
+//
+//                } else {
+////                    snackbarMessage("Invalid Coupon");
+////                    snackbar.show();
+//                    String msg = getResources().getString(R.string.paid_Failed);
+//                    showOptions(getContext(), msg);
+//
+//                }
+//
+//            } catch (ParseException e) {
+//                Log.e("ERROR", e.getMessage());
+//                e.printStackTrace();
+//            }
+        } else {
+            Toast.makeText(getContext(), "Invalid Coupon", Toast.LENGTH_LONG).show();
 
         }
     }
 
 
+    public void getReddemCoupon() {
 
 
-    public void getReddemCoupon(){
-
-
-        viewModel.getRedeem(couponcode,auth_token).observe(this, new Observer<ApiResponse>() {
+        viewModel.getRedeem(couponcode, auth_token).observe(this, new Observer<ApiResponse>() {
             @Override
             public void onChanged(ApiResponse apiResponse) {
+
+                if (myDialog != null)
+                    myDialog.dismiss();
+
                 if (apiResponse == null) {
                     // handle error here
                     return;
                 }
-                if (apiResponse.reddemCoupon!=null && apiResponse.getError() == null ) {
+                if (apiResponse.reddemCoupon != null && apiResponse.getError() == null) {
                     // call is successful
                     //Log.i(TAG, "Data response is " + apiResponse.getPosts());
 
                     ReddemCoupon reddemCoupon = apiResponse.reddemCoupon;
                     String successstr = getResources().getString(R.string.paid_successfully);
                     //showOptions(getContext(),successstr,reddemCoupon);
-                    showOptions(getContext(),successstr);
+                    showOptions(getContext(), successstr);
 
 
-
-                }else if(apiResponse.errorMessage!=null){
-                    String failedstr = getResources().getString(R.string.paid_Failed);
-                    showOptions(getContext(),failedstr);
-                } else{
+                } else if (apiResponse.errorMessage != null) {
+                    String failedstr = apiResponse.errorMessage; //getResources().getString(R.string.paid_Failed);
+                    showOptions(getContext(), failedstr);
+                } else {
                     // call failed.
                     Throwable e = apiResponse.getError();
-                    showOptions(getContext(),"Unable to reach server");
+                    showOptions(getContext(), "Unable to reach server");
 //                    snackbarMessage("Unable to reach server");
 //                    snackbar.show();
                 }
@@ -387,28 +511,33 @@ public class RedeemFragment extends Fragment {
         redeemed = true;
 
 
-
     }
-    private void showOptions(Context mcon,String msg){
-        try{
+
+    private void showOptions(Context mcon, String msg) {
+        try {
 
 
             LayoutInflater inflater = (LayoutInflater) mcon.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            View layout = inflater.inflate(R.layout.rq_error_popup,null);
+            View layout = inflater.inflate(R.layout.rq_error_popup, null);
 
             TextView textView = layout.findViewById(R.id.errormessage);
+            AppCompatImageView appCompatImageView = layout.findViewById(R.id.imageViewstatus);
+            textView.setText(msg.toUpperCase());
 
-            textView.setText(msg);
+            if (msg.equalsIgnoreCase(getResources().getString(R.string.paid_successfully)))
+                appCompatImageView.setImageResource(R.drawable.group_success_icon);
+            else
+                appCompatImageView.setImageResource(R.drawable.group_error_icon);
 
-            Button closebtn = layout.findViewById(R.id.closebtn);
+            TextView closebtn = layout.findViewById(R.id.closebtn);
 
             closebtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(optionspu!=null)
+                    if (optionspu != null)
                         optionspu.dismiss();
 
-                    if(getFragmentManager()!=null)
+                    if (getFragmentManager() != null)
                         getFragmentManager().popBackStack();
                 }
             });
@@ -426,11 +555,10 @@ public class RedeemFragment extends Fragment {
                 @Override
                 public void onDismiss() {
 
-                  }
+                }
             });
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

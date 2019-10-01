@@ -13,9 +13,14 @@
     </style>
 
     <style name="EditTextTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorControlNormal">#949191</item>
-        <item name="colorControlActivated">#949191</item>
-        <item name="colorControlHighlight">#949191</item>
+        <item name="colorControlNormal">#536c80</item>
+        <item name="colorControlActivated">#536c80</item>
+        <item name="colorControlHighlight">#536c80</item>
+    </style>
+    <style name="EditTextTheme_transparent" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@android:color/transparent</item>
+        <item name="colorControlActivated">@android:color/transparent</item>
+        <item name="colorControlHighlight">@android:color/transparent</item>
     </style>
 
 </resources>

@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.8"
-            android:background="@drawable/bg_grad">
+            android:background="@drawable/ic_header_bg">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,6 +34,9 @@
                 android:layout_centerVertical="true"
                 android:gravity="center"
                 android:orientation="vertical">
+
+
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
@@ -45,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/city_rewards_icon" />
+                    app:srcCompat="@drawable/ic_city_rewards_icon" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -54,7 +57,7 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:textColor="#ffffff"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:lineSpacingExtra="-2sp"
                     android:text="@string/city_rewards"
                       />
@@ -135,8 +138,9 @@
                                     android:hint="@string/employee_id"
                                     android:text="@={loginviewmodel.userName}"
                                     android:textColorLink="@color/colorPrimary"
+                                    android:imeOptions="actionNext"
                                     android:textColorHighlight="@color/colorPrimary"
-
+                                    android:singleLine="true"
                                     android:textColor="@color/text_color" />
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,6 +164,8 @@
                                     android:hint="@string/password"
                                     android:inputType="textPassword"
                                     android:textColorHint="@color/black"
+                                    android:singleLine="true"
+                                    android:imeOptions="actionDone"
                                     android:drawableRight="@drawable/ic_action_invisiible"
                                     android:text="@={loginviewmodel.userPassword}"
                                     android:textColor="@color/text_color"
@@ -167,6 +173,18 @@
                                     android:layout_marginStart="-2dp"
                                     android:theme="@style/EditTextTheme"/>
                             </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <TextView
+                                android:id="@+id/invalidtext"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/login_error"
+                                android:textSize="10sp"
+                                android:visibility="invisible"
+                                android:textColor="@android:color/holo_red_dark"
+                                android:layout_below="@id/password_layout"
+                                />
 
 
 
@@ -184,7 +202,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
-                                android:layout_below="@id/password_layout">
+                                android:layout_below="@id/invalidtext">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -194,31 +212,34 @@
                                     <LinearLayout
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="0.5" />
+                                        android:layout_weight="0.3" />
 
-                                    <Button
-                                        android:id="@+id/redeembtn"
+                                    <TextView
+                                        android:id="@+id/login_button"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                         android:layout_marginBottom="10dp"
-                                        android:layout_weight="1"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_weight="1.5"
                                         android:background="@drawable/button"
                                         android:elevation="2dp"
+                                        android:gravity="center"
+                                        android:padding="10dp"
                                         android:shadowColor="#b3b3b3"
                                         android:onClick="@{(v) -> loginviewmodel.onClick(v)}"
                                         android:shadowDx="1"
                                         android:shadowDy="1"
                                         android:shadowRadius="1"
+                                        android:enabled="false"
+
                                         android:text="@string/sign_in"
                                         android:textColor="@color/button_text_color"
-                                        android:textStyle="bold"
 
                                         />
 
                                     <LinearLayout
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="0.5" />
+                                        android:layout_weight="0.3" />
 
                                 </LinearLayout>
 
@@ -255,7 +276,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
-                            android:padding="10dp">
+                            android:padding="5dp">
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -266,17 +287,17 @@
                                     android:id="@+id/forgottext"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_alignParentRight="true"
-                                    android:text="@string/forgot_password"
+                                     android:text="@string/forgot_password"
                                     android:textColor="@color/text_color"
-                                    android:layout_marginBottom="10dp"/>
+                                    android:layout_centerHorizontal="true"
+                                    android:textSize="12sp"
+                                    android:layout_marginBottom="20sp"/>
 
                                 <RelativeLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/forgottext"
-                                    android:layout_marginTop="10dp"
+                                    android:layout_marginTop="5dp"
                                     android:orientation="horizontal"
                                     android:gravity="center">
 

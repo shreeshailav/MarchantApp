@@ -7,7 +7,8 @@
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white">
 
         <RelativeLayout
             android:id="@+id/activity_test"
@@ -54,7 +55,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:background="@color/white_greyish"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -145,7 +147,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:background="@color/white_greyish"
-                android:visibility="gone"
+                android:padding="10dp"
+                android:visibility="visible"
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
@@ -157,22 +160,43 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardElevation="2dp">
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp">
+                        android:layout_height="wrap_content">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edit_coupon2"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/editlayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/enter_coupon_code"
-                            android:longClickable="false"
-                            android:textColorLink="@color/black"
-                            android:textColor="@color/text_color"
-                            android:text=" "
-                            android:padding="5dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:theme="@style/EditTextTheme"
+                            android:padding="20dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_coupon2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/enter_coupon_code"
+                                android:longClickable="false"
+                                android:focusableInTouchMode="false"
+                                android:textColorLink="@color/black"
+                                android:textColor="@color/text_color"
+                                android:theme="@style/EditTextTheme"
+                                android:text=" "
+                                android:padding="5dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                         <LinearLayout
+                             android:id="@+id/edit_coupon_cardview"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:layout_alignBottom="@+id/editlayout"
+                             android:layout_alignTop="@+id/editlayout"
+                             android:background="@android:color/transparent"
+                             android:orientation="vertical"
+                             />
+
+                    </RelativeLayout>
+
 
 
                 </androidx.cardview.widget.CardView>
@@ -192,11 +216,13 @@
                     android:id="@+id/scancoupontext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:shadowColor="#b3b3b3"
                     android:shadowRadius="1"
                     android:textStyle="bold"
                     android:textColor="@color/white"
+                    android:textSize="18sp"
                     android:text="@string/scan_coupon"/>
 
                 <LinearLayout
@@ -204,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_below="@+id/scancoupontext">
                     <TextView
                         android:id="@+id/flashlight"

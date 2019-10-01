@@ -1,39 +1,10 @@
 <resources>
-    <string name="app_name">MarchantApp</string>
-    <string name="start_scan">Start scan</string>
-    <string name="generate_new_qr_code">Generate New QR code</string>
 
-
-    <string name="com_auth0_client_id">YOUR_CLIENT_ID</string>
-    <string name="com_auth0_domain">YOUR_DOMAIN</string>
-    <string name="enter_coupon_code">Enter Coupon code here</string>
-    <string name="looks_like_you_ve_scanned_a_wrong_qr_code_please_scan_a_valid_qr_code_and_try_again">Looks like you\'ve scanned a wrong QR code.\nPlease scan a valid QR code and try again</string>
-    <string name="scan_again">SCAN AGAIN</string>
-
-
-    <string name="email">User Name</string>
-    <string name="passowrd">Password</string>
-    <string name="login">LOGIN</string>
 
 
 
     <integer name="zxing_custom_viewfinder_border_width">10</integer>
     <integer name="zxing_custom_viewfinder_border_length">60</integer>
-    <string name="title_activity_merchant_main">MerchantMainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">SCAN</string>
-    <string name="title_qr">QR</string>
-    <string name="title_support">SUPPORT</string>
-    <string name="title_scan">SCAN</string>
-    <string name="title_history">HISTORY</string>
-    <string name="invalid_qr_code_try_again">Invalid QR Code. Try again</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="transaction_history">Transaction History</string>
-    <string name="generate_qr_code">Generate QR Code</string>
-    <string name="enter_amount">Enter Amount</string>
-    <string name="unit">Unit</string>
-    <string name="no_transactions">No Transactions.</string>
+
 </resources>

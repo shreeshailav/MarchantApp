@@ -7,16 +7,16 @@
         android:title="@string/title_home" />
     <item
         android:id="@+id/navigation_history"
-        android:icon="@drawable/ic_history"
+        android:icon="@drawable/ic_group_transaction"
         android:title="@string/title_history" />
     <item
         android:id="@+id/navigation_scan"
-        android:icon="@drawable/ic_scanner"
+        android:icon="@drawable/ic_scan"
         android:title="@string/title_scan" />
-    <item
-        android:id="@+id/navigation_qr"
-        android:icon="@drawable/ic_qrcode"
-        android:title="@string/title_qr" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_qr"-->
+<!--        android:icon="@drawable/ic_qrcode"-->
+<!--        android:title="@string/title_qr" />-->
     <item
         android:id="@+id/navigation_support"
         android:icon="@drawable/ic_support"

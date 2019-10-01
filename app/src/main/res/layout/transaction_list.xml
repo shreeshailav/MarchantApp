@@ -14,14 +14,28 @@
             type="com.hashedin.marchantapp.viewmodel.TransactionViewModel" />
     </data>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        android:layout_margin="5dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:padding="10dp"
-        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:onClick="@{() -> viewModel.onItemClick(position)}"
         android:background="@color/white">
+
+
 
 <!--        android:onClick="@{() -> viewModel.onItemClick(position)}"-->
 
@@ -44,14 +58,9 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_transaction_history"
-            android:layout_alignBottom="@+id/transaction_layout1"
-            android:layout_alignTop="@+id/transaction_layout1"
-            android:layout_alignParentStart="true"
-            android:layout_alignRight="@+id/updatedtime"
+            app:srcCompat="@drawable/ic_group_listview_icon"
 
-
-            android:layout_alignParentLeft="true" />
+            />
 
         <LinearLayout
             android:id="@+id/transaction_layout1"
@@ -59,19 +68,24 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/imageView"
             android:layout_toEndOf="@+id/imageView"
+            android:layout_alignTop="@+id/imageView"
+            android:layout_alignBottom="@+id/imageView"
+            android:paddingLeft="10dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/transactiontype"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Received from"
-                android:textColor="@color/text_color"
+                 android:text="@{viewModel.getDogBreedAt(position).breed}"
+
+                android:textColor="#5a328b"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Transaction ID : "/>
+                android:text="Transaction ID : 4082491038"
+                android:textColor="#474a5f"/>
         </LinearLayout>
 
         <TextView
@@ -79,7 +93,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView"
-            android:text="30min ago"
+            android:text="32min ago"
+            android:textColor="#c7c7c7"
             android:layout_alignTop="@+id/mmk"
             />
 
@@ -91,9 +106,9 @@
                 android:id="@+id/total_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Received from"
+                android:text="Total amount   356"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/black"
+                android:textColor="#000000"
                 />
 
             <TextView
@@ -102,7 +117,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/transaction_layout1"
-                android:text="Total amount "/>
+                android:text="Reward points 200"
+                android:textColor="#b4b4b4"/>
 
             <TextView
                 android:id="@+id/mmk"
@@ -110,8 +126,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/rewardpoints"
-                android:text="MMK "/>
+                android:textColor="#b4b4b4"
+                android:text="MMK 156"/>
+
 
 
     </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
 </layout>

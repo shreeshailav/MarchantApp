@@ -16,7 +16,8 @@
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".viewactivity.RedeemActivity">
+        tools:context=".viewactivity.RedeemActivity"
+        android:background="@drawable/pattern">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,7 +28,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.8"
-                android:background="@drawable/bg_grad">
+                android:background="@drawable/ic_header_bg">
+
+
+
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -47,7 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/city_rewards_icon" />
+                        app:srcCompat="@drawable/ic_city_rewards_icon" />
 
                     <TextView
                         android:id="@+id/textView"
@@ -56,12 +62,56 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:textColor="#ffffff"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
+
                         android:lineSpacingExtra="-2sp"
                         android:text="@string/city_rewards"
                         />
                 </LinearLayout>
-            </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.5"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        >
+
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profile_image"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/profile_icon"
+                            app:civ_border_width="2dp"
+                            android:layout_marginLeft="35dp"
+                            app:civ_border_color="@android:color/transparent"
+
+                            />
+
+
+                    </LinearLayout>
+
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="0dp"
+                       android:layout_weight="1"/>
+                </LinearLayout>
+
+
+             </RelativeLayout>
 
 
             <LinearLayout
@@ -105,13 +155,14 @@
                                 android:layout_weight="2"
                                 android:background="@drawable/button"
                                 android:elevation="2dp"
-                                 android:shadowColor="#b3b3b3"
+                                android:textSize="16sp"
+                                android:shadowColor="#b3b3b3"
+                                android:textAllCaps="false"
                                 android:shadowDx="2"
                                 android:shadowDy="2"
                                 android:shadowRadius="2"
                                 android:text="Generate Bill"
                                 android:textColor="@color/button_text_color"
-                                android:textStyle="bold"
 
                                 />
 
@@ -142,13 +193,15 @@
                                 android:layout_weight="2"
                                 android:background="@drawable/button"
                                 android:elevation="2dp"
-                                 android:shadowColor="#b3b3b3"
+                                android:textSize="16sp"
+                                android:textAllCaps="false"
+
+                                android:shadowColor="#b3b3b3"
                                 android:shadowDx="2"
                                 android:shadowDy="2"
                                 android:shadowRadius="2"
                                 android:text="Redeem Coupon"
                                 android:textColor="@color/button_text_color"
-                                android:textStyle="bold"
 
                                 />
 
@@ -179,13 +232,14 @@
                                 android:layout_weight="2"
                                 android:background="@drawable/button"
                                 android:elevation="2dp"
-                                 android:shadowColor="#b3b3b3"
+                                android:textSize="16sp"
+                                android:textAllCaps="false"
+                                android:shadowColor="#b3b3b3"
                                 android:shadowDx="2"
                                 android:shadowDy="2"
                                 android:shadowRadius="2"
                                 android:text="@string/transaction_history"
                                 android:textColor="@color/button_text_color"
-                                android:textStyle="bold"
 
                                 />
 

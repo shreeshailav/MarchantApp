@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -24,14 +24,29 @@ public class SupportFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         supportViewModel =
                 ViewModelProviders.of(this).get(SupportViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
+        View root = inflater.inflate(R.layout.fragment_support, container, false);
+        //final TextView textView = root.findViewById(R.id.text_notifications);
         supportViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+             //   textView.setText(s);
             }
         });
+
+
+        ImageView imageView = root.findViewById(R.id.backimage);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                if(getFragmentManager()!=null)
+//                    getFragmentManager().popBackStack();
+
+                getActivity().onBackPressed();
+
+            }
+        });
+
         return root;
     }
 

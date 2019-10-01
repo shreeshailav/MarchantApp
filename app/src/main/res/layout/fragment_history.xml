@@ -10,32 +10,119 @@
             type="com.hashedin.marchantapp.viewmodel.TransactionViewModel" />
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".viewactivity.MerchantMainActivity">
+        tools:context=".viewactivity.MerchantMainActivity"
+        android:background="@drawable/pattern"
+        android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listOfTransaction"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:setAdapter="@{model.getAdapter()}" />
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:background="@drawable/gradient_color_layout"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            >
 
-        <androidx.core.widget.ContentLoadingProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:id="@+id/spinnerLoading"
-            android:indeterminate="true"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:visibility="@{model.loading}"
-            android:layout_gravity="center"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="@{model.showEmpty}"
-            android:text="@string/no_transactions"/>
+            <ImageView
+                android:id="@+id/backimage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_back_action" />
 
-    </FrameLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HISTORY"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_alignBottom="@+id/backimage"
+                android:layout_alignTop="@+id/backimage"
+                android:shadowRadius="1"
+                android:shadowDy="1"
+                android:shadowDx="1"
+                android:textSize="20sp"
+                android:textColor="#ffd33b"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:orientation="vertical"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listOfTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setAdapter="@{model.getAdapter()}"
+
+                android:visibility="visible"/>
+
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:id="@+id/spinnerLoading"
+                android:indeterminate="true"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                 android:visibility="@{model.loading}"
+
+                 />
+
+<!--            android:visibility="@{model.loading}"-->
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="@{model.showEmpty}"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:text="coming soon"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="visible"
+                android:layout_alignParentBottom="true">
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/avi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:indicatorName="BallPulseIndicator"
+                    app:indicatorColor="#5a328b"
+
+                    />
+
+
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+    </LinearLayout>
 </layout>

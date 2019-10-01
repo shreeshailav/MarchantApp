@@ -18,10 +18,12 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -189,21 +191,21 @@ public class QRCodeScannerFragment extends Fragment implements RedeemFragment.On
 
 
 
-        activityQrcodeScannerBinding.editCoupon.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        activityQrcodeScannerBinding.editCouponCardview.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                activityQrcodeScannerBinding.barcodeScanner.setStatusText("");
-                activityQrcodeScannerBinding.standardBottomSheet.setVisibility(View.GONE);
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getFragmentManager();
+                QRCodeEditorFragment redeemFragment = new QRCodeEditorFragment();
 
-//                if (b) {
-//                    activityQrcodeScannerBinding.proceedbtn.setVisibility(View.VISIBLE);
-//                    activityQrcodeScannerBinding.barcodeScanner.setVisibility(View.GONE);
-//                } else {
-//                    activityQrcodeScannerBinding.proceedbtn.setVisibility(View.GONE);
-//                    activityQrcodeScannerBinding.barcodeScanner.setVisibility(View.VISIBLE);
-//                }
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).addToBackStack(null).commit();
             }
         });
+
+
+
+
+
         activityQrcodeScannerBinding.proceedbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -437,8 +439,10 @@ public class QRCodeScannerFragment extends Fragment implements RedeemFragment.On
 
             LayoutInflater inflater = (LayoutInflater) mcon.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.rq_error_popup,null);
-
-            Button closebtn = layout.findViewById(R.id.closebtn);
+            TextView textView = layout.findViewById(R.id.errormessage);
+            AppCompatImageView appCompatImageView = layout.findViewById(R.id.imageViewstatus);
+            textView.setText(msg);
+            TextView closebtn = layout.findViewById(R.id.closebtn);
 
             closebtn.setOnClickListener(new View.OnClickListener() {
                 @Override

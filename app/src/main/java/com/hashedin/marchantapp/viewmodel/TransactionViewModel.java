@@ -40,6 +40,10 @@ public class TransactionViewModel extends ViewModel {
         return transaction.getBreeds();
     }
 
+    public void addItems(List<Transaction> transactions) {
+        this.adapter.addItems(transactions);
+    }
+
     public TransactionAdapter getAdapter() {
         return adapter;
     }

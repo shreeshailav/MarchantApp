@@ -3,32 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
 
-        <variable
-            name="CouponDetailViewModel"
-            type="com.hashedin.marchantapp.viewmodel.CouponDetailViewModel" />
-    </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".viewactivity.RedeemActivity">
+        tools:context=".viewactivity.RedeemActivity"
+        android:background="@drawable/pattern">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/white_greyish">
+            android:background="@drawable/pattern">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.2"
                 android:background="@drawable/gradient_color_layout"
-                android:padding="10dp"
-                >
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                 >
 
 
                 <ImageView
@@ -40,7 +37,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="COUPON DETAILS"
+                    android:text="ENTER COUPON CODE"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:layout_alignBottom="@+id/backimage"
@@ -108,10 +105,9 @@
                                             android:id="@+id/edit_name"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:focusable="false"
-                                            android:focusableInTouchMode="false"
                                             android:hint="Enter Coupon code here"
-                                            android:longClickable="false"
+                                            android:singleLine="true"
+                                            android:imeOptions="actionDone"
                                             android:textColor="@color/text_color"
                                             android:padding="5dp"
                                             android:theme="@style/EditTextTheme"/>
@@ -151,12 +147,13 @@
                                 android:layout_marginBottom="20dp"
                                 android:background="@drawable/button"                                    android:elevation="2dp"
                                 android:shadowColor="#b3b3b3"
+                                android:enabled="false"
+                                android:alpha="0.5"
                                 android:shadowDx="2"
                                 android:shadowDy="2"
                                 android:shadowRadius="2"
                                 android:text="Submit"
                                 android:textColor="@color/button_text_color"
-                                android:textStyle="bold"
 
                                 />
 

@@ -26,6 +26,6 @@ public class Offer implements Serializable {
     public boolean allow_coupons ;
     public int redeem_limit ;
     public boolean all_locations ;
-    public int merchant ;
+    public Merchant merchant ;
     public List<Integer> exempted_locations ;
 }

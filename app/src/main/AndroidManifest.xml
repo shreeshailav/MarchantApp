@@ -22,23 +22,29 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+
+
         <activity
             android:name=".viewactivity.MerchantMainActivity"
             android:label="@string/title_activity_merchant_main"></activity>
         <activity
-            android:name=".viewactivity.RedeemActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".viewactivity.LoginActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".viewactivity.QRCodeScannerActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".viewactivity.QRCodeGeneratorActivity"
-            android:screenOrientation="portrait" />
+
+
         <activity
             android:name=".viewactivity.MainActivity"
+            android:screenOrientation="portrait">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+
+
+        <activity
+            android:name=".viewactivity.Splash"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,6 +52,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
+
     </application>
 
 </manifest>

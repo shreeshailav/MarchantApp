@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/pattern"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context="com.hashedin.marchantapp.viewactivity.MerchantMainActivity">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:background="@drawable/gradient_color_layout"
+            android:gravity="center_vertical"
+            android:padding="5dp">
+
+
+            <ImageView
+                android:id="@+id/backimage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_back_action" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/backimage"
+                android:layout_alignBottom="@+id/backimage"
+                android:gravity="center"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
+                android:text="@string/scan_pay"
+                android:textColor="#ffd33b"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="2dp"
+                    app:cardPreventCornerOverlap="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                         android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.8"
+                            android:orientation="vertical">
+
+
+                            <ImageView
+                                android:id="@+id/qr_scan_pay_imageview"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                 />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginTop="5dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:theme="@style/EditTextTheme">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/qr_scan_pay_transaction_id"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/transaction_id"
+                                    android:imeOptions="actionNext" android:singleLine="true"
+                                    android:text="2474230002"
+                                    android:enabled="false"
+                                    android:textColor="@color/text_color"
+                                    android:theme="@style/EditTextTheme" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"                                android:singleLine="true"
+                                android:theme="@style/EditTextTheme">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/qr_scan_pay_customer_id"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/customer_id"
+                                    android:imeOptions="actionDone"
+                                    android:singleLine="true"
+                                    android:text="CR-308302123"
+                                    android:enabled="false"
+                                    android:textColor="@color/text_color"
+                                    android:theme="@style/EditTextTheme" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:singleLine="true"
+                                android:theme="@style/EditTextTheme">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/qr_scan_pay_bill_amount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/bill_amount"
+                                    android:imeOptions="actionDone"
+                                    android:singleLine="true"
+                                    android:text="3200 MMK"
+                                    android:enabled="false"
+                                    android:textColor="@color/text_color"
+                                    android:theme="@style/EditTextTheme" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:singleLine="true"
+                                android:theme="@style/EditTextTheme">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/qr_scan_pay_generated_by"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/generated_by"
+                                    android:imeOptions="actionDone"
+                                    android:singleLine="true"
+                                    android:text="IMP-KFC-98003"
+                                    android:enabled="false"
+                                    android:textColor="@color/text_color"
+                                    android:theme="@style/EditTextTheme" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5" />
+
+                    <Button
+                        android:id="@+id/scan_pay_cancel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:shadowColor="#b3b3b3"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="2"
+                        android:text="@string/cancel"
+                        android:textColor="@color/button_text_color"
+
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</layout>
+
+    <!--<ImageView-->
+    <!--android:id="@+id/qrimage"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true" />-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/editlayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/qrimage"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<com.google.android.material.textfield.TextInputLayout-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent">-->
+
+    <!--    <com.google.android.material.textfield.TextInputEditText-->
+    <!--        android:id="@+id/edit_amount"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@color/zxing_transparent"-->
+    <!--        android:hint="@string/enter_amount"-->
+    <!--        android:padding="5dp"-->
+    <!--        android:textColor="@color/text_color" />-->
+    <!--</com.google.android.material.textfield.TextInputLayout>-->
+
+    <!--<com.google.android.material.textfield.TextInputLayout-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent">-->
+
+    <!--    <com.google.android.material.textfield.TextInputEditText-->
+    <!--        android:id="@+id/edit_unit"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@color/zxing_transparent"-->
+    <!--        android:hint="@string/unit"-->
+    <!--        android:padding="5dp"-->
+    <!--        android:textColor="@color/text_color" />-->
+    <!--</com.google.android.material.textfield.TextInputLayout>-->
+
+    <!--</LinearLayout>-->
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:layout_below="@+id/editlayout">-->
+
+    <!--<LinearLayout-->
+    <!--    android:layout_width="0dp"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:layout_weight="0.5" />-->
+
+    <!--<Button-->
+    <!--    android:id="@+id/genqrbtn"-->
+    <!--    android:layout_width="0dp"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:layout_marginTop="20dp"-->
+    <!--    android:layout_marginBottom="20dp"-->
+    <!--    android:layout_weight="1"-->
+    <!--    android:background="@drawable/button"-->
+    <!--    android:elevation="2dp"-->
+    <!--    android:shadowColor="#b3b3b3"-->
+    <!--    android:shadowDx="2"-->
+    <!--    android:shadowDy="2"-->
+    <!--    android:shadowRadius="2"-->
+    <!--    android:text="@string/generate_qr_code"-->
+    <!--    android:textColor="@color/QRCodeWhiteColor"-->
+    <!--    android:textStyle="bold"-->
+
+    <!--    />-->
+
+    <!--<LinearLayout-->
+    <!--    android:layout_width="0dp"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:layout_weight="0.5" />-->
+
+    <!--</LinearLayout>-->
