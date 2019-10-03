@@ -20,13 +20,14 @@ import androidx.navigation.Navigation;
 
 import com.hashedin.marchantapp.R;
 import com.hashedin.marchantapp.databinding.FragmentHomeBinding;
+import com.hashedin.marchantapp.viewactivity.ui.profile.ProfileFragment;
 import com.hashedin.marchantapp.viewactivity.ui.qrcodegenerate.QRCodeGenerateFragment;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
 
-    FragmentHomeBinding fragmentHomeBinding ;
+    FragmentHomeBinding fragmentHomeBinding;
     NavController navController;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -42,12 +43,12 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
 
-         //root = inflater.inflate(R.layout.fragment_home, container, false);
+        //root = inflater.inflate(R.layout.fragment_home, container, false);
         //final TextView textView = root.findViewById(R.id.text_home);
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-              //  textView.setText(s);
+                //  textView.setText(s);
             }
         });
 
@@ -58,7 +59,7 @@ public class HomeFragment extends Fragment {
                 ProfileFragment redeemFragment = new ProfileFragment();
 
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace( R.id.nav_host_fragment, redeemFragment ).addToBackStack( null ).commit();
+                fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).addToBackStack(null).commit();
             }
         });
 
@@ -74,11 +75,17 @@ public class HomeFragment extends Fragment {
         fragmentHomeBinding.generateqrbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fragmentManager = getFragmentManager();
+
+
+                final FragmentManager fragmentManager = getFragmentManager();
                 QRCodeGenerateFragment redeemFragment = new QRCodeGenerateFragment();
 
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace( R.id.nav_host_fragment, redeemFragment ).addToBackStack( null ).commit();
+                fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).addToBackStack(null).commit();
+
+
+
+
             }
         });
 
@@ -91,19 +98,20 @@ public class HomeFragment extends Fragment {
         });
 
 
-
         return root;
     }
-    public void loadQRCodeScannerActivity(View view){
-        if(navController!=null)
+
+    public void loadQRCodeScannerActivity(View view) {
+        if (navController != null)
             navController.navigate(R.id.navigation_scan);
     }
-//    public void loadQRCodeGenerateFragment(View view){
+
+    //    public void loadQRCodeGenerateFragment(View view){
 //        if(navController!=null)
 //            navController.navigate(R.id.navigation_qr);
 //    }
-    public void loadHistoryFragment(View view){
-        if(navController!=null)
+    public void loadHistoryFragment(View view) {
+        if (navController != null)
             navController.navigate(R.id.navigation_history);
     }
 
@@ -111,8 +119,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
 

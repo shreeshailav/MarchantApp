@@ -21,11 +21,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.hashedin.marchantapp.R;
+import com.hashedin.marchantapp.Services.Repository.ApiResponse;
+import com.hashedin.marchantapp.Services.models.TransacrionRequest.TransactionReq;
 import com.hashedin.marchantapp.databinding.FragmentPaymentApproveBinding;
 import com.hashedin.marchantapp.viewactivity.LoginActivity;
+import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
 import com.hashedin.marchantapp.viewactivity.ui.qrcodescanner.RedeemFragment;
+import com.hashedin.marchantapp.viewmodel.CouponDetailViewModel;
 
 public class QRCodePaymentApproveFragment extends Fragment implements RedeemFragment.OnFragmentInteractionListener{
 
@@ -39,8 +45,13 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
 
     private PopupWindow optionspu;
 
+    CouponDetailViewModel viewModel;
 
 
+    String UUID ;
+
+
+    String auth_token;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -59,6 +70,20 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
         View root = fragmentPaymentApproveBinding.getRoot();
 
 
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+
+            UUID = bundle.getString("UUID");
+
+
+//            if(!TextUtils.isEmpty(generateQR.uuid)) {
+//                UUID = generateQR.uuid;
+//                new QRCodeScanAndPayFragment.loadqr().execute();
+//            }
+
+        }
+
+
 
         fragmentPaymentApproveBinding.paymentApproveCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +95,9 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
         fragmentPaymentApproveBinding.paymentApproveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showOptions(getContext(), "PAYMENT RECEIVED SUCCESSFULLY");
+               // showOptions(getContext(), "PAYMENT RECEIVED SUCCESSFULLY");
+
+                getReddemCoupon();
             }
         });
 
@@ -86,6 +113,7 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
 
         initialize();
 
+        viewModel = ViewModelProviders.of(this).get(CouponDetailViewModel.class);
 
 
 
@@ -179,6 +207,111 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
         }
     }
 
+
+    public void getReddemCoupon() {
+
+        PrefManager prefManager = new PrefManager(getContext());
+
+        auth_token = "token " + "f2ddfb343b5793325ad74c841dfc7e3f4990f693";//prefManager.getKey();
+
+
+        viewModel.getTransactionAcceptReq(UUID,auth_token).observe(this, new Observer<ApiResponse>() {
+            @Override
+            public void onChanged(ApiResponse apiResponse) {
+
+
+//                if (myDialog != null)
+////                    myDialog.dismiss();
+
+                if (apiResponse == null) {
+                    // handle error here
+                    return;
+                }
+                if (apiResponse.generateQR != null && apiResponse.getError() == null) {
+                    // call is successful
+                    //Log.i(TAG, "Data response is " + apiResponse.getPosts());
+
+                    TransactionReq transactionReq = apiResponse.transactionReq;
+
+                     showOptions(getContext(), "PAYMENT RECEIVED SUCCESSFULLY");
+
+                    //String successstr = getResources().getString(R.string.paid_successfully);
+                    //showOptions(getContext(),successstr,reddemCoupon);
+                    //showOptions(getContext(), successstr);
+
+                   // Bundle bundle = new Bundle();
+                    //bundle.putString("couponcode",couponcode);
+                   // bundle.putSerializable("generateQR", apiResponse.transactionReq);
+
+//                    FragmentManager fragmentManager = getFragmentManager();
+//                    QRCodeScanAndPayFragment redeemFragment = new QRCodeScanAndPayFragment();
+//                    redeemFragment.setArguments(bundle);
+//
+//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).addToBackStack(null).commit();
+
+
+                } else if (apiResponse.errorMessage != null) {
+                    String failedstr = apiResponse.errorMessage; //getResources().getString(R.string.paid_Failed);
+                    //showOptions(getContext(), failedstr);
+                } else {
+                    // call failed.
+                    Throwable e = apiResponse.getError();
+                    //showOptions(getContext(), "Unable to reach server");
+//                    snackbarMessage("Unable to reach server");
+//                    snackbar.show();
+                }
+
+
+
+            }
+        });
+
+
+//        viewModel.getQRUUID(userCredentials, auth_token).observe(this, new Observer<ApiResponse>() {
+//            @Override
+//            public void onChanged(ApiResponse apiResponse) {
+////                if (myDialog != null)
+////                    myDialog.dismiss();
+//
+//                if (apiResponse == null) {
+//                    // handle error here
+//                    return;
+//                }
+//                if (apiResponse.generateQR != null && apiResponse.getError() == null) {
+//                    // call is successful
+//                    //Log.i(TAG, "Data response is " + apiResponse.getPosts());
+//
+//                    GenerateQR generateQR = apiResponse.generateQR;
+//                    //String successstr = getResources().getString(R.string.paid_successfully);
+//                    //showOptions(getContext(),successstr,reddemCoupon);
+//                    //showOptions(getContext(), successstr);
+//
+//                    Bundle bundle = new Bundle();
+//                    //bundle.putString("couponcode",couponcode);
+//                    bundle.putSerializable("generateQR", apiResponse.generateQR);
+//
+//                    FragmentManager fragmentManager = getFragmentManager();
+//                    QRCodeScanAndPayFragment redeemFragment = new QRCodeScanAndPayFragment();
+//                    redeemFragment.setArguments(bundle);
+//
+//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).addToBackStack(null).commit();
+//
+//
+//                } else if (apiResponse.errorMessage != null) {
+//                    String failedstr = apiResponse.errorMessage; //getResources().getString(R.string.paid_Failed);
+//                    //showOptions(getContext(), failedstr);
+//                } else {
+//                    // call failed.
+//                    Throwable e = apiResponse.getError();
+//                    //showOptions(getContext(), "Unable to reach server");
+////                    snackbarMessage("Unable to reach server");
+////                    snackbar.show();
+//                }
+//            }
+//        });
+    }
 
 
 }

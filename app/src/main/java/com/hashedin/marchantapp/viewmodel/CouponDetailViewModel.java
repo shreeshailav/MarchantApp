@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 import com.hashedin.marchantapp.Services.models.Coupons;
 import com.hashedin.marchantapp.Services.Repository.ApiRepo;
 import com.hashedin.marchantapp.Services.Repository.ApiResponse;
+import com.hashedin.marchantapp.Services.models.QRInfo;
 
 
 public class CouponDetailViewModel extends ViewModel {
@@ -48,6 +49,36 @@ public class CouponDetailViewModel extends ViewModel {
 
         if(!TextUtils.isEmpty(couponcode)){
             mApiResponse.addSource(mApiRepo.getRedeemCoupon(couponcode,token), new Observer<ApiResponse>() {
+                @Override
+                public void onChanged(@Nullable ApiResponse apiResponse)            {
+                    mApiResponse.setValue(apiResponse);
+                }
+            });
+        }
+
+        return mApiResponse;
+    }
+
+
+    public LiveData<ApiResponse> getQRUUID(QRInfo qrInfo,String token) {
+
+        if(qrInfo!=null){
+            mApiResponse.addSource(mApiRepo.getRQUUID(qrInfo,token), new Observer<ApiResponse>() {
+                @Override
+                public void onChanged(@Nullable ApiResponse apiResponse)            {
+                    mApiResponse.setValue(apiResponse);
+                }
+            });
+        }
+
+        return mApiResponse;
+    }
+
+
+    public LiveData<ApiResponse> getTransactionAcceptReq(String uuid,String token) {
+
+        if(uuid!=null){
+            mApiResponse.addSource(mApiRepo.getTransactionAcceptReq(uuid,token), new Observer<ApiResponse>() {
                 @Override
                 public void onChanged(@Nullable ApiResponse apiResponse)            {
                     mApiResponse.setValue(apiResponse);

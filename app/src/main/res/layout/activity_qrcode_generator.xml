@@ -99,6 +99,7 @@
                                     android:hint="@string/enter_transaction_id"
                                     android:imeOptions="actionNext"
                                     android:padding="5dp"
+                                    android:text="jncjlwnelc"
                                     android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-,/\|.1234567890"
                                     android:singleLine="true"
                                     android:textColor="@color/text_color"

@@ -29,21 +29,44 @@ import java.util.TimerTask;
 
 import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 
+
+
+
 public class HistoryFragment extends Fragment {
+
+
+    public static String fragmentname = null ;
+
 
     private HistoryViewModel historyViewModel;
     private TransactionViewModel transactionViewModel;
     FragmentHistoryBinding fragmentHistoryBinding;
 
-    boolean isLoading = false ;
-    boolean isfirst = true ;
+    boolean isLoading = false;
+    boolean isfirst = true;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        int count = 0 ;
-        if(getFragmentManager()!=null)
-            count = getFragmentManager().getBackStackEntryCount();
+
+        fragmentname = "History";
+
+
+//         for (int i = 0; i < getFragmentManager().getBackStackEntryCount(); i++) {
+//
+//             FragmentManager.BackStackEntry result = getFragmentManager().getBackStackEntryAt(i);
+//             String tag = result.getName();
+//             Fragment fragment = null ;
+//             if(tag !=null)
+//                  fragment = getFragmentManager().findFragmentByTag(tag);
+//
+//
+//             if(getFragmentManager().getBackStackEntryAt(i) instanceof QRCodeGenerateFragment){
+//                 getFragmentManager().popBackStack(getFragmentManager().getBackStackEntryAt(i).getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//
+//             }
+//
+//         }
 
 
         historyViewModel =
@@ -77,9 +100,6 @@ public class HistoryFragment extends Fragment {
         setupListUpdate();
 
 
-
-
-
         // final TextView textView = root.findViewById(R.id.text_dashboard);
         historyViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -89,7 +109,6 @@ public class HistoryFragment extends Fragment {
         });
         fragmentHistoryBinding.listOfTransaction.addOnScrollListener(recyclerViewOnScrollListener);
         fragmentHistoryBinding.avi.hide();
-
 
 
         return root;
@@ -123,6 +142,20 @@ public class HistoryFragment extends Fragment {
         setupListClick();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+       // getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+    }
+
+
     private void setupListClick() {
 
         transactionViewModel.getSelected().observe(this, new Observer<Transaction>() {
@@ -130,12 +163,12 @@ public class HistoryFragment extends Fragment {
             public void onChanged(Transaction transaction) {
                 if (transaction != null) {
 
-                   // Toast.makeText(getContext(),transaction.getBreed(),Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getContext(),transaction.getBreed(),Toast.LENGTH_LONG).show();
                     FragmentManager fragmentManager = getFragmentManager();
                     TransactionDetailsFragment redeemFragment = new TransactionDetailsFragment();
 
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace( R.id.nav_host_fragment, redeemFragment ).addToBackStack( null ).commit();
+                    fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).addToBackStack(null).commit();
 
                 }
             }
@@ -155,7 +188,6 @@ public class HistoryFragment extends Fragment {
             super.onScrolled(recyclerView, dx, dy);
 
 
-
             LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
 
@@ -164,31 +196,29 @@ public class HistoryFragment extends Fragment {
             int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
 
             //if (!isLoading && !isLastPage) {
-            if(!isLoading && !isfirst) {
+            if (!isLoading && !isfirst) {
                 if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                         && firstVisibleItemPosition >= 0
                         && totalItemCount >= PAGE_SIZE) {
 
-                    loadMoreItems(totalItemCount-1);
+                    loadMoreItems(totalItemCount - 1);
                 }
             }
-            isfirst = false ;
-           // }
+            isfirst = false;
+            // }
 
         }
     };
 
 
+    private void loadMoreItems(final int visibleItemCount) {
 
-    private void loadMoreItems(final int visibleItemCount){
-
-        isLoading = true ;
+        isLoading = true;
 
         fragmentHistoryBinding.avi.show();
 
 
-
-        new java.util.Timer().schedule(new TimerTask(){
+        new java.util.Timer().schedule(new TimerTask() {
             @Override
             public void run() {
 
@@ -197,20 +227,20 @@ public class HistoryFragment extends Fragment {
                     public void run() {
                         List<Transaction> transactions = new ArrayList<>();
 
-                        for(int i=0;i<5;i++){
+                        for (int i = 0; i < 5; i++) {
                             Transaction transaction = new Transaction();
-                            transaction.setBreed("A"+i);
+                            transaction.setBreed("A" + i);
                             transactions.add(transaction);
                         }
                         transactionViewModel.addItems(transactions);
 
 
-                        if(fragmentHistoryBinding.listOfTransaction.getLayoutManager().getItemCount() > (visibleItemCount+3)){
+                        if (fragmentHistoryBinding.listOfTransaction.getLayoutManager().getItemCount() > (visibleItemCount + 3)) {
                             //fragmentHistoryBinding.listOfTransaction.smoothScrollToPosition(visibleItemCount+1);
-                            fragmentHistoryBinding.listOfTransaction.getLayoutManager().scrollToPosition(visibleItemCount+3);
+                            fragmentHistoryBinding.listOfTransaction.getLayoutManager().scrollToPosition(visibleItemCount + 3);
 
 
-                        }else {
+                        } else {
                             //fragmentHistoryBinding.listOfTransaction.smoothScrollToPosition(visibleItemCount);
 
                             fragmentHistoryBinding.listOfTransaction.getLayoutManager().scrollToPosition(visibleItemCount);
@@ -219,21 +249,19 @@ public class HistoryFragment extends Fragment {
                         fragmentHistoryBinding.avi.hide();
 
 
-                        isLoading = false ;
+                        isLoading = false;
 
                     }
                 });
 
 
-
             }
-        },2000);
-
-
-
-
+        }, 2000);
 
 
     }
+
+
+
 
 }

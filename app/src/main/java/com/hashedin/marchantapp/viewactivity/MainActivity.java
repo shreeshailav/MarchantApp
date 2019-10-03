@@ -1,11 +1,18 @@
 package com.hashedin.marchantapp.viewactivity;
 
- import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.hashedin.marchantapp.R;
 import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
+
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -13,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String MyPREFERENCES = "LoginDetails" ;
     public static String key = null;
     PrefManager prefManager;
+
+    Spinner spinner;
+    Locale myLocale;
+    String currentLanguage = "en", currentLang;
 
 
     @Override
@@ -22,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+        //setLocale("hi");
 
         prefManager = new PrefManager(this);
 
@@ -38,5 +50,23 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+    }
+
+
+
+    public void setLocale(String localeName) {
+       // if (!localeName.equals(currentLanguage)) {
+            myLocale = new Locale(localeName);
+            Resources res = getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            Configuration conf = res.getConfiguration();
+            conf.locale = myLocale;
+            res.updateConfiguration(conf, dm);
+            Intent refresh = new Intent(this, MainActivity.class);
+            refresh.putExtra(currentLang, localeName);
+            startActivity(refresh);
+//        } else {
+//            Toast.makeText(MainActivity.this, "Language already selected!", Toast.LENGTH_SHORT).show();
+//        }
     }
 }

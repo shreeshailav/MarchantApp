@@ -99,81 +99,94 @@
                             android:layout_marginTop="5dp"
                             android:orientation="vertical">
 
-                            <com.google.android.material.textfield.TextInputLayout
+                            <ScrollView
                                 android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:theme="@style/EditTextTheme">
+                                android:layout_height="match_parent">
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/qr_scan_pay_transaction_id"
+                                <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/transaction_id"
-                                    android:imeOptions="actionNext" android:singleLine="true"
-                                    android:text="2474230002"
-                                    android:enabled="false"
-                                    android:textColor="@color/text_color"
-                                    android:theme="@style/EditTextTheme" />
-                            </com.google.android.material.textfield.TextInputLayout>
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:theme="@style/EditTextTheme">
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/qr_scan_pay_transaction_id"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:hint="@string/transaction_id"
+                                            android:imeOptions="actionNext" android:singleLine="true"
+                                            android:text="2474230002"
+                                            android:enabled="false"
+                                            android:textColor="@color/text_color"
+                                            android:theme="@style/EditTextTheme" />
+                                    </com.google.android.material.textfield.TextInputLayout>
 
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"                                android:singleLine="true"
-                                android:theme="@style/EditTextTheme">
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:theme="@style/EditTextTheme"
+                                        android:visibility="gone">
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/qr_scan_pay_customer_id"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/customer_id"
-                                    android:imeOptions="actionDone"
-                                    android:singleLine="true"
-                                    android:text="CR-308302123"
-                                    android:enabled="false"
-                                    android:textColor="@color/text_color"
-                                    android:theme="@style/EditTextTheme" />
-                            </com.google.android.material.textfield.TextInputLayout>
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:singleLine="true"
-                                android:theme="@style/EditTextTheme">
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/qr_scan_pay_customer_id"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:hint="@string/customer_id"
+                                            android:imeOptions="actionDone"
+                                            android:singleLine="true"
+                                            android:text="CR-308302123"
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/qr_scan_pay_bill_amount"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/bill_amount"
-                                    android:imeOptions="actionDone"
-                                    android:singleLine="true"
-                                    android:text="3200 MMK"
-                                    android:enabled="false"
-                                    android:textColor="@color/text_color"
-                                    android:theme="@style/EditTextTheme" />
-                            </com.google.android.material.textfield.TextInputLayout>
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:singleLine="true"
-                                android:theme="@style/EditTextTheme">
+                                            android:enabled="false"
+                                            android:textColor="@color/text_color"
+                                            android:theme="@style/EditTextTheme" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:singleLine="true"
+                                        android:theme="@style/EditTextTheme">
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/qr_scan_pay_generated_by"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/generated_by"
-                                    android:imeOptions="actionDone"
-                                    android:singleLine="true"
-                                    android:text="IMP-KFC-98003"
-                                    android:enabled="false"
-                                    android:textColor="@color/text_color"
-                                    android:theme="@style/EditTextTheme" />
-                            </com.google.android.material.textfield.TextInputLayout>
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/qr_scan_pay_bill_amount"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:hint="@string/bill_amount"
+                                            android:imeOptions="actionDone"
+                                            android:singleLine="true"
+                                            android:text="3200 MMK"
+                                            android:enabled="false"
+                                            android:textColor="@color/text_color"
+                                            android:theme="@style/EditTextTheme" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:singleLine="true"
+                                        android:theme="@style/EditTextTheme">
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/qr_scan_pay_generated_by"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:hint="@string/generated_by"
+                                            android:imeOptions="actionDone"
+                                            android:singleLine="true"
+                                            android:text="IMP-KFC-98003"
+                                            android:enabled="false"
+                                            android:textColor="@color/text_color"
+                                            android:theme="@style/EditTextTheme" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                                </LinearLayout>
+                            </ScrollView>
+
 
 
                         </LinearLayout>

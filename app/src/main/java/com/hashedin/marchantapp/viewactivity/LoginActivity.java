@@ -83,6 +83,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
 
+
+
+        //String mess = getResources().getString(R.string.hide_pwd);
+
+
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
          getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -91,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
 
         currentLanguage = getIntent().getStringExtra(currentLang);
 
-        setLocale("hi");
 
         requestPermission();
 
@@ -99,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         activityLoginBinding.showHidePassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
                 if(b){
                     activityLoginBinding.loginPassword.setTransformationMethod(HideReturnsTransformationMethod
                             .getInstance());// show password
@@ -177,6 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     if(motionEvent.getRawX() >= (activityLoginBinding.loginPassword.getRight() - activityLoginBinding.loginPassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
+
 
                         if(show_password){
                             activityLoginBinding.loginPassword.setTransformationMethod(HideReturnsTransformationMethod
@@ -364,9 +370,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    public void setLocale(String localeName) {
 
-      
-    }
+
+
+
+
 
 }

@@ -8,9 +8,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,25 +18,31 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
 import com.hashedin.marchantapp.R;
+import com.hashedin.marchantapp.Services.Repository.ApiResponse;
+import com.hashedin.marchantapp.Services.models.GenerateQR;
+import com.hashedin.marchantapp.Services.models.QRInfo;
 import com.hashedin.marchantapp.databinding.ActivityQrcodeGeneratorBinding;
+import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
+import com.hashedin.marchantapp.viewmodel.CouponDetailViewModel;
 
 public class QRCodeGenerateFragment extends Fragment {
 
     private QRCodeGenerateViewModel qrCodeGenerateViewModel;
 
-    ImageView imageView;
-    Button button;
-    EditText editText, editunit;
-    String EditTextValue;
-    Thread thread;
+
     public final static int QRcodeWidth = 500;
     Bitmap bitmap;
+
+
+    String auth_token;
+
+
     ActivityQrcodeGeneratorBinding activityQrcodeGeneratorBinding;
+
+
+    CouponDetailViewModel viewModel;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -131,81 +134,130 @@ public class QRCodeGenerateFragment extends Fragment {
             public void onClick(View view) {
                 //Toast.makeText(getContext(),"Coming soon",Toast.LENGTH_SHORT).show();
 
-                FragmentManager fragmentManager = getFragmentManager();
-                QRCodeScanAndPayFragment redeemFragment = new QRCodeScanAndPayFragment();
 
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace( R.id.nav_host_fragment, redeemFragment ).addToBackStack( null ).commit();
+
+                getReddemCoupon(activityQrcodeGeneratorBinding.editTransactionAmount.getText().toString(),activityQrcodeGeneratorBinding.editTransactionId.getText().toString());
+
+//                FragmentManager fragmentManager = getFragmentManager();
+//                QRCodeScanAndPayFragment redeemFragment = new QRCodeScanAndPayFragment();
+//
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace( R.id.nav_host_fragment, redeemFragment ).addToBackStack( null ).commit();
 
             }
         });
 
 
-//
-//        imageView = (ImageView)root.findViewById(R.id.qrimage);
-//        editText = (EditText)root.findViewById(R.id.edit_amount);
-//        editunit = (EditText)root.findViewById(R.id.edit_unit);
-//        button = (Button)root.findViewById(R.id.genqrbtn);
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                EditTextValue = editText.getText().toString();
-//
-//                try {
-//                    bitmap = TextToImageEncode(EditTextValue);
-//
-//                    imageView.setImageBitmap(bitmap);
-//
-//                } catch (WriterException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        });
+
+        viewModel = ViewModelProviders.of(this).get(CouponDetailViewModel.class);
 
 
         return root;
 
     }
 
-    Bitmap TextToImageEncode(String Value) throws WriterException {
-        BitMatrix bitMatrix;
-        try {
-            bitMatrix = new MultiFormatWriter().encode(
-                    Value,
-                    BarcodeFormat.DATA_MATRIX.QR_CODE,
-                    QRcodeWidth, QRcodeWidth, null
-            );
-
-        } catch (IllegalArgumentException Illegalargumentexception) {
-
-            return null;
-        }
-        int bitMatrixWidth = bitMatrix.getWidth();
-
-        int bitMatrixHeight = bitMatrix.getHeight();
-
-        int[] pixels = new int[bitMatrixWidth * bitMatrixHeight];
-
-        for (int y = 0; y < bitMatrixHeight; y++) {
-            int offset = y * bitMatrixWidth;
-
-            for (int x = 0; x < bitMatrixWidth; x++) {
-
-                pixels[offset + x] = bitMatrix.get(x, y) ?
-                        getResources().getColor(R.color.QRCodeBlackColor) : getResources().getColor(R.color.QRCodeWhiteColor);
-            }
-        }
-        Bitmap bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444);
-
-        bitmap.setPixels(pixels, 0, 500, 0, 0, bitMatrixWidth, bitMatrixHeight);
-        return bitmap;
-    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
+
+
+
+    public void getReddemCoupon(String amt,String ref) {
+
+        QRInfo userCredentials = new QRInfo(amt,ref);
+        PrefManager prefManager = new PrefManager(getContext());
+
+        auth_token = "token " + "f2ddfb343b5793325ad74c841dfc7e3f4990f693";//prefManager.getKey();
+
+
+        viewModel.getQRUUID(userCredentials,auth_token).observe(this, new Observer<ApiResponse>() {
+            @Override
+            public void onChanged(ApiResponse apiResponse) {
+//                if (myDialog != null)
+//                    myDialog.dismiss();
+
+                if (apiResponse == null) {
+                    // handle error here
+                    return;
+                }
+                if (apiResponse.generateQR != null && apiResponse.getError() == null) {
+                    // call is successful
+                    //Log.i(TAG, "Data response is " + apiResponse.getPosts());
+
+                    GenerateQR generateQR = apiResponse.generateQR;
+                    //String successstr = getResources().getString(R.string.paid_successfully);
+                    //showOptions(getContext(),successstr,reddemCoupon);
+                    //showOptions(getContext(), successstr);
+
+                    Bundle bundle = new Bundle();
+                    //bundle.putString("couponcode",couponcode);
+                    bundle.putSerializable("generateQR",apiResponse.generateQR);
+
+                    FragmentManager fragmentManager = getFragmentManager();
+                    QRCodeScanAndPayFragment redeemFragment = new QRCodeScanAndPayFragment();
+                    redeemFragment.setArguments(bundle);
+
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace( R.id.nav_host_fragment, redeemFragment ).addToBackStack( null ).commit();
+
+
+
+
+                } else if (apiResponse.errorMessage != null) {
+                    String failedstr = apiResponse.errorMessage; //getResources().getString(R.string.paid_Failed);
+                    //showOptions(getContext(), failedstr);
+                } else {
+                    // call failed.
+                    Throwable e = apiResponse.getError();
+                    //showOptions(getContext(), "Unable to reach server");
+//                    snackbarMessage("Unable to reach server");
+//                    snackbar.show();
+                }
+            }
+        });
+
+
+
+
+//        viewModel.getRedeem(couponcode, auth_token).observe(this, new Observer<ApiResponse>() {
+//            @Override
+//            public void onChanged(ApiResponse apiResponse) {
+//
+//                if (myDialog != null)
+//                    myDialog.dismiss();
+//
+//                if (apiResponse == null) {
+//                    // handle error here
+//                    return;
+//                }
+//                if (apiResponse.reddemCoupon != null && apiResponse.getError() == null) {
+//                    // call is successful
+//                    //Log.i(TAG, "Data response is " + apiResponse.getPosts());
+//
+//                    ReddemCoupon reddemCoupon = apiResponse.reddemCoupon;
+//                    String successstr = getResources().getString(R.string.paid_successfully);
+//                    //showOptions(getContext(),successstr,reddemCoupon);
+//                    showOptions(getContext(), successstr);
+//
+//
+//                } else if (apiResponse.errorMessage != null) {
+//                    String failedstr = apiResponse.errorMessage; //getResources().getString(R.string.paid_Failed);
+//                    showOptions(getContext(), failedstr);
+//                } else {
+//                    // call failed.
+//                    Throwable e = apiResponse.getError();
+//                    showOptions(getContext(), "Unable to reach server");
+////                    snackbarMessage("Unable to reach server");
+////                    snackbar.show();
+//                }
+//            }
+//        });
+//
+//        redeemed = true;
+
+
+    }
+
 }

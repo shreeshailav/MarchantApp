@@ -11,14 +11,14 @@
     <string name="scan_again" >SCAN AGAIN</string>
 
 
-    <string name="email" >User Name</string>
-    <string name="passowrd" >Password</string>
-    <string name="login" >LOGIN</string>
+    <string name="email" >उपयोगकर्ता नाम</string>
+    <string name="passowrd" >पारण शब्द</string>
+    <string name="login" >लॉग इन करें</string>
 
-    <string name="show_pwd" >Show Password</string>
-    <string name="hide_pwd" >Hide Password</string>
-    <string name="forgot" >Forgot password?</string>
-    <string name="newUser" >Not a Member yet? Sign Up here.</string>
+    <string name="show_pwd" >शो पासवर्ड</string>
+    <string name="hide_pwd" >पासवर्ड छिपाएं</string>
+    <string name="forgot" >पासवर्ड भूल गए?</string>
+    <string name="newUser" >अभी तक सदस्य नहीं है? पंजी यहॉ करे।</string>
     <string name="paid_successfully" >REDEEMED SUCCESSFULLY</string>
     <string name="paid_Failed" >COUPON ALREADY REDEEMED</string>
     <string name="amount" > ₹ </string>
@@ -76,9 +76,4 @@
     <string name="approve">APPROVE</string>
     <string name="enter_transaction_id">Enter Transaction ID</string>
     <string name="enter_bill_amount">Enter Bill Amount</string>
-    <string name="choose_your_language">Choose your language</string>
-    <string name="update_language">UPDATE LANGUAGE</string>
-    <string name="name">Name</string>
-    <string name="gender">Gender</string>
-    <string name="date_of_birthday">Date of Birthday</string>
 </resources>
