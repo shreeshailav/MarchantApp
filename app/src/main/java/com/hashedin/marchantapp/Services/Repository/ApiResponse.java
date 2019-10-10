@@ -4,11 +4,13 @@ import com.hashedin.marchantapp.Services.models.Coupons;
 import com.hashedin.marchantapp.Services.models.GenerateQR;
 import com.hashedin.marchantapp.Services.models.ReddemCoupon;
 import com.hashedin.marchantapp.Services.models.TransacrionRequest.TransactionReq;
+import com.hashedin.marchantapp.Services.models.TransactionHistory.TransactionHistoryMain;
 
 public class ApiResponse {
 
     public Coupons coupons;
     public ReddemCoupon reddemCoupon;
+    public TransactionHistoryMain transactionHistoryMain;
     public GenerateQR generateQR ;
     public TransactionReq transactionReq ;
     private Throwable error;
@@ -34,6 +36,13 @@ public class ApiResponse {
 
     public ApiResponse(TransactionReq transactionReq) {
         this.transactionReq = transactionReq;
+        this.error = null;
+        this.coupons = null;
+    }
+
+
+    public ApiResponse(TransactionHistoryMain transactionHistoryMain) {
+        this.transactionHistoryMain = transactionHistoryMain;
         this.error = null;
         this.coupons = null;
     }

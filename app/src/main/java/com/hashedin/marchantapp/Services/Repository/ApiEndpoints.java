@@ -6,6 +6,7 @@ import com.hashedin.marchantapp.Services.models.QRCodeGenerateModel.QRGenModel;
 import com.hashedin.marchantapp.Services.models.QRInfo;
 import com.hashedin.marchantapp.Services.models.ReddemCoupon;
 import com.hashedin.marchantapp.Services.models.TransacrionRequest.TransactionReq;
+import com.hashedin.marchantapp.Services.models.TransactionHistory.TransactionHistoryMain;
 import com.hashedin.marchantapp.Services.models.UserCredentials;
 import com.hashedin.marchantapp.Services.models.UserKey;
 
@@ -16,10 +17,11 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiEndpoints {
-    //String HTTPS_API_MARCHENT_URL = "http://city-rewards-dev.ap-southeast-1.elasticbeanstalk.com/";
-    String HTTPS_API_MARCHENT_URL = "http://a59f280a.ngrok.io";
+    String HTTPS_API_MARCHENT_URL = "http://city-rewards-dev.ap-southeast-1.elasticbeanstalk.com/";
+   //  String HTTPS_API_MARCHENT_URL2 = "http://1b7c48c1.ngrok.io";
 
 
     @GET("merchant/api/v1/coupons/{user}/")
@@ -49,9 +51,15 @@ public interface ApiEndpoints {
 
 
     @POST("merchant/api/v1/staff/transactions/{uuid}/decline/")
-    Call<QRGenModel> getTransactionDeclineReq(@Path("uuid") String user, @Header("Authorization") String token);
+    Call<TransactionReq> getTransactionDeclineReq(@Path("uuid") String user, @Header("Authorization") String token);
 
 
+    @GET("merchant/api/v1/staff/transactions/")
+    Call<TransactionHistoryMain> getTransactionHistory(@Header("Authorization") String token);
+
+    @GET("merchant/api/v1/staff/transactions/")
+    Call<TransactionHistoryMain> getTransactionHistoryPagination(@Query("page") String pagenumber, @Header("Authorization") String token);
 
 
+    //http://1b7c48c1.ngrok.io/merchant/api/v1/staff/transactions/?page=2
 }

@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.hashedin.marchantapp.viewmodel.TransactionViewModel" />
+            type="com.hashedin.marchantapp.viewmodel.TransactionViewModel2" />
     </data>
 
     <LinearLayout
@@ -61,7 +61,7 @@
                 android:id="@+id/listOfTransaction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:setAdapter="@{model.getAdapter()}"
+                app:setAdapter="@{model.getAdapter2()}"
 
                 android:visibility="visible"/>
 
@@ -89,7 +89,7 @@
                 android:visibility="@{model.showEmpty}"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:text="coming soon"
+                android:text="@string/no_transactions"
                 />
 
             <LinearLayout

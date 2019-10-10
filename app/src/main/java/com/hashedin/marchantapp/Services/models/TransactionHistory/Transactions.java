@@ -1,9 +1,11 @@
-package com.hashedin.marchantapp.Services.models;
+package com.hashedin.marchantapp.Services.models.TransactionHistory;
 
 import android.util.Log;
 
 import androidx.databinding.BaseObservable;
 import androidx.lifecycle.MutableLiveData;
+
+import com.hashedin.marchantapp.Services.models.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;

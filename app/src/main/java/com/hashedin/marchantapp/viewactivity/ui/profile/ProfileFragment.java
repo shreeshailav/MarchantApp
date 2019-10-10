@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -29,6 +31,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.hashedin.marchantapp.R;
 import com.hashedin.marchantapp.databinding.FragmentProfileBinding;
 import com.hashedin.marchantapp.viewactivity.LoginActivity;
+import com.hashedin.marchantapp.viewactivity.MerchantMainActivity;
 import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
 import com.hashedin.marchantapp.viewactivity.Utility.ProfilePrefManager;
 
@@ -45,8 +48,15 @@ public class ProfileFragment extends Fragment {
     ProfilePrefManager profilePrefManager;
 
 
+    Drawable small,medium,large,extralarge;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
+        MerchantMainActivity.currentFragment = "ProfileFragment" ;
+
 
 
         fragmentProfileBinding = DataBindingUtil.inflate(
@@ -105,26 +115,71 @@ public class ProfileFragment extends Fragment {
                 ChangeLannguageFragment redeemFragment = new ChangeLannguageFragment();
 
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).addToBackStack(null).commit();
+                fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).commit();
             }
         });fragmentProfileBinding.changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(),"changePassword",Toast.LENGTH_LONG).show();
             }
-        });fragmentProfileBinding.changeTextSize.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(),"changeTextSize",Toast.LENGTH_LONG).show();
-            }
-        });fragmentProfileBinding.editProfile.setOnClickListener(new View.OnClickListener() {
+        }); fragmentProfileBinding.editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentManager fragmentManager = getFragmentManager();
                 EditProfileFragment redeemFragment = new EditProfileFragment();
 
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).addToBackStack(null).commit();
+                fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).commit();
+            }
+        });
+
+        fragmentProfileBinding.textsizeSmallBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                DrawableCompat.setTint(small, getResources().getColor(R.color.profile_btn_color_2));
+                DrawableCompat.setTint(medium, getResources().getColor(R.color.profile_btn_color_1));
+                DrawableCompat.setTint(large, getResources().getColor(R.color.profile_btn_color_1));
+                DrawableCompat.setTint(extralarge, getResources().getColor(R.color.profile_btn_color_1));
+               // change_textsize_button_color();
+
+            }
+        });fragmentProfileBinding.textsizeExtralargeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                DrawableCompat.setTint(small, getResources().getColor(R.color.profile_btn_color_1));
+                DrawableCompat.setTint(medium, getResources().getColor(R.color.profile_btn_color_1));
+                DrawableCompat.setTint(large, getResources().getColor(R.color.profile_btn_color_1));
+                DrawableCompat.setTint(extralarge, getResources().getColor(R.color.profile_btn_color_2));
+                //change_textsize_button_color();
+
+            }
+        });fragmentProfileBinding.textsizeLargeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                DrawableCompat.setTint(small, getResources().getColor(R.color.profile_btn_color_1));
+                DrawableCompat.setTint(medium, getResources().getColor(R.color.profile_btn_color_1));
+                DrawableCompat.setTint(large, getResources().getColor(R.color.profile_btn_color_2));
+                DrawableCompat.setTint(extralarge, getResources().getColor(R.color.profile_btn_color_1));
+                //change_textsize_button_color();
+
+            }
+        });fragmentProfileBinding.textsizeMediumBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                DrawableCompat.setTint(small, getResources().getColor(R.color.profile_btn_color_1));
+                DrawableCompat.setTint(medium, getResources().getColor(R.color.profile_btn_color_2));
+                DrawableCompat.setTint(large, getResources().getColor(R.color.profile_btn_color_1));
+                DrawableCompat.setTint(extralarge, getResources().getColor(R.color.profile_btn_color_1));
+                //change_textsize_button_color();
+
             }
         });
 
@@ -132,6 +187,12 @@ public class ProfileFragment extends Fragment {
 
         loadProfileData();
         loadImageFromStorage();
+
+
+        change_textsize_button_color();
+
+
+
 
 
         return root;
@@ -233,4 +294,26 @@ public class ProfileFragment extends Fragment {
 
     }
 
+
+    private void change_textsize_button_color(){
+        small = fragmentProfileBinding.textsizeSmallBtn.getBackground();
+        small = DrawableCompat.wrap(small);
+        //the color is a direct color int and not a color resource
+
+        medium = fragmentProfileBinding.textsizeMediumBtn.getBackground();
+        medium = DrawableCompat.wrap(medium);
+
+        large = fragmentProfileBinding.textsizeLargeBtn.getBackground();
+        medium = DrawableCompat.wrap(large);
+
+        extralarge = fragmentProfileBinding.textsizeExtralargeBtn.getBackground();
+        extralarge = DrawableCompat.wrap(extralarge);
+
+
+        DrawableCompat.setTint(small, getResources().getColor(R.color.profile_btn_color_1));
+        DrawableCompat.setTint(medium, getResources().getColor(R.color.profile_btn_color_2));
+        DrawableCompat.setTint(large, getResources().getColor(R.color.profile_btn_color_1));
+        DrawableCompat.setTint(extralarge, getResources().getColor(R.color.profile_btn_color_1));
+
+    }
 }

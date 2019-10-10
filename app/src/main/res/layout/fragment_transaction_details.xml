@@ -32,21 +32,41 @@
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/ic_back_action" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/backimage"
-                    android:layout_alignBottom="@+id/backimage"
                     android:layout_toEndOf="@+id/backimage"
                     android:layout_toRightOf="@+id/backimage"
                     android:paddingLeft="10dp"
-                    android:shadowDx="1"
-                    android:shadowDy="1"
-                    android:shadowRadius="1"
-                    android:text="ENTER COUPON CODE"
-                    android:textColor="#ffffff"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:paddingStart="10dp"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:text="@string/transaction_details"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:text="@string/_10_53_am_on_06_sep_2019"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
             </RelativeLayout>
 
 
@@ -130,7 +150,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:enabled="false"
-                                        android:hint="Customer ID"
+                                        android:hint="@string/transaction_id"
                                         android:imeOptions="actionDone"
                                         android:padding="5dp"
                                         android:singleLine="true"

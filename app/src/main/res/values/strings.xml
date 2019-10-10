@@ -81,4 +81,16 @@
     <string name="name">Name</string>
     <string name="gender">Gender</string>
     <string name="date_of_birthday">Date of Birthday</string>
+    <string name="transaction_details">Transaction Details</string>
+    <string name="_10_53_am_on_06_sep_2019">10:53 AM on 06 Sep 2019</string>
+    <string name="add_number">Add Number</string>
+    <string name="connect_your_facebook">Connect your Facebook</string>
+    <string name="customer_service">Customer Service</string>
+    <string name="chat">Chat</string>
+    <string name="primary_number">Primary Number</string>
+    <string name="language">Language</string>
+    <string name="_1_pt_1_mmk">(1 Pt = </string>
+    <string name="_1_pt_1_mmk2"> MMK)</string>
+    <string name="received_from">Received from</string>
+    <string name="paid_to">Paid to</string>
 </resources>

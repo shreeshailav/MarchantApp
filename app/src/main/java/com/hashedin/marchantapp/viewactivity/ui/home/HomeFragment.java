@@ -20,6 +20,7 @@ import androidx.navigation.Navigation;
 
 import com.hashedin.marchantapp.R;
 import com.hashedin.marchantapp.databinding.FragmentHomeBinding;
+import com.hashedin.marchantapp.viewactivity.MerchantMainActivity;
 import com.hashedin.marchantapp.viewactivity.ui.profile.ProfileFragment;
 import com.hashedin.marchantapp.viewactivity.ui.qrcodegenerate.QRCodeGenerateFragment;
 
@@ -30,8 +31,13 @@ public class HomeFragment extends Fragment {
     FragmentHomeBinding fragmentHomeBinding;
     NavController navController;
 
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
+        MerchantMainActivity.currentFragment = "HomeFragment" ;
 
 
         fragmentHomeBinding = DataBindingUtil.inflate(
@@ -77,11 +83,14 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
 
 
+
+
+
                 final FragmentManager fragmentManager = getFragmentManager();
                 QRCodeGenerateFragment redeemFragment = new QRCodeGenerateFragment();
 
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).addToBackStack(null).commit();
+                fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).commit();
 
 
 
@@ -124,5 +133,25 @@ public class HomeFragment extends Fragment {
 
     }
 
+
+    public void clearStack() {
+        //Here we are clearing back stack fragment entries
+        int backStackEntry = getFragmentManager().getBackStackEntryCount();
+        if (backStackEntry > 0) {
+            for (int i = 0; i < backStackEntry; i++) {
+                getFragmentManager().popBackStackImmediate();
+            }
+        }
+
+        //Here we are removing all the fragment that are shown here
+        if (getFragmentManager().getFragments() != null && getFragmentManager().getFragments().size() > 0) {
+            for (int i = 0; i < getFragmentManager().getFragments().size(); i++) {
+                Fragment mFragment = getFragmentManager().getFragments().get(i);
+                if (mFragment != null) {
+                    getFragmentManager().beginTransaction().remove(mFragment).commit();
+                }
+            }
+        }
+    }
 
 }

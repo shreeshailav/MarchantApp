@@ -1,10 +1,11 @@
-package com.hashedin.marchantapp.Services.models.QRCodeGenerateModel;
+package com.hashedin.marchantapp.Services.models.TransactionHistory;
 
-public class QRGenModel
+public class Result
 {
     public int id ;
     public String created_time ;
     public String updated_time ;
+    public Boolean is_received ;
     public PayedByObject payed_by_object ;
     public PayedToObject payed_to_object ;
     public String created_on ;
@@ -15,15 +16,16 @@ public class QRGenModel
     public int authorized_object_id ;
     public String amount ;
     public int unit ;
-    public String type ;
+    public int type ;
     public int mode ;
-    public String item ;
-
+    public int item ;
     public int status ;
     public Meta meta ;
-
     public int payer_content_type ;
     public int receiver_content_type ;
     public int authorized_by_content_type ;
     public String coupon ;
+
+
+
 }

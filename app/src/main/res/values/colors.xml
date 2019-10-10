@@ -30,4 +30,11 @@
     <color name="text_color">#6e539f</color>
 
 
+
+    <color name="profile_btn_color_1">#d6d6d6</color>
+    <color name="profile_btn_color_2">#5a328b</color>
+
+
+
+
 </resources>

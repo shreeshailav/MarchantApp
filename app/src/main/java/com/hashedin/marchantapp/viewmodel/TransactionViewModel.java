@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.hashedin.marchantapp.R;
 import com.hashedin.marchantapp.Services.models.Transaction;
-import com.hashedin.marchantapp.Services.models.Transactions;
+import com.hashedin.marchantapp.Services.models.TransactionHistory.Transactions;
 import com.hashedin.marchantapp.viewactivity.adapters.TransactionAdapter;
 
 import java.util.List;
@@ -23,6 +23,9 @@ public class TransactionViewModel extends ViewModel {
     public ObservableInt loading;
     public ObservableInt showEmpty;
 
+
+
+
     public void init() {
         transaction = new Transactions();
         selected = new MutableLiveData<>();
@@ -30,10 +33,14 @@ public class TransactionViewModel extends ViewModel {
         images = new ObservableArrayMap<>();
         loading = new ObservableInt(View.GONE);
         showEmpty = new ObservableInt(View.GONE);
+
+
+
     }
 
     public void fetchList() {
         transaction.fetchList();
+
     }
 
     public MutableLiveData<List<Transaction>> getBreeds() {
@@ -70,6 +77,11 @@ public class TransactionViewModel extends ViewModel {
         }
         return null;
     }
+
+
+
+
+
 
 //    public void fetchDogBreedImagesAt(Integer index) {
 //        DogBreed dogBreed = getDogBreedAt(index);

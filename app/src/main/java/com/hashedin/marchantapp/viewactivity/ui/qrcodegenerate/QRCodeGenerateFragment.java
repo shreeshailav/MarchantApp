@@ -1,5 +1,6 @@
 package com.hashedin.marchantapp.viewactivity.ui.qrcodegenerate;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,9 +21,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.hashedin.marchantapp.R;
 import com.hashedin.marchantapp.Services.Repository.ApiResponse;
-import com.hashedin.marchantapp.Services.models.GenerateQR;
 import com.hashedin.marchantapp.Services.models.QRInfo;
 import com.hashedin.marchantapp.databinding.ActivityQrcodeGeneratorBinding;
+import com.hashedin.marchantapp.viewactivity.MerchantMainActivity;
+import com.hashedin.marchantapp.viewactivity.Utility.DialogsUtils;
 import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
 import com.hashedin.marchantapp.viewmodel.CouponDetailViewModel;
 
@@ -38,15 +40,26 @@ public class QRCodeGenerateFragment extends Fragment {
     String auth_token;
 
 
+    Boolean isRequestsent = false ;
+
+
     ActivityQrcodeGeneratorBinding activityQrcodeGeneratorBinding;
 
 
     CouponDetailViewModel viewModel;
 
+    ProgressDialog myDialog;
+
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
+
+        MerchantMainActivity.currentFragment = "QRCodeGenerateFragment" ;
+
 
         qrCodeGenerateViewModel =
                 ViewModelProviders.of(this).get(QRCodeGenerateViewModel.class);
@@ -71,9 +84,6 @@ public class QRCodeGenerateFragment extends Fragment {
             public void onClick(View view) {
                 if (getFragmentManager() != null)
                     getFragmentManager().popBackStack();
-
-
-
 
             }
         });
@@ -135,14 +145,26 @@ public class QRCodeGenerateFragment extends Fragment {
                 //Toast.makeText(getContext(),"Coming soon",Toast.LENGTH_SHORT).show();
 
 
+                QRInfo userCredentials = new QRInfo(activityQrcodeGeneratorBinding.editTransactionAmount.getText().toString(),activityQrcodeGeneratorBinding.editTransactionId.getText().toString());
+                PrefManager prefManager = new PrefManager(getContext());
 
-                getReddemCoupon(activityQrcodeGeneratorBinding.editTransactionAmount.getText().toString(),activityQrcodeGeneratorBinding.editTransactionId.getText().toString());
+                auth_token = "token " + prefManager.getKey();
+                myDialog = DialogsUtils.showProgressDialog(getContext(), "Loading please wait");
+
+                if(isRequestsent){
+                    viewModel.getQRUUID(userCredentials,auth_token);
+                }else {
+                    RequistQRCode(userCredentials);
+
+                }
+
 
 //                FragmentManager fragmentManager = getFragmentManager();
 //                QRCodeScanAndPayFragment redeemFragment = new QRCodeScanAndPayFragment();
 //
 //                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace( R.id.nav_host_fragment, redeemFragment ).addToBackStack( null ).commit();
+//                fragmentTransaction.replace( R.id.nav_host_fragment, redeemFragment ).commit();
+
 
             }
         });
@@ -164,19 +186,15 @@ public class QRCodeGenerateFragment extends Fragment {
 
 
 
-    public void getReddemCoupon(String amt,String ref) {
+    public void RequistQRCode(QRInfo userCredentials) {
 
-        QRInfo userCredentials = new QRInfo(amt,ref);
-        PrefManager prefManager = new PrefManager(getContext());
-
-        auth_token = "token " + "f2ddfb343b5793325ad74c841dfc7e3f4990f693";//prefManager.getKey();
-
+        isRequestsent = true ;
 
         viewModel.getQRUUID(userCredentials,auth_token).observe(this, new Observer<ApiResponse>() {
             @Override
             public void onChanged(ApiResponse apiResponse) {
-//                if (myDialog != null)
-//                    myDialog.dismiss();
+                if (myDialog != null)
+                    myDialog.dismiss();
 
                 if (apiResponse == null) {
                     // handle error here
@@ -186,7 +204,7 @@ public class QRCodeGenerateFragment extends Fragment {
                     // call is successful
                     //Log.i(TAG, "Data response is " + apiResponse.getPosts());
 
-                    GenerateQR generateQR = apiResponse.generateQR;
+                    //GenerateQR generateQR = apiResponse.generateQR;
                     //String successstr = getResources().getString(R.string.paid_successfully);
                     //showOptions(getContext(),successstr,reddemCoupon);
                     //showOptions(getContext(), successstr);
@@ -200,7 +218,7 @@ public class QRCodeGenerateFragment extends Fragment {
                     redeemFragment.setArguments(bundle);
 
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace( R.id.nav_host_fragment, redeemFragment ).addToBackStack( null ).commit();
+                    fragmentTransaction.replace( R.id.nav_host_fragment, redeemFragment ).commit();
 
 
 

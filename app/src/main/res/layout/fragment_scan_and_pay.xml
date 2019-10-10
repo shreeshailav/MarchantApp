@@ -82,13 +82,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="0.8"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:padding="10dp">
 
 
-                            <ImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/qr_scan_pay_imageview"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                app:srcCompat="@drawable/ic_scan_black"
+                                android:layout_margin="5dp"
                                  />
                         </LinearLayout>
 
@@ -96,8 +99,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:layout_marginTop="5dp"
-                            android:orientation="vertical">
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical"
+                           >
 
                             <ScrollView
                                 android:layout_width="match_parent"
@@ -106,7 +110,8 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:orientation="vertical">
+                                    android:orientation="vertical"
+                                    android:padding="5dp">
 
                                     <com.google.android.material.textfield.TextInputLayout
                                         android:layout_width="match_parent"
@@ -118,11 +123,17 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:hint="@string/transaction_id"
-                                            android:imeOptions="actionNext" android:singleLine="true"
+                                            android:singleLine="true"
                                             android:text="2474230002"
-                                            android:enabled="false"
+                                            android:focusable="false"
+                                            android:focusableInTouchMode="false"
+                                            android:ellipsize="end"
+                                            android:editable="false"
+                                            android:enabled="true"
+                                            android:longClickable="false"
                                             android:textColor="@color/text_color"
-                                            android:theme="@style/EditTextTheme" />
+                                            android:theme="@style/EditTextTheme"
+                                            tools:ignore="Deprecated" />
                                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -133,7 +144,7 @@
                                         android:visibility="gone">
 
                                         <com.google.android.material.textfield.TextInputEditText
-                                            android:id="@+id/qr_scan_pay_customer_id"
+                                            android:id="@+id/qr_scan_pay_reference_id"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:hint="@string/customer_id"
@@ -173,7 +184,7 @@
                                             android:id="@+id/qr_scan_pay_generated_by"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:hint="@string/generated_by"
+                                            android:hint="Reference ID"
                                             android:imeOptions="actionDone"
                                             android:singleLine="true"
                                             android:text="IMP-KFC-98003"
@@ -202,6 +213,24 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.2"
                 android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/button_text_color"
+                        android:text="Expires in "/>
+                    <TextView
+                        android:id="@+id/timer_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@android:color/holo_red_dark"/>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

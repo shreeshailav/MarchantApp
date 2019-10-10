@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.hashedin.marchantapp.viewmodel.TransactionViewModel" />
+            type="com.hashedin.marchantapp.viewmodel.TransactionViewModel2" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -21,7 +21,7 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp"
-        android:layout_margin="5dp"
+        android:layout_margin="2dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
 
@@ -56,8 +56,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             app:srcCompat="@drawable/ic_group_listview_icon"
 
             />
@@ -77,15 +77,19 @@
                 android:id="@+id/transactiontype"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:text="@{viewModel.getDogBreedAt(position).breed}"
-
+                android:text="@{viewModel.getDogBreedAt(position).is_received ? @string/received_from : @string/paid_to}"
                 android:textColor="#5a328b"
                 />
+
+<!--            android:text="@{viewModel.getDogBreedAt(position).amount}"-->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Transaction ID : 4082491038"
+                android:textSize="14sp"
                 android:textColor="#474a5f"/>
+
         </LinearLayout>
 
         <TextView
@@ -93,8 +97,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView"
-            android:text="32min ago"
+            android:text="@{viewModel.getDogBreedAt(position).created_time}"
             android:textColor="#c7c7c7"
+            android:textSize="14sp"
             android:layout_alignTop="@+id/mmk"
             />
 
@@ -106,7 +111,7 @@
                 android:id="@+id/total_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total amount   356"
+                android:text="356 MMK"
                 android:layout_alignParentRight="true"
                 android:textColor="#000000"
                 />
@@ -118,6 +123,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/transaction_layout1"
                 android:text="Reward points 200"
+                android:textSize="12sp"
                 android:textColor="#b4b4b4"/>
 
             <TextView
@@ -127,6 +133,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/rewardpoints"
                 android:textColor="#b4b4b4"
+                android:textSize="12sp"
                 android:text="MMK 156"/>
 
 

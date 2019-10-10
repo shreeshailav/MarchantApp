@@ -1,5 +1,6 @@
 package com.hashedin.marchantapp.viewactivity.ui.history;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +20,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hashedin.marchantapp.R;
-import com.hashedin.marchantapp.Services.models.Transaction;
+import com.hashedin.marchantapp.Services.Repository.ApiResponse;
+import com.hashedin.marchantapp.Services.models.TransactionHistory.Result;
+import com.hashedin.marchantapp.Services.models.TransactionHistory.TransactionHistoryMain;
 import com.hashedin.marchantapp.databinding.FragmentHistoryBinding;
-import com.hashedin.marchantapp.viewmodel.TransactionViewModel;
+import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
+import com.hashedin.marchantapp.viewmodel.CouponDetailViewModel;
+import com.hashedin.marchantapp.viewmodel.TransactionViewModel2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +44,19 @@ public class HistoryFragment extends Fragment {
 
 
     private HistoryViewModel historyViewModel;
-    private TransactionViewModel transactionViewModel;
+    private TransactionViewModel2 transactionViewModel;
     FragmentHistoryBinding fragmentHistoryBinding;
 
     boolean isLoading = false;
     boolean isfirst = true;
+
+    CouponDetailViewModel viewModel;
+    ProgressDialog myDialog;
+    String auth_token;
+
+    public static String nextpagenumber = "";
+    public static String prevpagenumber = "";
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -77,6 +90,12 @@ public class HistoryFragment extends Fragment {
 
         View root = fragmentHistoryBinding.getRoot();
 
+        PrefManager prefManager = new PrefManager(getContext());
+
+
+        auth_token = "token " + prefManager.getKey();
+
+
 
         fragmentHistoryBinding.backimage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +109,7 @@ public class HistoryFragment extends Fragment {
         });
 
         //fragmentHistoryBinding = DataBindingUtil.setContentView(getActivity(), R.layout.fragment_history);
-        transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
+        transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel2.class);
         if (savedInstanceState == null) {
             transactionViewModel.init();
         }
@@ -111,6 +130,13 @@ public class HistoryFragment extends Fragment {
         fragmentHistoryBinding.avi.hide();
 
 
+        viewModel = ViewModelProviders.of(this).get(CouponDetailViewModel.class);
+
+
+
+
+        getMoreHistory();
+
         return root;
     }
 
@@ -125,10 +151,10 @@ public class HistoryFragment extends Fragment {
 
     private void setupListUpdate() {
         transactionViewModel.loading.set(View.VISIBLE);
-        transactionViewModel.fetchList();
-        transactionViewModel.getBreeds().observe(this, new Observer<List<Transaction>>() {
+        transactionViewModel.fetchList2(auth_token);
+        transactionViewModel.getBreeds().observe(this, new Observer<List<Result>>() {
             @Override
-            public void onChanged(List<Transaction> transactions) {
+            public void onChanged(List<Result> transactions) {
                 transactionViewModel.loading.set(View.GONE);
                 if (transactions.size() == 0) {
                     transactionViewModel.showEmpty.set(View.VISIBLE);
@@ -158,10 +184,10 @@ public class HistoryFragment extends Fragment {
 
     private void setupListClick() {
 
-        transactionViewModel.getSelected().observe(this, new Observer<Transaction>() {
+        transactionViewModel.getSelected().observe(this, new Observer<Result>() {
             @Override
-            public void onChanged(Transaction transaction) {
-                if (transaction != null) {
+            public void onChanged(Result result) {
+                if (result != null) {
 
                     // Toast.makeText(getContext(),transaction.getBreed(),Toast.LENGTH_LONG).show();
                     FragmentManager fragmentManager = getFragmentManager();
@@ -201,7 +227,11 @@ public class HistoryFragment extends Fragment {
                         && firstVisibleItemPosition >= 0
                         && totalItemCount >= PAGE_SIZE) {
 
-                    loadMoreItems(totalItemCount - 1);
+                    //loadMoreItems(totalItemCount - 1);
+                    if(nextpagenumber.contains("page=")) {
+                        String pagenumber = nextpagenumber.split("page=")[1];
+                        getHistory(pagenumber);
+                    }
                 }
             }
             isfirst = false;
@@ -225,14 +255,16 @@ public class HistoryFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        List<Transaction> transactions = new ArrayList<>();
+
+
+                        List<Result> results = new ArrayList<>();
 
                         for (int i = 0; i < 5; i++) {
-                            Transaction transaction = new Transaction();
-                            transaction.setBreed("A" + i);
-                            transactions.add(transaction);
+                            Result result = new Result();
+                            result.amount= ""+i;
+                            results.add(result);
                         }
-                        transactionViewModel.addItems(transactions);
+                        transactionViewModel.addItems(results);
 
 
                         if (fragmentHistoryBinding.listOfTransaction.getLayoutManager().getItemCount() > (visibleItemCount + 3)) {
@@ -264,4 +296,77 @@ public class HistoryFragment extends Fragment {
 
 
 
-}
+
+    public void getHistory(String pagenumber) {
+
+
+
+
+
+        isLoading = true;
+
+        fragmentHistoryBinding.avi.show();
+
+
+
+
+
+
+        viewModel.getTransactionHistory(pagenumber,auth_token);
+
+
+
+    }
+
+    public void  getMoreHistory(){
+
+        viewModel.getTransactionHistory("0",auth_token).observe(this, new Observer<ApiResponse>() {
+            @Override
+            public void onChanged(ApiResponse apiResponse) {
+
+                isLoading = false;
+                fragmentHistoryBinding.avi.hide();
+
+
+                if (apiResponse == null) {
+                    // handle error here
+                    return;
+                }
+                if (apiResponse.transactionHistoryMain != null && apiResponse.getError() == null) {
+
+                    //Log.i(TAG, "Data response is " + apiResponse.getPosts());
+
+                    TransactionHistoryMain transactionHistoryMain = apiResponse.transactionHistoryMain;
+
+
+                    if(transactionHistoryMain.next!=null) {
+                        HistoryFragment.prevpagenumber = HistoryFragment.nextpagenumber ;
+                        HistoryFragment.nextpagenumber = transactionHistoryMain.next;
+                    }
+                    else {
+                        HistoryFragment.prevpagenumber = HistoryFragment.nextpagenumber ;
+                        HistoryFragment.nextpagenumber = "";
+                    }
+
+
+
+                    transactionViewModel.addItems(transactionHistoryMain.results);
+
+
+
+
+                } else if (apiResponse.errorMessage != null) {
+                    String failedstr = apiResponse.errorMessage; //getResources().getString(R.string.paid_Failed);
+                    //showOptions(getContext(), failedstr);
+                } else {
+                    Throwable e = apiResponse.getError();
+
+                }
+            }
+        });
+    }
+
+
+
+
+    }
