@@ -93,4 +93,14 @@
     <string name="_1_pt_1_mmk2"> MMK)</string>
     <string name="received_from">Received from</string>
     <string name="paid_to">Paid to</string>
+
+
+
+    <string name="price_format" translatable="false">%+.2f $</string>
+    <string name="generic_name">Hello %s</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="new_password">New Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="update_password">UPDATE PASSWORD</string>
+
 </resources>

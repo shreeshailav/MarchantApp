@@ -30,10 +30,9 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.hashedin.marchantapp.R;
 import com.hashedin.marchantapp.Services.Repository.ApiEndpoints;
-import com.hashedin.marchantapp.Services.models.GenerateQR;
+import com.hashedin.marchantapp.Services.models.QRCodeGenerateModel.GenerateQR;
 import com.hashedin.marchantapp.Services.models.QRCodeGenerateModel.QRGenModel;
 import com.hashedin.marchantapp.databinding.FragmentScanAndPayBinding;
-import com.hashedin.marchantapp.viewactivity.LoginActivity;
 import com.hashedin.marchantapp.viewactivity.MerchantMainActivity;
 import com.hashedin.marchantapp.viewactivity.Utility.DialogsUtils;
 import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
@@ -58,29 +57,18 @@ import static com.hashedin.marchantapp.viewactivity.ui.qrcodegenerate.QRCodeGene
 public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment.OnFragmentInteractionListener {
 
 
-    private static final String TAG = LoginActivity.class.getSimpleName();
-
-    String UUID = null; //"5122af09-be6d-4310-9e92-05635a06b063";
-    Bitmap bitmap;
-    ProgressDialog myDialog;
-
-    Boolean isUnsubscribed = false;
-
-
-    FragmentScanAndPayBinding fragmentScanAndPayBinding;
-
-    Scheduler temp1;
-
-    GenerateQR generateQR;
-
-    Retrofit retrofit;
-    ApiEndpoints apiService;
-    Disposable disposable;
-
-    String auth_token;
-
-    Observable<QRGenModel> observable;
-
+    private String UUID = null;
+    private Bitmap bitmap;
+    private ProgressDialog myDialog;
+    private Boolean isUnsubscribed = false;
+    private FragmentScanAndPayBinding fragmentScanAndPayBinding;
+    private Scheduler temp1;
+    private GenerateQR generateQR;
+    private ApiEndpoints apiService;
+    private Disposable disposable;
+    private String auth_token;
+    private Observable<QRGenModel> observable;
+    private QRGenModel qrGenModel_successdata;
 
     private static CountDownTimer countDownTimer;
 
@@ -93,27 +81,14 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-
-        MerchantMainActivity.currentFragment = "QRCodeScanAndPayFragment" ;
-
-
-
+        MerchantMainActivity.currentFragment = "QRCodeScanAndPayFragment";
         fragmentScanAndPayBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_scan_and_pay, container, false);
-
         View root = fragmentScanAndPayBinding.getRoot();
-
-
-
-
-
         Bundle bundle = getArguments();
         if (bundle != null) {
-
             //couponcode = bundle.getString("couponcode");
             generateQR = (GenerateQR) bundle.getSerializable("generateQR");
-
             if (!TextUtils.isEmpty(generateQR.uuid)) {
                 UUID = generateQR.uuid;
                 new loadqr().execute();
@@ -121,8 +96,6 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
             }
 
         }
-
-
         fragmentScanAndPayBinding.qrScanPayImageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,19 +106,15 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
 //                fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).commit();
             }
         });
-
-
         fragmentScanAndPayBinding.scanPayCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                if (getFragmentManager() != null)
 //                    getFragmentManager().popBackStack();
-
-                if(getActivity()!=null)
+                if (getActivity() != null)
                     getActivity().onBackPressed();
             }
         });
-
         fragmentScanAndPayBinding.backimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,11 +124,8 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
 
             }
         });
-
         initialize();
-
         scanResponse();
-
         return root;
     }
 
@@ -171,9 +137,9 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
 
     }
 
-    private void updateUI(){
+    private void updateUI() {
         fragmentScanAndPayBinding.qrScanPayTransactionId.setText(generateQR.uuid);
-        fragmentScanAndPayBinding.qrScanPayBillAmount.setText(""+generateQR.amount);
+        fragmentScanAndPayBinding.qrScanPayBillAmount.setText("" + generateQR.amount);
         fragmentScanAndPayBinding.qrScanPayGeneratedBy.setText(generateQR.reference);
     }
 
@@ -181,17 +147,19 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
     private void initialize() {
         //If CountDownTimer is null then start timer
         if (countDownTimer == null) {
-
             int noOfMinutes = 5 * 60 * 1000;//Convert minutes into milliseconds
             startTimer(noOfMinutes);//start countdown
 
-         }
+        }
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        if (qrGenModel_successdata != null) {
+            handleResults(qrGenModel_successdata);
+        }
 
 
     }
@@ -201,7 +169,6 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
         super.onPause();
 
 
-
     }
 
 
@@ -209,9 +176,9 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
     public void onDestroyView() {
         super.onDestroyView();
 
-        isUnsubscribed = true;
-        stopCountdown();
+
     }
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -229,33 +196,23 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
             );
 
         } catch (IllegalArgumentException Illegalargumentexception) {
-
             return null;
         }
         int bitMatrixWidth = bitMatrix.getWidth();
-
         int bitMatrixHeight = bitMatrix.getHeight();
-
         int[] pixels = new int[bitMatrixWidth * bitMatrixHeight];
-
         for (int y = 0; y < bitMatrixHeight; y++) {
             int offset = y * bitMatrixWidth;
-
             for (int x = 0; x < bitMatrixWidth; x++) {
-
                 if (getContext() != null) {
-
                     pixels[offset + x] = bitMatrix.get(x, y) ?
                             getResources().getColor(R.color.QRCodeBlackColor) : getResources().getColor(R.color.QRCodeWhiteColor);
                 }
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444);
-
         bitmap.setPixels(pixels, 0, 500, 0, 0, bitMatrixWidth, bitMatrixHeight);
-
         myDialog.dismiss();
-
         return bitmap;
     }
 
@@ -271,14 +228,9 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
 
         @Override
         protected Void doInBackground(Void... voids) {
-
             try {
-
-
                 bitmap = TextToImageEncode(UUID);
-
                 if (getActivity() != null) {
-
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -291,7 +243,6 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
             } catch (WriterException e) {
                 e.printStackTrace();
             }
-
             return null;
         }
 
@@ -306,8 +257,8 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-
+        isUnsubscribed = true;
+        stopCountdown();
         disposable.dispose();
 
 
@@ -322,22 +273,16 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .build();
-
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
-
-
-        retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HTTPS_API_MARCHENT_URL)
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-
         apiService = retrofit.create(ApiEndpoints.class);
-
-
         disposable = Observable.interval(1000, 5000,
                 TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -347,19 +292,11 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
     }
 
     private void callJokesEndpoint(Long aLong) {
-
         PrefManager prefManager = new PrefManager(getContext());
-
-        auth_token = "token " + "f2ddfb343b5793325ad74c841dfc7e3f4990f693";//prefManager.getKey();
-
-
+        auth_token = "token " + prefManager.getKey();
         if (!isUnsubscribed) {
-
-
             observable = apiService.getTransactionDetail(UUID, auth_token);
-
             temp1 = Schedulers.newThread();
-
             disposable = observable.subscribeOn(temp1).
                     observeOn(AndroidSchedulers.mainThread())
                     .map(result -> result)
@@ -376,29 +313,20 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
     }
 
     private void handleResults(QRGenModel qrGenModel) {
-
-
         if (qrGenModel != null) {
-
             isUnsubscribed = true;
             stopCountdown();
-
-
-            String rest = String.valueOf(qrGenModel.status);
-
+            qrGenModel_successdata = qrGenModel;
             Bundle bundle = new Bundle();
-           // bundle.putString("qrGenModel",qrGenModel);
+            // bundle.putString("qrGenModel",qrGenModel);
             bundle.putSerializable("UUID", UUID);
+            bundle.putSerializable("qrGenModel", qrGenModel);
             FragmentManager fragmentManager = getFragmentManager();
             QRCodePaymentApproveFragment redeemFragment = new QRCodePaymentApproveFragment();
             redeemFragment.setArguments(bundle);
-
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).commit();
-
             //textView.setText(joke);
-
-
         } else {
 //            Toast.makeText(getContext(), "NO RESULTS FOUND",
 //                    Toast.LENGTH_LONG).show();
@@ -406,11 +334,6 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
     }
 
     private void handleError(Throwable t) {
-
-        //Add your error here.
-//        Toast.makeText(getContext(), "NO RESULTS FOUND",
-//                Toast.LENGTH_LONG).show();
-
         observable.unsubscribeOn(temp1);
         if (temp1 != null) {
             temp1.shutdown();
@@ -439,11 +362,8 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
             }
 
             public void onFinish() {
-
                 fragmentScanAndPayBinding.timerText.setText("TIME'S UP!!"); //On finish change timer text
                 countDownTimer = null;//set CountDownTimer to null
-
-
                 if (getFragmentManager() != null)
                     getFragmentManager().popBackStack();
 
@@ -454,3 +374,4 @@ public class QRCodeScanAndPayFragment extends Fragment implements RedeemFragment
 
 
 }
+

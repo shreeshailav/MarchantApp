@@ -22,27 +22,17 @@ import com.hashedin.marchantapp.viewactivity.ui.qrcodescanner.RedeemFragment;
 public class ChangeLannguageFragment extends Fragment implements RedeemFragment.OnFragmentInteractionListener{
 
 
-    FragmentChangeLanguageBinding fragmentChangeLanguageBinding;
-
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-
-
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-        fragmentChangeLanguageBinding = DataBindingUtil.inflate(
+        FragmentChangeLanguageBinding fragmentChangeLanguageBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_change_language, container, false);
 
         View root = fragmentChangeLanguageBinding.getRoot();
-
-
-
-        initialize();
         return root;
     }
 
@@ -54,18 +44,9 @@ public class ChangeLannguageFragment extends Fragment implements RedeemFragment.
 
     }
 
-    public void initialize(){
-
-
-    }
-
-
     @Override
     public void onResume() {
         super.onResume();
-
-
-
     }
 
     @Override

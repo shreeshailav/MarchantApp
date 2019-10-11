@@ -1,14 +1,14 @@
 package com.hashedin.marchantapp.Services.Repository;
 
-import com.hashedin.marchantapp.Services.models.Coupons;
-import com.hashedin.marchantapp.Services.models.GenerateQR;
+import com.hashedin.marchantapp.Services.models.QRCodeScanModel.Coupons;
+import com.hashedin.marchantapp.Services.models.QRCodeGenerateModel.GenerateQR;
 import com.hashedin.marchantapp.Services.models.QRCodeGenerateModel.QRGenModel;
-import com.hashedin.marchantapp.Services.models.QRInfo;
-import com.hashedin.marchantapp.Services.models.ReddemCoupon;
+import com.hashedin.marchantapp.Services.models.QRCodeGenerateModel.QRInfo;
+import com.hashedin.marchantapp.Services.models.RedeemCoupon.RedeemCoupon;
 import com.hashedin.marchantapp.Services.models.TransacrionRequest.TransactionReq;
 import com.hashedin.marchantapp.Services.models.TransactionHistory.TransactionHistoryMain;
-import com.hashedin.marchantapp.Services.models.UserCredentials;
-import com.hashedin.marchantapp.Services.models.UserKey;
+import com.hashedin.marchantapp.Services.models.LoginModel.UserCredentials;
+import com.hashedin.marchantapp.Services.models.LoginModel.UserKey;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -34,7 +34,7 @@ public interface ApiEndpoints {
 
 
     @POST("merchant/api/v1/coupons/{cid}/redeem/")
-    Call<ReddemCoupon> getredeem(@Path("cid") String cid, @Header("Authorization") String token);
+    Call<RedeemCoupon> getredeem(@Path("cid") String cid, @Header("Authorization") String token);
 
 
     @POST("merchant/api/v1/staff/transactions/register/")
@@ -61,5 +61,4 @@ public interface ApiEndpoints {
     Call<TransactionHistoryMain> getTransactionHistoryPagination(@Query("page") String pagenumber, @Header("Authorization") String token);
 
 
-    //http://1b7c48c1.ngrok.io/merchant/api/v1/staff/transactions/?page=2
-}
+ }

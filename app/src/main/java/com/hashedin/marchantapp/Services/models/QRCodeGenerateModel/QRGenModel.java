@@ -1,6 +1,8 @@
 package com.hashedin.marchantapp.Services.models.QRCodeGenerateModel;
 
-public class QRGenModel
+import java.io.Serializable;
+
+public class QRGenModel implements Serializable
 {
     public int id ;
     public String created_time ;

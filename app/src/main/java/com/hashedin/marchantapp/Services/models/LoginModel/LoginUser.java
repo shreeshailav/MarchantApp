@@ -1,4 +1,4 @@
-package com.hashedin.marchantapp.Services.models;
+package com.hashedin.marchantapp.Services.models.LoginModel;
 
 
 public class LoginUser {
@@ -19,13 +19,5 @@ public class LoginUser {
         return userPassword;
     }
 
-//    public boolean isEmailValid() {
-//        return Patterns.EMAIL_ADDRESS.matcher(getStrEmailAddress()).matches();
-//    }
-
-
-    public boolean isPasswordLengthGreaterThan5() {
-        return getuserPassword().length() > 2;
-    }
 
 }

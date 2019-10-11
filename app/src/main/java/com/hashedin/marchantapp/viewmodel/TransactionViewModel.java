@@ -1,5 +1,6 @@
 package com.hashedin.marchantapp.viewmodel;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.databinding.ObservableArrayMap;
@@ -8,101 +9,122 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.hashedin.marchantapp.R;
-import com.hashedin.marchantapp.Services.models.Transaction;
-import com.hashedin.marchantapp.Services.models.TransactionHistory.Transactions;
+import com.hashedin.marchantapp.Services.Repository.ApiEndpoints;
+import com.hashedin.marchantapp.Services.Repository.ApiService;
+import com.hashedin.marchantapp.Services.models.TransactionHistory.Result;
+import com.hashedin.marchantapp.Services.models.TransactionHistory.TransactionHistoryMain;
 import com.hashedin.marchantapp.viewactivity.adapters.TransactionAdapter;
+import com.hashedin.marchantapp.viewactivity.ui.history.HistoryFragment;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class TransactionViewModel extends ViewModel {
 
-    private Transactions transaction;    // model
-    private TransactionAdapter adapter;
-    public MutableLiveData<Transaction> selected;
-    public ObservableArrayMap<String, String> images;
+
+    private ObservableArrayMap<String, String> images;
     public ObservableInt loading;
     public ObservableInt showEmpty;
+    private MutableLiveData<List<Result>> results = new MutableLiveData<>();
+    private TransactionHistoryMain transactionHistoryMain;
+    private TransactionAdapter transactionAdapter;
+    private MutableLiveData<Result> selected2;
+    private ApiEndpoints endpoints;
 
-
-
+    public TransactionViewModel() {
+        endpoints = ApiService.getService();
+    }
 
     public void init() {
-        transaction = new Transactions();
-        selected = new MutableLiveData<>();
-        adapter = new TransactionAdapter(R.layout.transaction_list, this);
         images = new ObservableArrayMap<>();
         loading = new ObservableInt(View.GONE);
         showEmpty = new ObservableInt(View.GONE);
-
+        transactionHistoryMain = new TransactionHistoryMain();
+        selected2 = new MutableLiveData<>();
+        transactionAdapter = new TransactionAdapter(R.layout.transaction_list, this);
 
 
     }
 
-    public void fetchList() {
-        transaction.fetchList();
 
+    public MutableLiveData<List<Result>> getBreeds() {
+        return results;
     }
 
-    public MutableLiveData<List<Transaction>> getBreeds() {
-        return transaction.getBreeds();
+    public void addItems(List<Result> results) {
+        this.transactionAdapter.addItems(results);
     }
 
-    public void addItems(List<Transaction> transactions) {
-        this.adapter.addItems(transactions);
+
+    public void setResultsInAdapter(List<Result> results) {
+        this.transactionAdapter.setResults(results);
+        this.transactionAdapter.notifyDataSetChanged();
     }
 
-    public TransactionAdapter getAdapter() {
-        return adapter;
-    }
-
-    public void setDogBreedsInAdapter(List<Transaction> breeds) {
-        this.adapter.setDogBreeds(breeds);
-        this.adapter.notifyDataSetChanged();
-    }
-
-    public MutableLiveData<Transaction> getSelected() {
-        return selected;
+    public MutableLiveData<Result> getSelected() {
+        return selected2;
     }
 
     public void onItemClick(Integer index) {
-        Transaction db = getDogBreedAt(index);
-        selected.setValue(db);
+        Result db = getResulsAt(index);
+        selected2.setValue(db);
     }
 
-    public Transaction getDogBreedAt(Integer index) {
-        if (transaction.getBreeds().getValue() != null &&
+    public Result getResulsAt(Integer index) {
+        if (results.getValue() != null &&
                 index != null &&
-                transaction.getBreeds().getValue().size() > index) {
-            return transaction.getBreeds().getValue().get(index);
+                results.getValue().size() > index) {
+            return results.getValue().get(index);
         }
         return null;
     }
 
 
+    public TransactionAdapter getAdapter2() {
+        return transactionAdapter;
+    }
 
+    public void fetchList2(String token) {
+        getTransactionHistory(token);
 
+    }
 
+    public void getTransactionHistory(String token) {
+        final MutableLiveData<List<Result>> resultMutableLiveData = new MutableLiveData<>();
+        Call<TransactionHistoryMain> call = endpoints.getTransactionHistory(token);
+        call.enqueue(new Callback<TransactionHistoryMain>() {
+            @Override
+            public void onResponse(Call<TransactionHistoryMain> call, Response<TransactionHistoryMain> response) {
+                if (response.isSuccessful() && response.code() == 200) {
+                    //apiResponse.postValue(new ApiResponse(response.body()));
+                    if (response.body().next != null) {
+                        HistoryFragment.prevpagenumber = HistoryFragment.nextpagenumber;
+                        HistoryFragment.nextpagenumber = response.body().next;
+                    } else {
+                        HistoryFragment.prevpagenumber = HistoryFragment.nextpagenumber;
+                        HistoryFragment.nextpagenumber = "";
+                    }
+                    results.setValue(response.body().results);
+                    loading.set(View.GONE);
+                    showEmpty.set(View.GONE);
 
-//    public void fetchDogBreedImagesAt(Integer index) {
-//        DogBreed dogBreed = getDogBreedAt(index);
-//        if (dogBreed != null && !images.containsKey(dogBreed.getBreed())) {
-//            dogBreed.fetchImages(new DogImagesCallback(dogBreed.getBreed()) {
-//                @Override
-//                public void onResponse(Call<DogBreedImages> call, Response<DogBreedImages> response) {
-//                    DogBreedImages body = response.body();
-//                    if (body.getImages() != null && body.getImages().length > 0) {
-//                        String thumbnailUrl = body.getImages()[0];
-//                        images.put(getBreed(), thumbnailUrl);
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<DogBreedImages> call, Throwable t) {
-//                    Log.e("Test", t.getMessage(), t);
-//                }
-//            });
-//        }
-//    }
+                } else {
+                    Log.i("error code", "" + response.code());
+                    loading.set(View.GONE);
+                    showEmpty.set(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TransactionHistoryMain> call, Throwable t) {
+                Log.i("error code", "error");
+            }
+        });
+
+    }
 
 
 }

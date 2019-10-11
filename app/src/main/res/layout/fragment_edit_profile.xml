@@ -7,14 +7,14 @@
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".viewactivity.RedeemActivity"
-        android:background="@drawable/pattern">
+        android:background="@drawable/pattern"
+        tools:context=".viewactivity.RedeemActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/pattern">
+            android:background="@drawable/pattern"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -22,8 +22,7 @@
                 android:layout_weight="0.2"
                 android:background="@drawable/gradient_color_layout"
                 android:gravity="center_vertical"
-                android:padding="5dp"
-                 >
+                android:padding="5dp">
 
 
                 <ImageView
@@ -35,17 +34,16 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ENTER COUPON CODE"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:layout_alignBottom="@+id/backimage"
                     android:layout_alignTop="@+id/backimage"
-                    android:shadowRadius="1"
-                    android:shadowDy="1"
+                    android:layout_alignBottom="@+id/backimage"
+                    android:gravity="center"
                     android:shadowDx="1"
-                    android:textSize="20sp"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:text="ENTER COUPON CODE"
                     android:textColor="#ffd33b"
-                    />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <ScrollView
@@ -64,8 +62,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_margin="10dp">
+                        android:layout_margin="10dp"
+                        android:gravity="center">
 
 
                         <androidx.cardview.widget.CardView
@@ -73,173 +71,168 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            app:cardCornerRadius="10dp"
                             app:cardBackgroundColor="@color/white"
-                            app:cardPreventCornerOverlap="true"
-                            app:cardElevation="2dp">
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="2dp"
+                            app:cardPreventCornerOverlap="true">
 
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
 
 
-                                <LinearLayout
+                                <com.google.android.material.textfield.TextInputLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:orientation="vertical">
+                                    android:padding="10dp"
 
+                                    android:theme="@style/EditTextTheme">
 
-                                    <com.google.android.material.textfield.TextInputLayout
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/edit_profile_name"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:theme="@style/EditTextTheme"
-
-                                        android:padding="10dp">
-
-                                        <com.google.android.material.textfield.TextInputEditText
-                                            android:id="@+id/edit_profile_name"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:hint="@string/name"
-                                            android:singleLine="true"
-                                            android:imeOptions="actionDone"
-                                            android:textColor="@color/text_color"
-                                            android:padding="5dp"
-                                            android:theme="@style/EditTextTheme"/>
-                                    </com.google.android.material.textfield.TextInputLayout>
+                                        android:layout_height="wrap_content"
+                                        android:hint="@string/name"
+                                        android:imeOptions="actionDone"
+                                        android:includeFontPadding="true"
+                                        android:paddingBottom="10dp"
+                                        android:translationY="3dp"
+                                        android:singleLine="true"
+                                        android:textColor="@color/text_color"
+                                        android:theme="@style/EditTextTheme" />
+                                </com.google.android.material.textfield.TextInputLayout>
 
 
-
-                                </LinearLayout>
+                            </LinearLayout>
 
                         </androidx.cardview.widget.CardView>
+
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cardview2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/cardview"
                             android:layout_margin="5dp"
-                            app:cardCornerRadius="10dp"
                             app:cardBackgroundColor="@color/white"
-                            app:cardPreventCornerOverlap="true"
-                            app:cardElevation="2dp">
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="2dp"
+                            app:cardPreventCornerOverlap="true">
 
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="10dp">
 
 
-                                <LinearLayout
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/gender" />
+
+
+                                <RadioGroup
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:orientation="vertical"
-                                    android:padding="10dp">
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
+                                    <RadioButton
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="@string/gender"/>
+                                        android:layout_weight="1"
+                                        android:text="Male" />
 
-
-                                    <RadioGroup
-                                        android:layout_width="match_parent"
+                                    <RadioButton
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:orientation="horizontal"
-                                        >
+                                        android:layout_weight="1"
+                                        android:text="Female" />
 
-                                        <RadioButton
-                                            android:layout_width="0dp"
-                                            android:layout_weight="1"
-                                            android:layout_height="wrap_content"
-                                            android:text="Male"
-                                            />
-
-                                        <RadioButton
-                                            android:layout_width="0dp"
-                                            android:layout_weight="1"
-                                            android:layout_height="wrap_content"
-                                            android:text="Female"/>
-
-                                        <RadioButton
-                                            android:layout_width="0dp"
-                                            android:layout_weight="1"
-                                            android:layout_height="wrap_content"
-                                            android:text="Other"/>
+                                    <RadioButton
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Other" />
 
 
-                                    </RadioGroup>
+                                </RadioGroup>
 
 
-
-                                </LinearLayout>
+                            </LinearLayout>
 
                         </androidx.cardview.widget.CardView>
+
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cardview3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            app:cardCornerRadius="10dp"
                             android:layout_below="@+id/cardview2"
+                            android:layout_margin="5dp"
                             app:cardBackgroundColor="@color/white"
-                            app:cardPreventCornerOverlap="true"
-                            app:cardElevation="2dp">
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="2dp"
+                            app:cardPreventCornerOverlap="true">
 
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="5dp">
 
 
-                                <LinearLayout
+                                <com.google.android.material.textfield.TextInputLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:orientation="vertical">
+                                    android:theme="@style/EditTextTheme">
 
-
-
-                                    <com.google.android.material.textfield.TextInputLayout
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/edit_profile_dob"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:theme="@style/EditTextTheme"
-
-                                        android:padding="10dp">
-
-                                        <com.google.android.material.textfield.TextInputEditText
-                                            android:id="@+id/edit_profile_dob"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:hint="@string/date_of_birthday"
-                                            android:singleLine="true"
-                                            android:imeOptions="actionDone"
-                                            android:textColor="@color/text_color"
-                                            android:drawableRight="@drawable/ic_action_calender"
-                                            android:padding="5dp"
-                                            android:theme="@style/EditTextTheme"/>
-                                    </com.google.android.material.textfield.TextInputLayout>
+                                        android:layout_height="wrap_content"
+                                        android:drawableRight="@drawable/ic_action_calender"
+                                        android:focusable="false"
+                                        android:hint="@string/date_of_birthday"
+                                        android:imeOptions="actionDone"
+                                        android:singleLine="true"
+                                        android:includeFontPadding="true"
+                                        android:paddingBottom="10dp"
+                                        android:text=" "
+                                        android:textColor="@color/text_color"
+                                        android:theme="@style/EditTextTheme" />
+                                </com.google.android.material.textfield.TextInputLayout>
 
 
-
-                                </LinearLayout>
+                            </LinearLayout>
 
                         </androidx.cardview.widget.CardView>
-
 
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_alignParentBottom="true"
-                            android:layout_margin="10dp">
+                            android:layout_margin="10dp"
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_weight="0.5"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5" />
 
                             <Button
                                 android:id="@+id/redeembtn"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
                                 android:layout_marginBottom="20dp"
-                                android:background="@drawable/button"                                    android:elevation="2dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/button"
+                                android:elevation="2dp"
                                 android:shadowColor="#b3b3b3"
                                 android:shadowDx="2"
                                 android:shadowDy="2"
@@ -251,8 +244,8 @@
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_weight="0.5"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5" />
 
                         </LinearLayout>
 

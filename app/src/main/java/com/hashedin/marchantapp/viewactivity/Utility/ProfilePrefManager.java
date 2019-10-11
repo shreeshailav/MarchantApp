@@ -34,15 +34,65 @@ public class ProfilePrefManager {
         SharedPreferences sharedPreferences = context.getSharedPreferences("ProfileDetails", Context.MODE_PRIVATE);
         return sharedPreferences.getString("language","");
     } public String getGender() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("gender", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ProfileDetails", Context.MODE_PRIVATE);
         return sharedPreferences.getString("gender","");
     } public String getDOB() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("DOB", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ProfileDetails", Context.MODE_PRIVATE);
         return sharedPreferences.getString("DOB","");
     }public String getTextsize() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("textsize", Context.MODE_PRIVATE);
-        return sharedPreferences.getString("textsize","");
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ProfileDetails", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("textsize",null);
     }
+
+    public void setName(String name){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ProfileDetails", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("name", name);
+        editor.apply();
+    }
+
+    public void setPhonenumber(String phonenumber){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ProfileDetails", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("phonenumber", phonenumber);
+        editor.apply();
+     }
+
+
+
+
+    public void setLanguage(String language){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ProfileDetails", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("language", language);
+        editor.apply();
+    }
+
+    public void setGender(String gender){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ProfileDetails", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("gender", gender);
+        editor.apply();
+    }
+
+
+    public void setDOB(String DOB){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ProfileDetails", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("DOB", DOB);
+        editor.apply();
+    }
+
+    public void setTextsize(String textsize){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ProfileDetails", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("textsize", textsize);
+        editor.apply();
+    }
+
+
+
+
 
     public boolean isUserProfileEmpty() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("ProfileDetails", Context.MODE_PRIVATE);

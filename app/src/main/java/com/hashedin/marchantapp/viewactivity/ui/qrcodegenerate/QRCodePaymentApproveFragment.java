@@ -32,7 +32,6 @@ import com.hashedin.marchantapp.Services.models.QRCodeGenerateModel.Payment;
 import com.hashedin.marchantapp.Services.models.QRCodeGenerateModel.QRGenModel;
 import com.hashedin.marchantapp.Services.models.TransacrionRequest.TransactionReq;
 import com.hashedin.marchantapp.databinding.FragmentPaymentApproveBinding;
-import com.hashedin.marchantapp.viewactivity.LoginActivity;
 import com.hashedin.marchantapp.viewactivity.MerchantMainActivity;
 import com.hashedin.marchantapp.viewactivity.Utility.DialogsUtils;
 import com.hashedin.marchantapp.viewactivity.Utility.PrefManager;
@@ -44,27 +43,13 @@ import java.util.List;
 public class QRCodePaymentApproveFragment extends Fragment implements RedeemFragment.OnFragmentInteractionListener {
 
 
-    private static final String TAG = LoginActivity.class.getSimpleName();
-    public static String fragmentname = null;
-
-
-    FragmentPaymentApproveBinding fragmentPaymentApproveBinding;
-
-
+    private FragmentPaymentApproveBinding fragmentPaymentApproveBinding;
     private PopupWindow optionspu;
-
-    CouponDetailViewModel viewModel;
-
-
-    String UUID;
-
-
-    ProgressDialog myDialog;
-
-
-    String auth_token;
-
-    QRGenModel qrGenModel;
+    private CouponDetailViewModel viewModel;
+    private String UUID;
+    private ProgressDialog myDialog;
+    private String auth_token;
+    private QRGenModel qrGenModel;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -75,39 +60,19 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-
         MerchantMainActivity.currentFragment = "QRCodePaymentApproveFragment";
-
-
         fragmentPaymentApproveBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_payment_approve, container, false);
-
         View root = fragmentPaymentApproveBinding.getRoot();
-        fragmentname = "QRCodePaymentApproveFragment";
-
         Bundle bundle = getArguments();
         if (bundle != null) {
-
             UUID = bundle.getString("UUID");
-
-
-//            if(!TextUtils.isEmpty(generateQR.uuid)) {
-//                UUID = generateQR.uuid;
-//                new QRCodeScanAndPayFragment.loadqr().execute();
-//            }
-
-
+            qrGenModel = (QRGenModel) bundle.getSerializable("qrGenModel");
             updateUI();
-
-
         }
-
-
         fragmentPaymentApproveBinding.paymentApproveCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 getDeclineRequest();
 
             }
@@ -116,27 +81,18 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
             @Override
             public void onClick(View view) {
                 // showOptions(getContext(), "PAYMENT RECEIVED SUCCESSFULLY");
-
                 getAcceptRequest();
             }
         });
-
         fragmentPaymentApproveBinding.backimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (getFragmentManager() != null)
-//                    getFragmentManager().popBackStack();
                 getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
             }
         });
-
-
         initialize();
-
         viewModel = ViewModelProviders.of(this).get(CouponDetailViewModel.class);
-
-
         return root;
     }
 
@@ -151,8 +107,7 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
 
     private void initialize() {
         PrefManager prefManager = new PrefManager(getContext());
-
-        auth_token = "token " + "f2ddfb343b5793325ad74c841dfc7e3f4990f693";//prefManager.getKey();
+        auth_token = "token " + prefManager.getKey();
     }
 
     @Override
@@ -176,33 +131,25 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
 
     private void showOptions(Context mcon, String msg) {
         try {
-
-
             LayoutInflater inflater = (LayoutInflater) mcon.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.rq_error_popup, null);
-
             TextView textView = layout.findViewById(R.id.errormessage);
             AppCompatImageView appCompatImageView = layout.findViewById(R.id.imageViewstatus);
             textView.setText(msg.toUpperCase());
-
             if (msg.equalsIgnoreCase(getResources().getString(R.string.paid_successfully)))
                 appCompatImageView.setImageResource(R.drawable.group_success_icon);
             else
                 appCompatImageView.setImageResource(R.drawable.group_error_icon);
-
             TextView closebtn = layout.findViewById(R.id.closebtn);
-
             closebtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (optionspu != null)
                         optionspu.dismiss();
-
                     if (getActivity() != null)
                         getActivity().onBackPressed();
                 }
             });
-
             optionspu = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             optionspu.setAnimationStyle(R.style.popup_window_animation);
             optionspu.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -210,12 +157,10 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
             optionspu.setOutsideTouchable(true);
             optionspu.update(0, 0, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             optionspu.showAtLocation(layout, Gravity.CENTER, 0, 0);
-
             optionspu.setOutsideTouchable(false);
             optionspu.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
-
                 }
             });
 
@@ -226,28 +171,19 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
 
 
     public void getAcceptRequest() {
-
-
         myDialog = DialogsUtils.showProgressDialog(getContext(), "Loading please wait");
-
         viewModel.getTransactionAcceptReq(UUID, auth_token).observe(this, new Observer<ApiResponse>() {
             @Override
             public void onChanged(ApiResponse apiResponse) {
-
-
                 if (myDialog != null)
                     myDialog.dismiss();
-
                 if (apiResponse == null) {
                     // handle error here
                     return;
                 }
                 if (apiResponse.transactionReq != null && apiResponse.getError() == null) {
                     // call is successful
-                    //Log.i(TAG, "Data response is " + apiResponse.getPosts());
-
                     TransactionReq transactionReq = apiResponse.transactionReq;
-
                     showOptions(getContext(), "PAYMENT RECEIVED SUCCESSFULLY");
 
 
@@ -257,9 +193,6 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
                 } else {
                     // call failed.
                     Throwable e = apiResponse.getError();
-                    //showOptions(getContext(), "Unable to reach server");
-//                    snackbarMessage("Unable to reach server");
-//                    snackbar.show();
                 }
 
 
@@ -269,29 +202,19 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
 
 
     public void getDeclineRequest() {
-
-
         myDialog = DialogsUtils.showProgressDialog(getContext(), "Loading please wait");
-
-
         viewModel.getTransactionDeclineReq(UUID, auth_token).observe(this, new Observer<ApiResponse>() {
             @Override
             public void onChanged(ApiResponse apiResponse) {
-
-
                 if (myDialog != null)
                     myDialog.dismiss();
-
                 if (apiResponse == null) {
                     // handle error here
                     return;
                 }
                 if (apiResponse.transactionReq != null && apiResponse.getError() == null) {
                     // call is successful
-                    //Log.i(TAG, "Data response is " + apiResponse.getPosts());
-
                     TransactionReq transactionReq = apiResponse.transactionReq;
-
                     showOptions(getContext(), "PAYMENT CANCELED SUCCESSFULLY");
 
 
@@ -299,11 +222,7 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
                     String failedstr = apiResponse.errorMessage; //getResources().getString(R.string.paid_Failed);
                     //showOptions(getContext(), failedstr);
                 } else {
-                    // call failed.
                     Throwable e = apiResponse.getError();
-                    //showOptions(getContext(), "Unable to reach server");
-//                    snackbarMessage("Unable to reach server");
-//                    snackbar.show();
                 }
 
 
@@ -314,22 +233,17 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
     }
 
     private void updateUI() {
-
         if (qrGenModel != null) {
-
             if (qrGenModel.payed_to_object != null && qrGenModel.payed_to_object.market_rate != null) {
                 String getperpointltrstart = getResources().getString(R.string._1_pt_1_mmk);
-                String getperpointltrend = getResources().getString(R.string._1_pt_1_mmk2);
+                String getperpointltrend = " " + getResources().getString(R.string._1_pt_1_mmk2);
                 String mmkperpoint = getperpointltrstart + 2 + getperpointltrend;
                 fragmentPaymentApproveBinding.mmkperpoint.setText(mmkperpoint);
             }
-
             float total_cash_paid = 0;
             float total_rewardspoint = 0;
-
             if (qrGenModel.meta != null && qrGenModel.meta.payments != null) {
                 List<Payment> payments = qrGenModel.meta.payments;
-
                 for (Payment payment : payments) {
                     if (payment.mode == 0) {
                         total_cash_paid += payment.value;
@@ -337,7 +251,6 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
                         total_rewardspoint += payment.value;
                     }
                 }
-
                 if (qrGenModel.payed_to_object != null && qrGenModel.payed_to_object.market_rate != null) {
                     try {
                         float marketrate = Float.parseFloat(qrGenModel.payed_to_object.market_rate);
@@ -349,25 +262,19 @@ public class QRCodePaymentApproveFragment extends Fragment implements RedeemFrag
                 }
 
             }
-
             String total_cash_paid_str = total_cash_paid + " MMK";
             String total_rewardspoint_str = total_rewardspoint + " MMK";
-
             fragmentPaymentApproveBinding.cashpaid.setText(total_cash_paid_str);
             fragmentPaymentApproveBinding.rewardpoint.setText(total_rewardspoint_str);
-
-
-            if(qrGenModel.amount!=null){
-                try{
-                    String totalamtpaid =   qrGenModel.amount.contains(".") ? qrGenModel.amount.replaceAll("0*$","").replaceAll("\\.$","") : qrGenModel.amount ;
+            if (qrGenModel.amount != null) {
+                try {
+                    String totalamtpaid = qrGenModel.amount.contains(".") ? qrGenModel.amount.replaceAll("0*$", "").replaceAll("\\.$", "") : qrGenModel.amount;
                     totalamtpaid = totalamtpaid + " MMK";
                     fragmentPaymentApproveBinding.totalamtpaid.setText(totalamtpaid);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-
-
             fragmentPaymentApproveBinding.paidbycreditordebit.setText("0");
         }
     }

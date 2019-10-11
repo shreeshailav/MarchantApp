@@ -12,6 +12,4 @@ public class TransactionHistoryMain implements Serializable
     public int per_page ;
     public List<Result> results ;
 
-
-
 }

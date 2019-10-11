@@ -6,4 +6,8 @@
 
     <dimen name="login_logo_text_size">60dp</dimen>
 
+
+    <dimen name="home_buttons_text_size">20sp</dimen>
+
+
 </resources>

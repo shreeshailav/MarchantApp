@@ -1,11 +1,11 @@
 package com.hashedin.marchantapp.viewmodel;
 
- import android.view.View;
+import android.view.View;
 
- import androidx.lifecycle.MutableLiveData;
- import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
- import com.hashedin.marchantapp.Services.models.LoginUser;
+import com.hashedin.marchantapp.Services.models.LoginModel.LoginUser;
 
 
 public class LoginViewModel extends ViewModel {
@@ -17,7 +17,6 @@ public class LoginViewModel extends ViewModel {
     private MutableLiveData<LoginUser> userMutableLiveData;
 
     public MutableLiveData<LoginUser> getUser() {
-
         if (userMutableLiveData == null) {
             userMutableLiveData = new MutableLiveData<>();
         }
@@ -26,9 +25,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void onClick(View view) {
-
         LoginUser loginUser = new LoginUser(userName.getValue(), userPassword.getValue());
-
         userMutableLiveData.setValue(loginUser);
 
     }

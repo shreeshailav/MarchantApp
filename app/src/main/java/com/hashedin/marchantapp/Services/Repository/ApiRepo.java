@@ -5,10 +5,10 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.hashedin.marchantapp.Services.models.Coupons;
-import com.hashedin.marchantapp.Services.models.GenerateQR;
-import com.hashedin.marchantapp.Services.models.QRInfo;
-import com.hashedin.marchantapp.Services.models.ReddemCoupon;
+import com.hashedin.marchantapp.Services.models.QRCodeScanModel.Coupons;
+import com.hashedin.marchantapp.Services.models.QRCodeGenerateModel.GenerateQR;
+import com.hashedin.marchantapp.Services.models.QRCodeGenerateModel.QRInfo;
+import com.hashedin.marchantapp.Services.models.RedeemCoupon.RedeemCoupon;
 import com.hashedin.marchantapp.Services.models.TransacrionRequest.TransactionReq;
 import com.hashedin.marchantapp.Services.models.TransactionHistory.TransactionHistoryMain;
 
@@ -60,10 +60,10 @@ public class ApiRepo {
     public LiveData<ApiResponse> getRedeemCoupon(String couponceode, String token) {
 
         final MutableLiveData<ApiResponse> apiResponse = new MutableLiveData<>();
-        Call<ReddemCoupon> call = endpoints.getredeem(couponceode, token);
-        call.enqueue(new Callback<ReddemCoupon>() {
+        Call<RedeemCoupon> call = endpoints.getredeem(couponceode, token);
+        call.enqueue(new Callback<RedeemCoupon>() {
             @Override
-            public void onResponse(Call<ReddemCoupon> call, Response<ReddemCoupon> response) {
+            public void onResponse(Call<RedeemCoupon> call, Response<RedeemCoupon> response) {
 
 
                 if (response.isSuccessful() && response.code() == 201) {
@@ -88,7 +88,7 @@ public class ApiRepo {
             }
 
             @Override
-            public void onFailure(Call<ReddemCoupon> call, Throwable t) {
+            public void onFailure(Call<RedeemCoupon> call, Throwable t) {
                 apiResponse.postValue(new ApiResponse(t));
             }
         });

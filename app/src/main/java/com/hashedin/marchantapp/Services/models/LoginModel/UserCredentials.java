@@ -1,4 +1,4 @@
-package com.hashedin.marchantapp.Services.models;
+package com.hashedin.marchantapp.Services.models.LoginModel;
 
 public class UserCredentials {
     public String username;

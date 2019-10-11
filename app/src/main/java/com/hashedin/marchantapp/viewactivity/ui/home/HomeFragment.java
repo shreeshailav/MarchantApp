@@ -13,8 +13,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -26,37 +24,17 @@ import com.hashedin.marchantapp.viewactivity.ui.qrcodegenerate.QRCodeGenerateFra
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
-
-    FragmentHomeBinding fragmentHomeBinding;
-    NavController navController;
-
-
+    private NavController navController;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
 
         MerchantMainActivity.currentFragment = "HomeFragment" ;
-
-
-        fragmentHomeBinding = DataBindingUtil.inflate(
+        FragmentHomeBinding fragmentHomeBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_home, container, false);
 
         View root = fragmentHomeBinding.getRoot();
-
-
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-
-        //root = inflater.inflate(R.layout.fragment_home, container, false);
-        //final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                //  textView.setText(s);
-            }
-        });
 
         fragmentHomeBinding.profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,19 +60,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-
-
-
-
                 final FragmentManager fragmentManager = getFragmentManager();
                 QRCodeGenerateFragment redeemFragment = new QRCodeGenerateFragment();
 
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).commit();
-
-
-
-
             }
         });
 
@@ -105,26 +75,8 @@ public class HomeFragment extends Fragment {
                 navController.navigate(R.id.navigation_history);
             }
         });
-
-
         return root;
     }
-
-    public void loadQRCodeScannerActivity(View view) {
-        if (navController != null)
-            navController.navigate(R.id.navigation_scan);
-    }
-
-    //    public void loadQRCodeGenerateFragment(View view){
-//        if(navController!=null)
-//            navController.navigate(R.id.navigation_qr);
-//    }
-    public void loadHistoryFragment(View view) {
-        if (navController != null)
-            navController.navigate(R.id.navigation_history);
-    }
-
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -134,24 +86,5 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public void clearStack() {
-        //Here we are clearing back stack fragment entries
-        int backStackEntry = getFragmentManager().getBackStackEntryCount();
-        if (backStackEntry > 0) {
-            for (int i = 0; i < backStackEntry; i++) {
-                getFragmentManager().popBackStackImmediate();
-            }
-        }
-
-        //Here we are removing all the fragment that are shown here
-        if (getFragmentManager().getFragments() != null && getFragmentManager().getFragments().size() > 0) {
-            for (int i = 0; i < getFragmentManager().getFragments().size(); i++) {
-                Fragment mFragment = getFragmentManager().getFragments().get(i);
-                if (mFragment != null) {
-                    getFragmentManager().beginTransaction().remove(mFragment).commit();
-                }
-            }
-        }
-    }
 
 }

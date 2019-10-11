@@ -1,7 +1,8 @@
-package com.hashedin.marchantapp.Services.models;
+package com.hashedin.marchantapp.Services.models.RedeemCoupon;
 
 
-public class ReddemCoupon {
+
+public class RedeemCoupon {
 
     public int id ;
     public int type ;

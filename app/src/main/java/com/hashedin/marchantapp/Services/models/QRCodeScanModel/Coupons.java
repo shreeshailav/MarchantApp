@@ -1,4 +1,5 @@
-package com.hashedin.marchantapp.Services.models;
+package com.hashedin.marchantapp.Services.models.QRCodeScanModel;
+
 
 import java.io.Serializable;
 

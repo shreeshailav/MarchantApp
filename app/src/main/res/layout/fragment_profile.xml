@@ -64,10 +64,11 @@
                     </LinearLayout>
 
                     <RelativeLayout
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:adjustViewBounds="true"
+                        android:layout_marginTop="10dp"
                       >
 
                         <de.hdodenhof.circleimageview.CircleImageView
@@ -76,37 +77,37 @@
                             android:layout_height="120dp"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/profile_icon" />
+                            android:src="@drawable/profile_icon"
+                           />
 
                         <RelativeLayout
                             android:id="@+id/profil_name_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/profilimage"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:padding="10dp">
 
                             <TextView
                                 android:id="@+id/profile_name"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:padding="5dp"
                                 android:text="NAME"
-                                android:layout_alignParentStart="true"
+                                android:layout_centerHorizontal="true"
                                 android:textColor="@color/button_text_color"
-                                android:textStyle="bold"
-                                android:layout_alignParentLeft="true" />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/edit_profile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:layout_alignParentEnd="true"
+
+                                android:layout_toRightOf="@+id/profile_name"
                                 android:drawableRight="@drawable/ic_action_edit"
-                                android:text=""
-                                android:textColor="@color/button_text_color"
-                                android:layout_alignParentRight="true" />
+                                android:text="E"
+                                android:textColor="@android:color/transparent"/>
 
                         </RelativeLayout>
 
@@ -115,9 +116,10 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_above="@+id/profil_name_layout"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignRight="@+id/profilimage"
+                            android:layout_alignBottom="@+id/profilimage"
                             android:background="@drawable/circle"
+
                             android:padding="10dp">
 
                             <androidx.appcompat.widget.AppCompatImageView
@@ -165,7 +167,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="10dp"
+                            app:cardCornerRadius="2dp"
                             app:cardElevation="2dp"
                             app:cardPreventCornerOverlap="true">
 
@@ -321,6 +323,7 @@
                                         android:orientation="vertical">
 
                                         <TextView
+                                            android:id="@+id/edit_change_language"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_alignParentEnd="true"
@@ -328,12 +331,11 @@
                                             android:layout_centerVertical="true"
                                             android:drawableRight="@drawable/ic_action_right_arrow"
                                             android:gravity="center"
-                                            android:text="English"
+                                            android:text="@string/english"
                                             android:textSize="12sp" />
 
 
                                         <TextView
-                                            android:id="@+id/edit_change_language"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:longClickable="false"
@@ -382,7 +384,7 @@
                                         <LinearLayout
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
-                                            android:layout_weight="1"
+                                            android:layout_weight="1.2"
                                             android:orientation="horizontal">
 
                                             <Button
@@ -392,6 +394,8 @@
                                                 android:layout_weight="1"
                                                 android:text="S"
                                                 android:textColor="@color/white"
+                                                android:textSize="@dimen/FontSizeMedium"
+
                                                 />
 
                                             <Button
@@ -401,7 +405,9 @@
                                                 android:layout_weight="1"
                                                 android:text="M"
                                                 android:textColor="@color/white"
-                                                 />
+                                                android:textSize="@dimen/FontSizeMedium"
+
+                                                />
 
                                             <Button
                                                 android:id="@+id/textsize_large_btn"
@@ -409,7 +415,9 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_weight="1"
                                                 android:text="L"
-                                                android:textColor="@color/white" />
+                                                android:textColor="@color/white"
+                                                android:textSize="@dimen/FontSizeMedium"
+                                                />
 
                                             <Button
                                                 android:id="@+id/textsize_extralarge_btn"
@@ -417,6 +425,9 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_weight="1"
                                                 android:text="XL"
+                                                android:singleLine="true"
+                                                android:ellipsize="end"
+                                                android:textSize="@dimen/FontSizeMedium"
                                                 android:textColor="@color/white" />
 
 

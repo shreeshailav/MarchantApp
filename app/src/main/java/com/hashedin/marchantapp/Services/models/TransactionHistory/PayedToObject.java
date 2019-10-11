@@ -2,6 +2,12 @@ package com.hashedin.marchantapp.Services.models.TransactionHistory;
 
 public class PayedToObject
 {
+
+    public String uuid ;
+    public String first_name ;
+    public String last_name ;
+
+
     public int id ;
     public String created_on ;
     public String updated_at ;
@@ -22,4 +28,6 @@ public class PayedToObject
     public String total_users_rated ;
     public String average_rating ;
     public int admin ;
+
+
 }

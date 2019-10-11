@@ -1,4 +1,4 @@
-package com.hashedin.marchantapp.Services.models;
+package com.hashedin.marchantapp.Services.models.TransactionHistory;
 
 public class Merchant
 {
@@ -7,6 +7,8 @@ public class Merchant
     public String updated_at ;
     public Boolean is_active ;
     public Boolean is_deleted ;
+    public String market_rate ;
+    public String purchase_rate ;
     public int points ;
     public String name ;
     public String info ;
@@ -17,5 +19,7 @@ public class Merchant
     public String facebook_link ;
     public String instagram_link ;
     public String twitter_link ;
+    public String total_users_rated ;
+    public String average_rating ;
     public int admin ;
 }

@@ -1,15 +1,15 @@
 package com.hashedin.marchantapp.Services.Repository;
 
-import com.hashedin.marchantapp.Services.models.Coupons;
-import com.hashedin.marchantapp.Services.models.GenerateQR;
-import com.hashedin.marchantapp.Services.models.ReddemCoupon;
+import com.hashedin.marchantapp.Services.models.QRCodeScanModel.Coupons;
+import com.hashedin.marchantapp.Services.models.QRCodeGenerateModel.GenerateQR;
+import com.hashedin.marchantapp.Services.models.RedeemCoupon.RedeemCoupon;
 import com.hashedin.marchantapp.Services.models.TransacrionRequest.TransactionReq;
 import com.hashedin.marchantapp.Services.models.TransactionHistory.TransactionHistoryMain;
 
 public class ApiResponse {
 
     public Coupons coupons;
-    public ReddemCoupon reddemCoupon;
+    public RedeemCoupon redeemCoupon;
     public TransactionHistoryMain transactionHistoryMain;
     public GenerateQR generateQR ;
     public TransactionReq transactionReq ;
@@ -21,8 +21,8 @@ public class ApiResponse {
         this.error = null;
     }
 
-    public ApiResponse(ReddemCoupon reddemCoupon) {
-        this.reddemCoupon = reddemCoupon;
+    public ApiResponse(RedeemCoupon redeemCoupon) {
+        this.redeemCoupon = redeemCoupon;
         this.error = null;
         this.coupons = null;
     }
