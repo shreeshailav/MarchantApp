@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                activityLoginBinding.invalidtext.setVisibility(View.GONE);
                 if (TextUtils.isEmpty(activityLoginBinding.loginPassword.getText().toString()) || TextUtils.isEmpty(activityLoginBinding.loginUsername.getText().toString())) {
                     activityLoginBinding.loginButton.setAlpha(.5f);
                     activityLoginBinding.loginButton.setEnabled(false);
@@ -112,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                activityLoginBinding.invalidtext.setVisibility(View.GONE);
                 if (TextUtils.isEmpty(activityLoginBinding.loginPassword.getText().toString()) || TextUtils.isEmpty(activityLoginBinding.loginUsername.getText().toString())) {
                     activityLoginBinding.loginButton.setAlpha(.5f);
                     activityLoginBinding.loginButton.setEnabled(false);
@@ -201,7 +203,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 } else {
                     activityLoginBinding.invalidtext.setVisibility(View.VISIBLE);
-                    activityLoginBinding.invalidtext.setText("You have entered an invalid employee id or password.");
+
+                    String errormsg = getResources().getString(R.string.login_error);
+                    activityLoginBinding.invalidtext.setText(errormsg);
                     //showOptions(getBaseContext(),"Invalid Credentials, Try again");
                     //Toast.makeText(getBaseContext(),"Failed",Toast.LENGTH_LONG).show();
                 }

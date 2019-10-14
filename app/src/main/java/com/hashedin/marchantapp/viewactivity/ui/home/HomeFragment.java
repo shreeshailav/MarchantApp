@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
                 QRCodeGenerateFragment redeemFragment = new QRCodeGenerateFragment();
 
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).commit();
+                fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).addToBackStack(null).commit();
             }
         });
 

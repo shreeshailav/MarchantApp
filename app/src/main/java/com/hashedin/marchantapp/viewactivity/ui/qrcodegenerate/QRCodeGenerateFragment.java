@@ -138,7 +138,7 @@ public class QRCodeGenerateFragment extends Fragment {
                     QRCodeScanAndPayFragment redeemFragment = new QRCodeScanAndPayFragment();
                     redeemFragment.setArguments(bundle);
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).commit();
+                    fragmentTransaction.replace(R.id.nav_host_fragment, redeemFragment).addToBackStack(null).commit();
 
 
                 } else if (apiResponse.errorMessage != null) {

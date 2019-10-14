@@ -1,0 +1,92 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.google.zxing.client.android.test" >
+4
+5    <uses-sdk
+5-->/Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger1931930408688378740.xml:5:5-74
+6        android:minSdkVersion="16"
+6-->/Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger1931930408688378740.xml:5:15-41
+7        android:targetSdkVersion="16" />
+7-->/Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger1931930408688378740.xml:5:42-71
+8
+9    <instrumentation
+9-->/Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger1931930408688378740.xml:11:5-15:86
+10        android:name="android.test.InstrumentationTestRunner"
+10-->/Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger1931930408688378740.xml:11:22-75
+11        android:functionalTest="false"
+11-->/Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger1931930408688378740.xml:14:22-52
+12        android:handleProfiling="false"
+12-->/Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger1931930408688378740.xml:13:22-53
+13        android:label="Tests for com.google.zxing.client.android.test"
+13-->/Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger1931930408688378740.xml:15:22-84
+14        android:targetPackage="com.google.zxing.client.android.test" />
+14-->/Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger1931930408688378740.xml:12:22-82
+15
+16    <uses-permission android:name="android.permission.CAMERA" /> <!-- Don't require camera, as this requires a rear camera. This allows it to work on the Nexus 7 -->
+16-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:5-65
+16-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:22-62
+17    <uses-feature
+17-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:5-28:36
+18        android:name="android.hardware.camera"
+18-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:27:9-47
+19        android:required="false" />
+19-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:9-33
+20    <uses-feature
+20-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:29:5-31:36
+21        android:name="android.hardware.camera.front"
+21-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:9-53
+22        android:required="false" /> <!-- TODO replace above two with next line after Android 4.2 -->
+22-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:31:9-33
+23    <!-- <uses-feature android:name="android.hardware.camera.any"/> -->
+24    <uses-feature
+24-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:5-36:36
+25        android:name="android.hardware.camera.autofocus"
+25-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:35:9-57
+26        android:required="false" />
+26-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:36:9-33
+27    <uses-feature
+27-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:37:5-39:36
+28        android:name="android.hardware.camera.flash"
+28-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:9-53
+29        android:required="false" />
+29-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:39:9-33
+30    <uses-feature
+30-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:5-42:36
+31        android:name="android.hardware.screen.landscape"
+31-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:41:9-57
+32        android:required="false" />
+32-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:42:9-33
+33    <uses-feature
+33-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:43:5-45:36
+34        android:name="android.hardware.wifi"
+34-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:44:9-45
+35        android:required="false" />
+35-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:45:9-33
+36
+37    <application
+37-->/Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger1931930408688378740.xml:7:5-9:19
+38        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+38-->[androidx.core:core:1.0.0] /Users/hasher/.gradle/caches/transforms-2/files-2.1/8c4e4ee5d66c4ba3c3f0428f53bc5a61/core-1.0.0/AndroidManifest.xml:22:18-86
+39        android:debuggable="true" >
+39-->/Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger1931930408688378740.xml:7:18-43
+40        <uses-library android:name="android.test.runner" />
+40-->/Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger1931930408688378740.xml:8:9-60
+40-->/Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger1931930408688378740.xml:8:23-57
+41
+42        <activity
+42-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:48:9-54:63
+43            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+43-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:49:13-74
+44            android:clearTaskOnLaunch="true"
+44-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:50:13-45
+45            android:screenOrientation="sensorLandscape"
+45-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:51:13-56
+46            android:stateNotNeeded="true"
+46-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:52:13-42
+47            android:theme="@style/zxing_CaptureTheme"
+47-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:53:13-54
+48            android:windowSoftInputMode="stateAlwaysHidden" />
+48-->[__tested_artifact__::zxing-android-embedded] /Users/hasher/AndroidStudioProjects/MarchantApp/zxing-android-embedded/build/intermediates/library_manifest/debug/AndroidManifest.xml:54:13-60
+49    </application>
+50
+51</manifest>

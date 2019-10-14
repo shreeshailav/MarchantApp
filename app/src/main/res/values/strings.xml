@@ -54,7 +54,7 @@
     <string name="scan_coupon" >Scan Coupon</string>
 
 
-    <string name="login_error" >You have entered an invalid employee id or password.</string>
+    <string name="login_error" >Invalid credentials</string>
     <string name="scan_pay"><![CDATA[SCAN & PAY]]></string>
     <string name="cancel">CANCEL</string>
     <string name="customer_id">Customer ID</string>
@@ -102,5 +102,6 @@
     <string name="new_password">New Password</string>
     <string name="old_password">Old Password</string>
     <string name="update_password">UPDATE PASSWORD</string>
+    <string name="invalid_credentials">Invalid credentials</string>
 
 </resources>
